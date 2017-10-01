@@ -9,12 +9,15 @@ import java.util.stream.Collectors;
 public class SmallestCommonNumber{
     public int findFromArraysByStreams(int[]... arrays){
         return Arrays.stream(arrays)
+                // arrays to sets
                 .map(intArr -> Arrays.stream(intArr).boxed().collect(Collectors.toSet())) // convert int[] to Set<Integer>
+                // get intersection of all integer sets: all common elements
                 .reduce((a,b)-> {
-                    a.retainAll(b); // get intersection of all integer sets
+                    a.retainAll(b);
                     return a;
                 })
                 .orElse(new HashSet<>())
+                //search minimum in resulted set
                 .stream().min(Integer::compareTo) // find minimum
                 .orElseThrow(IllegalArgumentException::new);
     }
