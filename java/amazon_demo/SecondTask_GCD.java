@@ -4,9 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class GCD {
-    private int gcd(int a, int b){
-        return a==0? b : gcd(b%a, a);
+public class SecondTask_GCD {
+
+    private static int gcd(int a, int b) {
+        return a == 0 ? b : gcd(b % a, a);
     }
 
     public int generalizedGCD(int num, int[] arr){
