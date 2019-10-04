@@ -1,4 +1,4 @@
-package hackerrank;
+package hackerrank.medium;
 
 import org.junit.Test;
 
