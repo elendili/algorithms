@@ -1,4 +1,4 @@
-package amazon_demo;
+package find.am_demo;
 
 import org.junit.Test;
 
