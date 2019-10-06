@@ -9,7 +9,9 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 public class OneStockMaximumProfit {
-    // return list size of 3, where profit, buy price index, sell price index
+    // return list size of 3 [profit, buy price index, sell price index]
+    // method searches global maximum and minimum, considering minimum should go before maximum
+    //
     public List<Integer> maxProfitForBuying1ShareOnce(int[] prices) {
         assert prices.length > 1 : "there should be more prices than 1";
         int buyPriceIndex = 0;
@@ -83,7 +85,9 @@ public class OneStockMaximumProfit {
         assertEquals("[16, 1, 4]", maxProfitForBuying1ShareOnce(new int[]{45, 24, 35, 31, 40, 38, 11}).toString());
         assertEquals("[21, 1, 6]", maxProfitForBuying1ShareOnce(new int[]{45, 24, 35, 31, 40, 38, 45}).toString());
         assertEquals("[0, 5, 1]", maxProfitForBuying1ShareOnce(new int[]{45, 44, 43, 43, 42, 41, 40}).toString());
-        assertEquals("[0, 5, 1]", maxProfitForBuying1ShareOnce(new int[]{10, 11, 10, 11, 10, 11, 10}).toString());
+        assertEquals("[1, 0, 1]", maxProfitForBuying1ShareOnce(new int[]{10, 11, 10, 11, 10, 11, 10}).toString());
+        assertEquals("[1, 0, 1]", maxProfitForBuying1ShareOnce(new int[]{1, 2}).toString());
+        assertEquals("[0, 0, 1]", maxProfitForBuying1ShareOnce(new int[]{2, 1}).toString());
     }
 
     @Test
@@ -108,6 +112,8 @@ public class OneStockMaximumProfit {
         System.out.println("----");
         assertEquals("[4]", maxProfitForBuying1ShareManyTimes(new int[]{1, 2, 3, 4, 3, 4}).toString());
         assertEquals("[3]", maxProfitForBuying1ShareManyTimes(new int[]{1, 2, 3, 4, 4, 4}).toString());
+        assertEquals("[1]", maxProfitForBuying1ShareManyTimes(new int[]{1, 2}).toString());
+        assertEquals("[0]", maxProfitForBuying1ShareManyTimes(new int[]{2, 1}).toString());
     }
 
 
