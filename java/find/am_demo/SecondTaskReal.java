@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.toMap;
 public class SecondTaskReal {
     private List<List<Integer>> genBigList() {
         Random random = new Random();
-        return IntStream.range(0, 1000).mapToObj(i -> asList(i, random.nextInt(1000))).collect(toList());
+        return IntStream.range(0, 10000).mapToObj(i -> asList(i, random.nextInt(1000))).collect(toList());
     }
 
     List<List<Integer>> ou(int maxTravelDist,
@@ -73,12 +73,15 @@ public class SecondTaskReal {
         assert maxTravelDist > 0 : "should be bigger than 0";
         assert !forwardRouteList.isEmpty() : "should not be empty";
         assert !returnRouteList.isEmpty() : "should not be empty";
-        final ConcurrentSkipListSet<Integer> forwardDSet = new ConcurrentSkipListSet<>();
-        Map<Integer, Set<Integer>> forwardMap = forwardRouteList.stream()
-                .filter(l -> l.get(1) <= maxTravelDist)
+        final ConcurrentSkipListSet<Integer> fDSet = new ConcurrentSkipListSet<>();
+        final Map<Integer, Set<Integer>> fDistanceToIdsMap = forwardRouteList.stream()
+                .filter(l -> {
+                    int d = l.get(1);
+                    return d < maxTravelDist && d > 0;
+                })
                 .collect(toMap(l -> {
                             Integer distance = l.get(1);
-                            forwardDSet.add(distance);
+                            fDSet.add(distance);
                             return distance;
                         },
                         l -> new HashSet<>(singletonList(l.get(0))),
@@ -87,12 +90,15 @@ public class SecondTaskReal {
                             return v1;
                         }));
 
-        final ConcurrentSkipListSet<Integer> returnDSet = new ConcurrentSkipListSet<>();
-        Map<Integer, Set<Integer>> returnMap = returnRouteList.stream()
-                .filter(l -> l.get(1) <= maxTravelDist)
+        final ConcurrentSkipListSet<Integer> rDSet = new ConcurrentSkipListSet<>();
+        final Map<Integer, Set<Integer>> rDistanceToIdsMap = returnRouteList.stream()
+                .filter(l -> {
+                    int d = l.get(1);
+                    return d < maxTravelDist && d > 0;
+                })
                 .collect(toMap(l -> {
                             Integer distance = l.get(1);
-                            returnDSet.add(distance);
+                            rDSet.add(distance);
                             return distance;
                         },
                         l -> new HashSet<>(singletonList(l.get(0))),
@@ -102,20 +108,20 @@ public class SecondTaskReal {
                         }));
 
         final List<List<Integer>> out = new ArrayList<>();
-        if (forwardDSet.first() + returnDSet.first() > maxTravelDist) {
+        if (fDSet.first() + rDSet.first() > maxTravelDist) {
             return out;
         }
 
         int bestDistance = -1;
         Set<Integer> bestForwards = new HashSet<>();
-        while (!forwardDSet.isEmpty() && !returnDSet.isEmpty()) {
-            Integer small1 = forwardDSet.pollFirst();
-            Iterator<Integer> d = returnDSet.descendingIterator();
+        while (!fDSet.isEmpty() && !rDSet.isEmpty()) {
+            Integer small1 = fDSet.pollFirst();
+            Iterator<Integer> d = rDSet.descendingIterator();
             while (d.hasNext()) {
                 Integer i = d.next();
                 Integer localSum = i + small1;
                 if (localSum > maxTravelDist) {
-                    returnDSet.remove(i);
+                    rDSet.remove(i);
                 } else if (localSum > bestDistance) {
                     bestDistance = localSum;
                     bestForwards = new HashSet<>(singletonList(small1));
@@ -126,8 +132,8 @@ public class SecondTaskReal {
         }
         int finalBestDistance = bestDistance;
         bestForwards.forEach(f -> {
-            Set<Integer> fKeys = forwardMap.get(f);
-            Set<Integer> rKeys = returnMap.get(finalBestDistance - f);
+            Set<Integer> fKeys = fDistanceToIdsMap.get(f);
+            Set<Integer> rKeys = rDistanceToIdsMap.get(finalBestDistance - f);
             out.addAll(convertSetsToList(fKeys, rKeys));
         });
 
@@ -155,17 +161,6 @@ public class SecondTaskReal {
                 ou(6, asList(asList(1, 4), asList(2, 7)),
                         asList(asList(1, 3), asList(2, 8)))
                         .toString());
-    }
-
-    @Test
-    public void test3() {
-        List<List<Integer>> f = asList(
-                asList(0, 498), asList(1, 323), asList(2, 966), asList(3, 636), asList(4, 805),
-                asList(5, 623), asList(6, 563), asList(7, 633), asList(8, 115), asList(9, 354));
-        List<List<Integer>> r = asList(
-                asList(0, 972), asList(1, 128), asList(2, 179), asList(3, 797), asList(4, 892),
-                asList(5, 885), asList(6, 110), asList(7, 644), asList(8, 617), asList(9, 167));
-        Assert.assertEquals("[[6, 1]]", ou2(700, f, r).toString());
     }
 
     @Test
@@ -207,7 +202,7 @@ public class SecondTaskReal {
                 .warmupIterations(10)
                 .warmupTime(TimeValue.milliseconds(10))
                 .measurementIterations(20)
-                .measurementTime(TimeValue.milliseconds(100))
+                .measurementTime(TimeValue.milliseconds(50))
                 .mode(Mode.Throughput)
                 .forks(1)
                 .build();
