@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 // https://www.hackerrank.com/challenges/magic-square-forming
 public class FormingAMagicSquare {
+    // TODO unsolved
     static int formingMagicSquare(int[][] s) {
         // center of magic square should be 5
         int delta = abs(s[1][1] - 5);
