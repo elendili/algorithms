@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static hackerrank.TestHelper.assertStdOutAfterStdInput;
 import static java.util.stream.Collectors.toList;
 
 public class Day0_MeanMedianMode {
@@ -56,18 +57,21 @@ public class Day0_MeanMedianMode {
 
     @Test
     public void test() {
-        testBody("10\n64630 11735 14216 99233 14470 4978 73429 38120 51135 67060\n", "43900.6\n44627.5\n4978\n");
+        assertStdOutAfterStdInput("10\n64630 11735 14216 99233 14470 4978 73429 38120 51135 67060\n",
+                "43900.6\n44627.5\n4978\n", Day0_MeanMedianMode::main);
     }
 
     @Test
     public void test2() {
-        testBody("10\n1 2 3 4 5 6 7 8 10 10\n", "5.6\n5.5\n10\n");
-        testBody("10\n1 2 3 4 5 6 7 8 9 10\n", "5.5\n5.5\n1\n");
+        assertStdOutAfterStdInput("10\n1 2 3 4 5 6 7 8 10 10\n",
+                "5.6\n5.5\n10\n", Day0_MeanMedianMode::main);
+        assertStdOutAfterStdInput("10\n1 2 3 4 5 6 7 8 9 10\n",
+                "5.5\n5.5\n1\n", Day0_MeanMedianMode::main);
     }
 
     @Test
     public void test3() {
-        testBody("2500\n" +
+        assertStdOutAfterStdInput("2500\n" +
                         "19325 74348 68955 98497 26622 32516 97390 " +
                         "64601 64410 10205 5173 25044 23966 60492 " +
                         "71098 13852 27371 40577 74997 42548 95799 " +
@@ -107,25 +111,9 @@ public class Day0_MeanMedianMode {
 
                 "49921.5\n" +
                         "49253.5\n" +
-                        "2184\n");
+                        "2184\n",
+                Day0_MeanMedianMode::main);
     }
 
-    private void testBody(String input, String expected) {
-        InputStream testInput = new ByteArrayInputStream(input.getBytes());
-        InputStream oldIn = System.in;
-        PrintStream oldOut = System.out;
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        PrintStream newOut = new PrintStream(buffer, true);
-        try {
-            System.setIn(testInput);
-            System.setOut(newOut);
-            //
-            Day0_MeanMedianMode.main();
-            Assert.assertEquals(expected, buffer.toString());
-            //
-        } finally {
-            System.setIn(oldIn);
-            System.setOut(oldOut);
-        }
-    }
+
 }
