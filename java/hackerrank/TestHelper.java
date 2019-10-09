@@ -1,6 +1,5 @@
 package hackerrank;
 
-import hackerrank.s10basicStatistics.Day0_MeanMedianMode;
 import org.junit.Assert;
 
 import java.io.ByteArrayInputStream;
