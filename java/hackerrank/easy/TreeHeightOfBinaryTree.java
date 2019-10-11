@@ -7,8 +7,9 @@ import java.util.LinkedList;
 
 import static hackerrank.TestHelper.assertStdOutAfterStdInput;
 import static hierarchy.TreeUtils.getTreeRootFromSystemInput;
+
 // https://www.hackerrank.com/challenges/tree-inorder-traversal/
-public class TreeInOrderTraversal {
+public class TreeHeightOfBinaryTree {
 
     public static void recursive(Node root) {
         if (root != null) {
