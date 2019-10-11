@@ -22,19 +22,9 @@ public class TaskFromInterview {
     }
 
     Collection<Customer> getAllFriends(Customer c, Set<Customer> customerSet) {
-        Set<Customer> x = c.getFriends();
-        customerSet.addAll(x);
-        c.get
-        x.forEach(f ->
-                customerSet.addAll(getAllFriends(f))
-        );
-//                .flatMap(f -> {
-//                            Collection<Customer> l = getAllFriends(f, customerSet);
-//                            return l.stream();
-//                        }
-//                )
-//                .filter(f2 -> !customerSet.contains(f2))
-//                .forEach(customerSet::add);
+        Set<Customer> filteredFriends = c.getFriends().stream().filter(f -> !customerSet.contains(f)).collect(Collectors.toSet());
+        customerSet.addAll(filteredFriends);
+        filteredFriends.forEach(f -> getAllFriends(f, customerSet));
         return customerSet;
     }
 
@@ -60,7 +50,7 @@ public class TaskFromInterview {
         System.out.println(b);
         System.out.println(c);
         System.out.println(d);
-        assertEquals("x", getMostPopularWishAmongFriends(c));
+        assertEquals("z", getMostPopularWishAmongFriends(c));
     }
 }
 
@@ -93,9 +83,9 @@ class Customer {
 
     Collection<String> getWishList() {
         char[] letters = "asdfghjklqwertyuiopzxcvbnm".toCharArray();
-        List<String> wishes = IntStream.range(0, 10)
+        List<String> wishes = IntStream.range(0, 3)
                 .mapToObj(i -> "" + letters[r.nextInt(letters.length)]).collect(toList());
-        wishes.add("x");
+        wishes.add("z");
         return wishes;
     }
 
