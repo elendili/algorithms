@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TreeUtils {
-
+//    https://www.hackerrank.com/challenges/binary-search-tree-insertion
     public static Node insert(Node root, int data) {
         if (root == null) {
             return new Node(data);
