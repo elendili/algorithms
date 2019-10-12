@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import static hierarchy.TreeUtils.getTreeRootFromSpacedString;
 import static org.junit.Assert.assertEquals;
 
-// https://www.hackerrank.com/challenges/tree-inorder-traversal/
 public class TreeHeightOfBinaryTree {
 
 
