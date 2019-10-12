@@ -1,7 +1,9 @@
 package hierarchy;
 
-import java.io.IOException;
+import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TreeUtils {
 
@@ -31,6 +33,27 @@ public class TreeUtils {
             }
             return root;
         }
+    }
+
+    public static Node getTreeRootFromNlString(String string) {
+        try (Scanner scan = new Scanner(new StringReader(string))) {
+            int t = scan.nextInt();
+            Node root = null;
+            while (t-- > 0) {
+                int data = scan.nextInt();
+                root = insert(root, data);
+            }
+            return root;
+        }
+    }
+
+    public static Node getTreeRootFromSpacedString(String string) {
+        AtomicReference<Node> root = new AtomicReference<>();
+        Arrays.stream(string.split("\\s+"))
+                .map(Integer::valueOf).forEach(i ->
+                root.set(insert(root.get(), i))
+        );
+        return root.get();
     }
 
 }

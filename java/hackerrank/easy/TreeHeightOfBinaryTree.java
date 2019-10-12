@@ -5,46 +5,68 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
-import static hierarchy.TreeUtils.getTreeRootFromSystemInput;
+import static hierarchy.TreeUtils.getTreeRootFromSpacedString;
+import static org.junit.Assert.assertEquals;
 
 // https://www.hackerrank.com/challenges/tree-inorder-traversal/
 public class TreeHeightOfBinaryTree {
 
-    public static void recursive(Node root) {
-        if (root != null) {
-            recursive(root.left);
-            System.out.print(root.data + " ");
-            recursive(root.right);
+
+    public static int recursive(Node root) {
+        if (root == null) {
+            return -1;
         }
+        int lh = recursive(root.left);
+        int rh = recursive(root.right);
+        int h = 1 + Math.max(lh, rh);
+        return h;
     }
 
-    public static void loop(Node root) {
-        if (root == null)
-            return;
-        LinkedList<Node> stack = new LinkedList<>();
-        Node c = root;
-        while (c != null || stack.size() > 0) {
-            while (c != null) {
-                stack.push(c);
-                c = c.left;
-            }
-            c = stack.pop();
-            System.out.print(c.data + " ");
-            c = c.right;
+    public static int loop(Node node) {
+        if (node == null) {
+            return 0;
         }
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.addFirst(node);
+        int height = 0;
+        while (!nodes.isEmpty()) {
+            node = nodes.poll();
+            if (nodes.isEmpty()) {
+                height++;
+            }
+            if (node.right != null) {
+                nodes.push(node.right);
+            }
+            if (node.left != null) {
+                nodes.push(node.left);
+            }
+        }
+        return height - 1;
     }
 
     @Test
     public void testRecursive() {
-        assertStdOutAfterStdInput("6\n1\n2\n5\n3\n6\n4", "1 2 3 4 5 6 ",
-                () -> recursive(getTreeRootFromSystemInput()));
+        Node in = getTreeRootFromSpacedString("3 5 2 1 4 6 7");
+        assertEquals(3, recursive(in));
+        in = getTreeRootFromSpacedString("3 1 7 5 4");
+        assertEquals(3, recursive(in));
+        in = getTreeRootFromSpacedString("15");
+        assertEquals(0, recursive(in));
+        in = getTreeRootFromSpacedString("1 3 2 5 4 6 7 9 8 11 13 12 10 15 14");
+        assertEquals(9, recursive(in));
     }
 
     @Test
     public void testLoop() {
-        assertStdOutAfterStdInput("6\n1\n2\n5\n3\n6\n4", "1 2 3 4 5 6 ",
-                () -> loop(getTreeRootFromSystemInput()));
+        Node in;
+        in = getTreeRootFromSpacedString("3 5 2 1 4 6 7");
+        assertEquals(3, loop(in));
+        in = getTreeRootFromSpacedString("3 1 7 5 4");
+        assertEquals(3, loop(in));
+        in = getTreeRootFromSpacedString("15");
+        assertEquals(0, loop(in));
+        in = getTreeRootFromSpacedString("1 3 2 5 4 6 7 9 8 11 13 12 10 15 14");
+        assertEquals(9, loop(in));
     }
 
 }
