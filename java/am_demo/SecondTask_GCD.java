@@ -1,4 +1,4 @@
-package find.am_demo;
+package am_demo;
 
 import org.junit.Test;
 
