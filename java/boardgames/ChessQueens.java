@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import static java.lang.Math.abs;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.IntStream.range;
 import static org.junit.Assert.assertEquals;
 
 /* place queens safely on board */
@@ -23,7 +26,13 @@ public class ChessQueens {
             this.height = height;
         }
 
+        public boolean contains(Integer x, Integer y) {
+            return x.equals(yToX.get(y));
+        }
+
         public void put(Integer x, Integer y) {
+            assert x > -1 && x < width;
+            assert y > -1 && y < width;
             this.xToY.put(x, y);
             this.yToX.put(y, x);
         }
@@ -58,6 +67,20 @@ public class ChessQueens {
                                 return abs(x - _x) == abs(y - _y);
                             });
             return !hasOtherQueen;
+        }
+
+        @Override
+        public String toString() {
+            String out = range(0, height).boxed().flatMap(y ->
+                    range(0, width).boxed().map(x -> asList(x, y))
+            ).map(a -> {
+                        int x = a.get(0);
+                        int y = a.get(1);
+                        String o = contains(x, y) ? "Q" : ".";
+                        return x == width - 1 ? o + "\n" : o + "";
+                    }
+            ).collect(joining());
+            return out;
         }
     }
 
@@ -95,5 +118,12 @@ public class ChessQueens {
         assertEquals(0, board(3, 3).size());
         assertEquals(2, board(4, 4).size());
         assertEquals(92, board(8, 8).size());
+    }
+
+    @Test
+    public void testToString() {
+        Coords c = new Coords(5, 5);
+        c.put(1, 1);
+        System.out.println(c);
     }
 }
