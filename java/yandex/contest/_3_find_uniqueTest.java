@@ -28,7 +28,6 @@ public class _3_find_uniqueTest {
         int top = 1 << 31 -1;
         System.out.println("top: " + top);
         InputStream is = new IStream(top);
-//        PrintStream ps = System.err;
         PrintStream ps = new PrintStream(new OStream(), true);
         stubStdInAndStdOut(is,ps,
                 () -> _3_find_unique.process(is,ps)
@@ -42,6 +41,7 @@ public class _3_find_uniqueTest {
 
         }
     }
+
 
     static class IStream extends InputStream {
         private static final Random rn = new Random(0);
