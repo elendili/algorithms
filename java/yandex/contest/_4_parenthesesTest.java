@@ -14,9 +14,17 @@ public class _4_parenthesesTest {
 
     @Test
     public void test() {
-        int n = 2;
-        assertStdOutAfterStdInput(n + "\n", "(())\n()()\n",
+        int n0 = 0;
+        assertStdOutAfterStdInput(n0 + "\n", "\n",
+                () -> _4_parentheses.generateInBytes(n0));
+
+        int n = 1;
+        assertStdOutAfterStdInput(n + "\n", "()\n",
                 () -> _4_parentheses.generateInBytes(n));
+
+        int n2 = 2;
+        assertStdOutAfterStdInput(n2 + "\n", "(())\n()()\n",
+                () -> _4_parentheses.generateInBytes(n2));
 
         int n1 = 3;
 
