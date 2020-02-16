@@ -2,10 +2,7 @@ package boardgames;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Math.abs;
 import static java.util.Arrays.asList;
@@ -16,37 +13,89 @@ import static org.junit.Assert.assertEquals;
 /* place queens safely on board */
 public class ChessQueens {
     class Coords {
-        Map<Integer, Integer> xToY = new HashMap<>();
-        Map<Integer, Integer> yToX = new HashMap<>();
+        final int x, y;
+
+        Coords(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Coords coords = (Coords) o;
+            return x == coords.x &&
+                    y == coords.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+    }
+
+    class CoordsOnTable {
+        Set<Coords> set = new HashSet<>();
+        Map<Integer, Set<Coords>> xToCoords = new HashMap<>();
+        Map<Integer, Set<Coords>> yToCoords = new HashMap<>();
         final Integer width;
         final Integer height;
 
-        Coords(Integer width, Integer height) {
+        CoordsOnTable(Integer width, Integer height) {
             this.width = width;
             this.height = height;
         }
 
         public boolean contains(Integer x, Integer y) {
-            return x.equals(yToX.get(y));
+            return set.contains(new Coords(x, y));
         }
 
         public void put(Integer x, Integer y) {
             assert x > -1 && x < width;
             assert y > -1 && y < width;
-            this.xToY.put(x, y);
-            this.yToX.put(y, x);
+            Coords add = new Coords(x, y);
+            set.add(add);
+            xToCoords.compute(x, (k, v) -> {
+                if (v == null) {
+                    Set<Coords> o = new HashSet<>();
+                    o.add(add);
+                    return o;
+                } else {
+                    v.add(add);
+                    return v;
+                }
+            });
+            yToCoords.compute(y, (k, v) -> {
+                if (v == null) {
+                    Set<Coords> o = new HashSet<>();
+                    o.add(add);
+                    return o;
+                } else {
+                    v.add(add);
+                    return v;
+                }
+            });
         }
 
-        public Integer removeByY(Integer y) {
-            Integer x = this.yToX.remove(y);
-            this.xToY.remove(x);
-            return x;
+        public void removeByY(Integer y) {
+            Set<Coords> coords = yToCoords.remove(y);
+            if (coords!=null){
+                coords.forEach(e->{
+                    set.remove(e);
+                    xToCoords.get(e.x).remove(e);
+                });
+            }
         }
 
-        public Integer removeByX(Integer x) {
-            Integer y = this.xToY.remove(x);
-            this.yToX.remove(y);
-            return y;
+        public void removeByX(Integer x) {
+            Set<Coords> coords = xToCoords.remove(x);
+            if (coords!=null){
+                coords.forEach(e->{
+                    set.remove(e);
+                    yToCoords.get(e.y).remove(e);
+                });
+            }
         }
 
         boolean isSafe4Queen(final Integer x, final Integer y) {
@@ -58,12 +107,12 @@ public class ChessQueens {
             So, we can check equality of x delta and y delta
             */
             boolean hasOtherQueen =
-                    xToY.containsKey(x)
-                            || yToX.containsKey(y)
-                            || xToY.entrySet().stream()
+                    xToCoords.containsKey(x)
+                            || yToCoords.containsKey(y)
+                            || set.stream()
                             .anyMatch(e -> {
-                                int _x = e.getKey();
-                                int _y = e.getValue();
+                                int _x = e.x;
+                                int _y = e.y;
                                 return abs(x - _x) == abs(y - _y);
                             });
             return !hasOtherQueen;
@@ -85,27 +134,32 @@ public class ChessQueens {
     }
 
 
-    List<Coords> board(int width, int height) {
+    List<CoordsOnTable> board(int width, int height) {
         // map x->y
-        List<Coords> positions = new ArrayList<>();
+        List<CoordsOnTable> positions = new ArrayList<>();
 
-        Coords coords = new Coords(width, height);
-        coords.put(0, 0);
-        Integer checkedX = -1;
+        CoordsOnTable coords = new CoordsOnTable(width, height);
+        Set<Integer> yChecked = new HashSet<>();
         for (int y = 0; y < height; y++) {
+            // save ys ?
             boolean xSet = false;
-
-            for (int x = checkedX + 1; x < width; x++) {
+            for (int x = 0; x < width; x++) {
                 if (coords.isSafe4Queen(x, y)) {
                     coords.put(x, y);
                     xSet = true;
-                    checkedX = -1;
                     break;
                 }
             }
             if (!xSet) {
-                checkedX = coords.removeByY(y);
                 y--;
+                coords.removeByY(y);
+                while (yChecked.contains(y)) {
+
+                    yChecked.remove(y);
+                    y--;
+                }
+
+                yChecked.add(y);
             }
 
         }
@@ -122,7 +176,7 @@ public class ChessQueens {
 
     @Test
     public void testToString() {
-        Coords c = new Coords(5, 5);
+        CoordsOnTable c = new CoordsOnTable(5, 5);
         c.put(1, 1);
         System.out.println(c);
     }

@@ -6,15 +6,35 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.function.BiConsumer;
 
 public class TestHelper {
 
     public static void assertStdOutAfterStdInput(String input, String expectedOut, Runnable runnable) {
-        InputStream testInput = new ByteArrayInputStream(input.getBytes());
-        InputStream oldIn = System.in;
-        PrintStream oldOut = System.out;
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(buffer, true);
+
+        stubStdInAndStdOut(
+                new ByteArrayInputStream(input.getBytes()),
+                newOut,
+                runnable
+        );
+
+        String actualOut = buffer.toString();
+
+        System.out.println("------ expected:");
+        System.out.println(expectedOut);
+        System.out.println("------ actual:");
+        System.out.println(actualOut);
+        System.out.println("------");
+        Assert.assertEquals(expectedOut, actualOut);
+    }
+
+    public static void stubStdInAndStdOut(final InputStream testInput,
+                                          final PrintStream newOut,
+                                          final Runnable runnable) {
+        InputStream oldIn = System.in;
+        PrintStream oldOut = System.out;
         try {
             System.setIn(testInput);
             System.setOut(newOut);
@@ -25,12 +45,5 @@ public class TestHelper {
             System.setIn(oldIn);
             System.setOut(oldOut);
         }
-        String actualOut = buffer.toString();
-        System.out.println("------ expected:");
-        System.out.println(expectedOut);
-        System.out.println("------ actual:");
-        System.out.println(actualOut);
-        System.out.println("------");
-        Assert.assertEquals(expectedOut, buffer.toString());
     }
 }
