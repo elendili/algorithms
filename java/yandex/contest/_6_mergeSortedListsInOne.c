@@ -1,4 +1,5 @@
 #include <stdio.h>
+// clear; vim main.c; clang -save-temps=obj -O2 -x c -std=c11 main.c -lm -o main &  cat input.txt | main
 
 int freq[101];
 
