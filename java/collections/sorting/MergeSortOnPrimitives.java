@@ -64,7 +64,8 @@ public class MergeSortOnPrimitives {
         int[] out = mergeSortedArrays(a1s, a2s);
         return out;
     }
-
+    private int comparisonCount =0;
+    private int assignmentCount =0;
     public int[] mergeSortedPartsInSameArray(final int[] a, int start,
                                              final int startOfSecondPart,
                                              final int end // not inclusive
@@ -79,6 +80,8 @@ public class MergeSortOnPrimitives {
         System.arraycopy(a, start, a1, 0, a1.length);
         System.arraycopy(a, startOfSecondPart, a2, 0, a2.length);
         while (i1 < a1.length && i2 < a2.length) {
+            System.out.println("comparison "+(++comparisonCount));
+            System.out.println("assignmentCount "+(++assignmentCount));
             if (a1[i1] <= a2[i2]) {
                 a[ia] = a1[i1];
                 i1++;
@@ -90,9 +93,11 @@ public class MergeSortOnPrimitives {
         }
 
         for (; i1 < a1.length; i1++, ia++) {
+            System.out.println("assignmentCount "+(++assignmentCount));
             a[ia] = a1[i1];
         }
         for (; i2 < a2.length; i2++, ia++) {
+            System.out.println("assignmentCount "+(++assignmentCount));
             a[ia] = a2[i2];
         }
         return a;
@@ -153,6 +158,11 @@ public class MergeSortOnPrimitives {
                 mergeSortedPartsInSameArraySort(new int[]{2, 1, 2}));
         assertArrayEquals(new int[]{1, 1, 2},
                 mergeSortedPartsInSameArraySort(new int[]{2, 1, 1}));
+        System.out.println("===========");
+        comparisonCount=0;
+        assignmentCount=0;
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5,6,7,8,9,10},
+                mergeSortedPartsInSameArraySort(new int[]{10, 9, 8 ,7,6,5,4,3,2,1}));
     }
 
     @Test
