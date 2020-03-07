@@ -62,7 +62,7 @@ public class CloneGraph {
     }
 
 
-    public Node cloneGraph2(Node node) {
+    public Node cloneGraphBFS(Node node) {
         if (node==null){return null;}
         LinkedList<Node> queue = new LinkedList<>();
         queue.add(node); // for original ones
@@ -92,6 +92,6 @@ public class CloneGraph {
         _1.neighbors.add(_2);
         _2.neighbors.add(_1);
         cloneGraph(_1);
-        cloneGraph2(_1);
+        cloneGraphBFS(_1);
     }
 }
