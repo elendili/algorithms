@@ -3,9 +3,11 @@ package multithread;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -43,7 +45,7 @@ public class ThreadsHustle {
         Assert.assertEquals(3, getLogBase2(10));
     }
 
-    static void sleep(long timeout)  {
+    static void sleep(long timeout) {
         try {
             Thread.sleep(timeout);
         } catch (InterruptedException e) {
@@ -58,6 +60,7 @@ public class ThreadsHustle {
             e.printStackTrace();
         }
     }
+
     static void join(Thread t) {
         try {
             t.join();
@@ -141,7 +144,7 @@ public class ThreadsHustle {
                     list.add(s);
                     list.notifyAll();
                 }
-                System.out.println(Thread.currentThread().getName()+"->"+s);
+                System.out.println(Thread.currentThread().getName() + "->" + s);
                 sleep(1);
             }
         };
@@ -156,14 +159,14 @@ public class ThreadsHustle {
                     s = list.poll();
                     list.notifyAll();
                 }
-                System.out.println(Thread.currentThread().getName()+"<-"+s);
+                System.out.println(Thread.currentThread().getName() + "<-" + s);
                 sleep(1);
             }
         };
 
         List<Thread> threads = IntStream.rangeClosed(1, 10)
-                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier,"s "+i)
-                        : new Thread(consumer,"c "+i))
+                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier, "s " + i)
+                        : new Thread(consumer, "c " + i))
                 .peek(Thread::start)
                 .collect(Collectors.toList());
         threads.forEach(ThreadsHustle::join);
@@ -177,8 +180,8 @@ public class ThreadsHustle {
         Runnable supplier = () -> {
             for (int i = 0; i < 10; i++) {
                 int s = data.incrementAndGet();
-                while(!q.offer(s));
-                System.out.println(Thread.currentThread().getName()+"->"+s);
+                while (!q.offer(s)) ;
+                System.out.println(Thread.currentThread().getName() + "->" + s);
                 sleep(1);
             }
         };
@@ -186,15 +189,15 @@ public class ThreadsHustle {
         Runnable consumer = () -> {
             for (int i = 0; i < 10; i++) {
                 Integer s;
-                while((s = q.poll())==null);
-                System.out.println(Thread.currentThread().getName()+"<-"+s);
+                while ((s = q.poll()) == null) ;
+                System.out.println(Thread.currentThread().getName() + "<-" + s);
                 sleep(1);
             }
         };
 
         List<Thread> threads = IntStream.rangeClosed(1, 10)
-                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier,"s "+i)
-                        : new Thread(consumer,"c "+i))
+                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier, "s " + i)
+                        : new Thread(consumer, "c " + i))
                 .peek(Thread::start)
                 .collect(Collectors.toList());
         threads.forEach(ThreadsHustle::join);
@@ -203,7 +206,7 @@ public class ThreadsHustle {
     @Test
     public void producerConsumerOnReentrantLockWithConditions() {
         final LinkedList<Integer> q = new LinkedList<>();
-        int size=10;
+        int size = 10;
         AtomicInteger data = new AtomicInteger(0);
         ReentrantLock lock = new ReentrantLock();
         Condition consumed = lock.newCondition();
@@ -213,8 +216,8 @@ public class ThreadsHustle {
             for (int i = 0; i < 10; i++) {
                 int s = data.incrementAndGet();
                 lock.lock();
-                try{
-                    while(q.size()>=size){
+                try {
+                    while (q.size() >= size) {
                         try {
                             consumed.await();
                         } catch (InterruptedException e) {
@@ -226,7 +229,7 @@ public class ThreadsHustle {
                 } finally {
                     lock.unlock();
                 }
-                System.out.println(Thread.currentThread().getName()+"<-"+s);
+                System.out.println(Thread.currentThread().getName() + "<-" + s);
 //                sleep(1);
             }
         };
@@ -235,30 +238,105 @@ public class ThreadsHustle {
             for (int i = 0; i < 10; i++) {
                 int s;
                 lock.lock();
-                try{
-                    while(q.isEmpty()){
+                try {
+                    while (q.isEmpty()) {
                         try {
                             produced.await();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    s=q.remove();
+                    s = q.remove();
                     consumed.signalAll();
                 } finally {
                     lock.unlock();
                 }
-                System.out.println(Thread.currentThread().getName()+"->"+s);
+                System.out.println(Thread.currentThread().getName() + "->" + s);
 //                sleep(1);
             }
         };
 
         List<Thread> threads = IntStream.rangeClosed(1, 10)
-                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier,"s "+i)
-                        : new Thread(consumer,"c "+i))
+                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier, "s " + i)
+                        : new Thread(consumer, "c " + i))
                 .peek(Thread::start)
                 .collect(Collectors.toList());
         threads.forEach(ThreadsHustle::join);
     }
 
+    static void barrierAwait(CyclicBarrier c) {
+        try {
+            c.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Thread findThreadById(long threadId) {
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getId() == threadId) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    @Test
+    public void deadlockAndCatchIt() throws ExecutionException, InterruptedException {
+        String o1 = "custom-lock-1", o2 = "custom-lock-2";
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(2, () -> System.out.println("Barrier is tripped"));
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        // Create DeadLock
+        Future<?> f1 = executorService.submit(() -> {
+            barrierAwait(cyclicBarrier);
+            synchronized (o1) {
+                System.out.println(Thread.currentThread().getName() + ". Acquired lock on o1");
+                synchronized (o2) {
+                    System.out.println(Thread.currentThread().getName() + ". Acquired lock on o2");
+                }
+            }
+        });
+
+        Future<?> f2 = executorService.submit(() -> {
+            barrierAwait(cyclicBarrier);
+            synchronized (o2) {
+                System.out.println(Thread.currentThread().getName() + ". Acquired lock on o2");
+                synchronized (o1) {
+                    System.out.println(Thread.currentThread().getName() + ". Acquired lock on o1");
+                }
+            }
+        });
+
+        // create deadlock catcher
+        Future<?> f3 = executorService.submit(() -> {
+            ThreadMXBean mbean = ManagementFactory.getThreadMXBean();
+            long[] deadlockedIds = mbean.findDeadlockedThreads();
+
+            if (deadlockedIds != null) {
+                System.err.println("Deadlock detected");
+                ThreadInfo[] threadInfos =
+                        mbean.getThreadInfo(deadlockedIds);
+                for (ThreadInfo ti : threadInfos) {
+                    System.err.println("Thread: " + ti.getThreadName() + "---------");
+                    System.err.println("Lock Name: " + ti.getLockName());
+                    System.err.println("Lock Owner Name: " + ti.getLockOwnerName());
+                }
+                System.err.println("Try to kill deadlocked threads");
+                for (long tid : deadlockedIds) {
+                    Thread t = findThreadById(tid);
+                    if (t != null) {
+                        System.err.println("Found thread " + t.getName() + ". Attempt to stop");
+                        t.stop(); // doesn't work and should not. :-)
+                    }
+                }
+            }
+        });
+
+        // stand up
+        f3.get();
+        f1.get();
+        f2.get();
+    }
 }
