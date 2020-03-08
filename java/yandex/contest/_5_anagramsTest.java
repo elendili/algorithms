@@ -1,6 +1,6 @@
 package yandex.contest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static hackerrank.TestHelper.assertStdOutAfterStdInput;
 

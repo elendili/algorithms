@@ -1,7 +1,7 @@
 package crackingCodeInterview.SingleLinkedList;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -36,7 +36,7 @@ public class IntersectionOfSingleLinkedLists {
         Node a2=new Node().data(21).next(b2);
         Node z=new Node().data(21);
 
-        Assert.assertSame(c, getIntersectionNode(a, a2));
-        Assert.assertSame(null, getIntersectionNode(a, z));
+        Assertions.assertSame(c, getIntersectionNode(a, a2));
+        Assertions.assertSame(null, getIntersectionNode(a, z));
     }
 }

@@ -1,12 +1,12 @@
 package find;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
     searches bytes permutation in incoming stream, without necessity to sort and fully compare

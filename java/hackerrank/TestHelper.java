@@ -1,6 +1,6 @@
 package hackerrank;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,7 +27,7 @@ public class TestHelper {
         System.out.println("------ actual:");
         System.out.println(actualOut);
         System.out.println("------");
-        Assert.assertEquals(expectedOut, actualOut);
+        Assertions.assertEquals(expectedOut, actualOut);
     }
 
     public static void stubStdInAndStdOut(final InputStream testInput,

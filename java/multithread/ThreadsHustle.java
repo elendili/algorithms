@@ -1,7 +1,8 @@
 package multithread;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -33,16 +34,16 @@ public class ThreadsHustle {
         int j = 1;
         System.arraycopy(a, j, a, j + 1, a.length - j - 1);
         Arrays.stream(a).mapToObj(i -> i + " ").forEach(System.out::print);
-        Assert.assertArrayEquals(new int[]{1, 2, 2, 3}, a);
+        Assertions.assertArrayEquals(new int[]{1, 2, 2, 3}, a);
     }
 
     @Test
     public void getLogBase2Test() {
-        Assert.assertEquals(0, getLogBase2(1));
-        Assert.assertEquals(1, getLogBase2(2));
-        Assert.assertEquals(2, getLogBase2(4));
-        Assert.assertEquals(3, getLogBase2(8));
-        Assert.assertEquals(3, getLogBase2(10));
+        Assertions.assertEquals(0, getLogBase2(1));
+        Assertions.assertEquals(1, getLogBase2(2));
+        Assertions.assertEquals(2, getLogBase2(4));
+        Assertions.assertEquals(3, getLogBase2(8));
+        Assertions.assertEquals(3, getLogBase2(10));
     }
 
     static void sleep(long timeout) {
@@ -124,7 +125,7 @@ public class ThreadsHustle {
         });
         System.out.println(Arrays.stream(a).mapToObj(i -> i + "").collect(Collectors.joining(" ")));
         for (int i = 1; i < a.length; i++) {
-            Assert.assertTrue(a[i - 1] <= a[i]);
+            Assertions.assertTrue(a[i - 1] <= a[i]);
         }
     }
 
@@ -284,6 +285,7 @@ public class ThreadsHustle {
     }
 
     @Test
+    @Timeout(2)
     public void deadlockAndCatchIt() throws ExecutionException, InterruptedException {
         String o1 = "custom-lock-1", o2 = "custom-lock-2";
         CyclicBarrier cyclicBarrier = new CyclicBarrier(2, () -> System.out.println("Barrier is tripped"));

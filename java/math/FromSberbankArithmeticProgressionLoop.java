@@ -1,7 +1,7 @@
 package math;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.runner.Runner;
@@ -63,7 +63,7 @@ public class FromSberbankArithmeticProgressionLoop {
         System.out.println("remainderAfterIntegerOVerflow2-MAX_VALUE: "+(remainderAfterIntegerOVerflow2-MAX_VALUE));
         System.out.println("countOfMaxInSum: "+countOfMaxInSum);
         System.out.println("countOfRangeInSum: "+countOfRangeInSum);
-        Assert.assertEquals(nonOptimizedLoop(), optimizedLoop());
+        Assertions.assertEquals(nonOptimizedLoop(), optimizedLoop());
     }
 
     @Test

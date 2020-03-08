@@ -1,6 +1,6 @@
 package boardgames;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ import static java.lang.Math.abs;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /* place queens safely on board */
 public class ChessQueens {

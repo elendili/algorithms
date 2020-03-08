@@ -1,10 +1,10 @@
 package collections.sorting;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 // Lomuto version with pivot = last element
 public class QuickSortOnPrimitivesLomuto {
 

@@ -1,8 +1,8 @@
 package yandex.contest;
 
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 import static hackerrank.TestHelper.assertStdOutAfterStdInput;
 import static hackerrank.TestHelper.stubStdInAndStdOut;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static yandex.contest._6_mergeSortedListsInOne.*;
 
 public class _6_mergeSortedListsInOneTest {
@@ -31,7 +31,7 @@ public class _6_mergeSortedListsInOneTest {
         ByteArrayInputStream bais = new ByteArrayInputStream("1\n1 2 3\n3 2 3 3 4 5\n5 6\n".getBytes());
         int[] freqs = new int[7];
         updateFrequencies(freqs, bais);
-        Assert.assertArrayEquals(new int[]{0, 1, 2, 3, 1, 1, 1}, freqs);
+        Assertions.assertArrayEquals(new int[]{0, 1, 2, 3, 1, 1, 1}, freqs);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class _6_mergeSortedListsInOneTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void tstPerformance() {
         InputStream is = new IStream();
         PrintStream ps = new PrintStream(new _3_find_uniqueTest.OStream(), true);

@@ -1,12 +1,12 @@
 package find;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OneStockMaximumProfit {
     // return list size of 3 [profit, buy price index, sell price index]

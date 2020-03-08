@@ -1,7 +1,7 @@
 package am_demo;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,6 +51,6 @@ public class FirstTaskReXal {
         expected.add("ykc 82 99");
         expected.add("06f 12 25 6");
 
-        Assert.assertEquals(expected, ojb(6,in));
+        Assertions.assertEquals(expected, ojb(6,in));
     }
 }

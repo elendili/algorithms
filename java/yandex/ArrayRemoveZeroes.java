@@ -1,7 +1,7 @@
 package yandex;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ArrayRemoveZeroes {
     private void swap(int[] a, int i, int j) {
@@ -37,15 +37,15 @@ public class ArrayRemoveZeroes {
 
     @Test
     public void inPlaceTest() {
-        Assert.assertArrayEquals(new int[]{1, 2}, removeInPlace(new int[]{1, 0, 0, 2},0));
-        Assert.assertArrayEquals(new int[]{1}, removeInPlace(new int[]{0, 0, 0, 1},0));
-        Assert.assertArrayEquals(new int[]{1, 2, 3}, removeInPlace(new int[]{1, 2, 3, 0},0));
+        Assertions.assertArrayEquals(new int[]{1, 2}, removeInPlace(new int[]{1, 0, 0, 2},0));
+        Assertions.assertArrayEquals(new int[]{1}, removeInPlace(new int[]{0, 0, 0, 1},0));
+        Assertions.assertArrayEquals(new int[]{1, 2, 3}, removeInPlace(new int[]{1, 2, 3, 0},0));
     }
 
     @Test
     public void removeInNewOneTest() {
-        Assert.assertArrayEquals(new int[]{1, 2,0,0}, removeInNewOne(new int[]{1, 0, 0, 2},0));
-        Assert.assertArrayEquals(new int[]{1,0,0,0}, removeInNewOne(new int[]{0, 0, 0, 1},0));
-        Assert.assertArrayEquals(new int[]{1, 2, 3,0}, removeInNewOne(new int[]{1, 2, 3, 0},0));
+        Assertions.assertArrayEquals(new int[]{1, 2,0,0}, removeInNewOne(new int[]{1, 0, 0, 2},0));
+        Assertions.assertArrayEquals(new int[]{1,0,0,0}, removeInNewOne(new int[]{0, 0, 0, 1},0));
+        Assertions.assertArrayEquals(new int[]{1, 2, 3,0}, removeInNewOne(new int[]{1, 2, 3, 0},0));
     }
 }

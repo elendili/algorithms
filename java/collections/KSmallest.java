@@ -1,6 +1,6 @@
 package collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import static java.util.Comparator.naturalOrder;
 import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KSmallest {
     /*

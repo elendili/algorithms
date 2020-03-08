@@ -1,7 +1,7 @@
 package crackingCodeInterview.SingleLinkedList;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
@@ -12,11 +12,11 @@ public class SingleLinkedListTest {
 
     @Test
     public void generateTest(){
-        Assert.assertEquals("1->2->3",from(1,2,3).toString());
+        Assertions.assertEquals("1->2->3",from(1,2,3).toString());
     }
     @Test
     public void toDequeTest(){
-        Assert.assertEquals(new LinkedList<>(asList(1,2,3)).toString(),
+        Assertions.assertEquals(new LinkedList<>(asList(1,2,3)).toString(),
                 from(1,2,3).toValueDeque().toString());
     }
 }

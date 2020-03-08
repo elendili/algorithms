@@ -1,6 +1,6 @@
 package hackerrank.easy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.NavigableSet;
@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // https://www.hackerrank.com/challenges/cats-and-a-mouse/problem
 public class CatAndMouse {

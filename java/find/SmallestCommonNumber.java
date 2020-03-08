@@ -1,10 +1,12 @@
 package find;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SmallestCommonNumber{
     public int findFromArraysByStreams(int[]... arrays){
@@ -23,11 +25,13 @@ public class SmallestCommonNumber{
     }
     @Test
     public void test(){
-        Assert.assertEquals(3, findFromArraysByStreams(new int[]{1,2,3}, new int[]{3,4,5}, new int[]{1,2,3,}));
+        Assertions.assertEquals(3, findFromArraysByStreams(new int[]{1,2,3}, new int[]{3,4,5}, new int[]{1,2,3,}));
     }
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void exceptionTest(){
-        Assert.assertEquals(3, findFromArraysByStreams(new int[]{1,2,3}, new int[]{4,5}, new int[]{1,2}));
+        Exception exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> findFromArraysByStreams(new int[]{1,2,3}, new int[]{4,5}, new int[]{1,2}));
     }
 
 }

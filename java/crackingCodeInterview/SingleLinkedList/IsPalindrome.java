@@ -1,7 +1,7 @@
 package crackingCodeInterview.SingleLinkedList;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
@@ -17,12 +17,12 @@ public class IsPalindrome {
 
     @Test
     public void test() {
-        Assert.assertTrue(isPalindrome(SingleLinkedList.from().root()));
-        Assert.assertTrue(isPalindrome(SingleLinkedList.from(1).root()));
-        Assert.assertTrue(isPalindrome(SingleLinkedList.from(1, 1).root()));
-        Assert.assertTrue(isPalindrome(SingleLinkedList.from(1, 2, 1).root()));
-        Assert.assertTrue(isPalindrome(SingleLinkedList.from(1, 2, 2, 1).root()));
-        Assert.assertFalse(isPalindrome(SingleLinkedList.from(1, 2).root()));
-        Assert.assertFalse(isPalindrome(SingleLinkedList.from(1, 2, 2).root()));
+        Assertions.assertTrue(isPalindrome(SingleLinkedList.from().root()));
+        Assertions.assertTrue(isPalindrome(SingleLinkedList.from(1).root()));
+        Assertions.assertTrue(isPalindrome(SingleLinkedList.from(1, 1).root()));
+        Assertions.assertTrue(isPalindrome(SingleLinkedList.from(1, 2, 1).root()));
+        Assertions.assertTrue(isPalindrome(SingleLinkedList.from(1, 2, 2, 1).root()));
+        Assertions.assertFalse(isPalindrome(SingleLinkedList.from(1, 2).root()));
+        Assertions.assertFalse(isPalindrome(SingleLinkedList.from(1, 2, 2).root()));
     }
 }

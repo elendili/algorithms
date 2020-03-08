@@ -1,8 +1,8 @@
 package collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReverseStackAndQueue {
     // idiots call it linked list, but LinkedList is a Deque

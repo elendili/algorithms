@@ -1,7 +1,7 @@
 package am_demo;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.runner.Runner;
@@ -145,19 +145,19 @@ public class SecondTaskReal {
     public void test() {
         List<List<Integer>> f = asList(asList(1, 3), asList(2, 2), asList(5, 1), asList(6, 8), asList(7, 9), asList(8, 4), asList(9, 5), asList(3, 7), asList(4, 10), asList(10, 6));
         List<List<Integer>> r = asList(asList(1, 2), asList(2, 8), asList(7, 3), asList(5, 1), asList(4, 5), asList(6, 5), asList(3, 4), asList(8, 7), asList(9, 40), asList(10, 2));
-        Assert.assertEquals("[[1, 3], [10, 5], [2, 4], [2, 6], [8, 7], [9, 10], [9, 1]]",
+        Assertions.assertEquals("[[1, 3], [10, 5], [2, 4], [2, 6], [8, 7], [9, 10], [9, 1]]",
                 ou(7, f, r).stream().sorted(comparing(Object::toString)).collect(toList()).toString());
 
         f = asList(asList(0, 498), asList(1, 323), asList(2, 966), asList(3, 636), asList(4, 805), asList(5, 623), asList(6, 563), asList(7, 633), asList(8, 115), asList(9, 354));
         r = asList(asList(0, 972), asList(1, 128), asList(2, 179), asList(3, 797), asList(4, 892), asList(5, 885), asList(6, 110), asList(7, 644), asList(8, 617), asList(9, 167));
-        Assert.assertEquals("[[6, 1]]", ou(700, f, r).toString());
+        Assertions.assertEquals("[[6, 1]]", ou(700, f, r).toString());
 
-        Assert.assertEquals("[[1, 1], [1, 3]]",
+        Assertions.assertEquals("[[1, 1], [1, 3]]",
                 ou(6, asList(asList(1, 2), asList(2, 7), asList(3, 1)),
                         asList(asList(1, 3), asList(2, 8), asList(3, 3)))
                         .toString());
 
-        Assert.assertEquals("[]",
+        Assertions.assertEquals("[]",
                 ou(6, asList(asList(1, 4), asList(2, 7)),
                         asList(asList(1, 3), asList(2, 8)))
                         .toString());
@@ -167,19 +167,19 @@ public class SecondTaskReal {
     public void test2() {
         List<List<Integer>> f = asList(asList(1, 3), asList(2, 2), asList(5, 1), asList(6, 8), asList(7, 9), asList(8, 4), asList(9, 5), asList(3, 7), asList(4, 10), asList(10, 6));
         List<List<Integer>> r = asList(asList(1, 2), asList(2, 8), asList(7, 3), asList(5, 1), asList(4, 5), asList(6, 5), asList(3, 4), asList(8, 7), asList(9, 40), asList(10, 2));
-        Assert.assertEquals("[[1, 3], [10, 5], [2, 4], [2, 6], [8, 7], [9, 10], [9, 1]]",
+        Assertions.assertEquals("[[1, 3], [10, 5], [2, 4], [2, 6], [8, 7], [9, 10], [9, 1]]",
                 ou2(7, f, r).stream().sorted(comparing(Object::toString)).collect(toList()).toString());
 
         f = asList(asList(0, 498), asList(1, 323), asList(2, 966), asList(3, 636), asList(4, 805), asList(5, 623), asList(6, 563), asList(7, 633), asList(8, 115), asList(9, 354));
         r = asList(asList(0, 972), asList(1, 128), asList(2, 179), asList(3, 797), asList(4, 892), asList(5, 885), asList(6, 110), asList(7, 644), asList(8, 617), asList(9, 167));
-        Assert.assertEquals("[[6, 1]]", ou2(700, f, r).toString());
+        Assertions.assertEquals("[[6, 1]]", ou2(700, f, r).toString());
 
-        Assert.assertEquals("[[1, 1], [1, 3]]",
+        Assertions.assertEquals("[[1, 1], [1, 3]]",
                 ou2(6, asList(asList(1, 2), asList(2, 7), asList(3, 1)),
                         asList(asList(1, 3), asList(2, 8), asList(3, 3)))
                         .toString());
 
-        Assert.assertEquals("[]",
+        Assertions.assertEquals("[]",
                 ou2(6, asList(asList(1, 4), asList(2, 7)),
                         asList(asList(1, 3), asList(2, 8)))
                         .toString());

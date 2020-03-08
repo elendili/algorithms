@@ -1,7 +1,7 @@
 package strings;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +86,6 @@ public class BalancedParentheses {
                 "()(())",
                 "(()())")
                 .stream().sorted().collect(Collectors.toList());
-        Assert.assertEquals(exp, balancedParentheses(3));
+        Assertions.assertEquals(exp, balancedParentheses(3));
     }
 }

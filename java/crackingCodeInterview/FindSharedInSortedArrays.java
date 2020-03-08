@@ -1,8 +1,8 @@
 package crackingCodeInterview;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // can be solved using hashtable for O(n) memory,
 // but faster for Mem (and CPU) is to reuse task condition:

@@ -1,7 +1,7 @@
 package find;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,25 +16,25 @@ public class FindClosestSumPairFrom2Arrays {
         int[] a1 = {-1, 3, 8, 2, 9, 5};
         int[] a2 = {4, 1, 2, 10, 5, 20};
         int aTarget = 24;
-        Assert.assertEquals(asList(3, 20),closestSumPair(a1, a2, aTarget));
+        Assertions.assertEquals(asList(3, 20),closestSumPair(a1, a2, aTarget));
         // should return {5, 20} or {3, 20}
 
         a1 = new int[]{7, 4, 1, 10};
         a2 = new int[]{4, 5, 8, 7};
         aTarget = 13;
-        Assert.assertEquals(asList(4, 8),closestSumPair(a1, a2, aTarget));
+        Assertions.assertEquals(asList(4, 8),closestSumPair(a1, a2, aTarget));
         // should return {4, 8}, {7, 7}, {7, 5}, or {10, 4}
 
         a1 = new int[]{6, 8, -1, -8, -3};
         a2 = new int[]{4, -6, 2, 9, -3};
         aTarget = 3;
-        Assert.assertEquals(asList(-1, 4),closestSumPair(a1, a2, aTarget));
+        Assertions.assertEquals(asList(-1, 4),closestSumPair(a1, a2, aTarget));
         // should return {-1, 4} or {6, -3}
 
         a1 = new int[]{19, 14, 6, 11, -16, 14, -16, -9, 16, 13};
         a2 = new int[]{13, 9, -15, -2, -18, 16, 17, 2, -11, -7};
         aTarget = -15;
-        Assert.assertEquals(asList(-16, 2),closestSumPair(a1, a2, aTarget));
+        Assertions.assertEquals(asList(-16, 2),closestSumPair(a1, a2, aTarget));
         // should return {-16, 2}, {-9, -7}
     }
 

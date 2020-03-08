@@ -1,6 +1,6 @@
 package yandex.contest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;

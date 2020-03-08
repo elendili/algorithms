@@ -1,9 +1,9 @@
 package hackerrank.medium;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.Math.abs;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // https://www.hackerrank.com/challenges/magic-square-forming
 public class FormingAMagicSquare {
