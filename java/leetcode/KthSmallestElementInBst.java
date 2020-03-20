@@ -1,5 +1,6 @@
 package leetcode;
 
+import helpers.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,15 +9,6 @@ import java.util.PriorityQueue;
 
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 public class KthSmallestElementInBst {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 
     public int kthSmallest(TreeNode root, int k) {
         assert root != null;
