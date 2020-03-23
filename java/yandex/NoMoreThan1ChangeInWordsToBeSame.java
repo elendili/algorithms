@@ -17,15 +17,15 @@ public class NoMoreThan1ChangeInWordsToBeSame {
         if (Math.abs(x.length() - y.length()) > 1) {
             return false;
         }
-        boolean diffAlreadyFound = false;
+        int diff = 0;
         for (int xi = 0, yi = 0;
              xi < x.length() && yi < y.length();
              xi++, yi++) {
             if (x.charAt(xi) != y.charAt(yi)) {
-                if (diffAlreadyFound) {
+                if (diff>1) {
                     return false;
                 } else {
-                    diffAlreadyFound = true;
+                    diff++;
                     if (yi + 1 < y.length() && x.charAt(xi) == y.charAt(yi + 1)) {
                         yi++; // means removal from x, or add in y.
                     } else if (xi + 1 < x.length() && x.charAt(xi + 1) == y.charAt(yi)) {
@@ -37,7 +37,7 @@ public class NoMoreThan1ChangeInWordsToBeSame {
                 }
             }
         }
-        return true;
+        return diff<2;
     }
 
     @Test
@@ -51,6 +51,12 @@ public class NoMoreThan1ChangeInWordsToBeSame {
         assertTrue(isNoMore1ChangeInWordsToBeSame("ab", "ac"));
         assertTrue(isNoMore1ChangeInWordsToBeSame("ab", "a"));
         assertTrue(isNoMore1ChangeInWordsToBeSame("a", "ab"));
+        assertTrue(isNoMore1ChangeInWordsToBeSame("cat", "cut"));
+        assertTrue(isNoMore1ChangeInWordsToBeSame("cat", "ct"));
+
+        assertTrue(isNoMore1ChangeInWordsToBeSame("caat", "caaat"));
+        assertTrue(isNoMore1ChangeInWordsToBeSame("caat", "caaaa"));
+        assertTrue(isNoMore1ChangeInWordsToBeSame("aaa", "aabb"));
 
 
         assertFalse(isNoMore1ChangeInWordsToBeSame("", "ab"));
