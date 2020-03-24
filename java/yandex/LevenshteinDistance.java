@@ -3,9 +3,10 @@ package yandex;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.joining;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // it's about whether Levenshtein distance = 1 or not for 2 words.
 public class LevenshteinDistance {
@@ -62,6 +63,7 @@ public class LevenshteinDistance {
     }
 
     public static int min(int... numbers) {
+        IntStream.of(1,2,3).min();
         return Arrays.stream(numbers)
                 .min().orElse(Integer.MAX_VALUE);
     }
