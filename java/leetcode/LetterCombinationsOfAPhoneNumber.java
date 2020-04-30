@@ -9,7 +9,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 public class LetterCombinationsOfAPhoneNumber {
     static class Solution {
         final static int asciiIndexOf_2 = 50;
@@ -48,9 +48,11 @@ public class LetterCombinationsOfAPhoneNumber {
                 }
             }
         }
-
         @Test
         public void test() {
+            int o;
+            o=123;
+            int[][][][][][] a = new int[1][2][3][4][5][6];
             Assertions.assertEquals(emptyList(), letterCombinations(""));
             Assertions.assertEquals(asList("a", "b", "c"), letterCombinations("2"));
             Assertions.assertEquals(asList("w", "x", "y", "z"), letterCombinations("9"));
