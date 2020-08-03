@@ -1,4 +1,4 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.design;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;

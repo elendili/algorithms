@@ -1,4 +1,4 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.math;
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/102/math/745/
 Given an integer, write a function to determine if it is a power of three.

@@ -1,4 +1,4 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.other;
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/99/others/565/
 Write a function that takes an unsigned integer and return the number of '1' bits it has (also known as the Hamming weight).

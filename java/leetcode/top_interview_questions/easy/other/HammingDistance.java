@@ -1,4 +1,4 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.other;
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/99/others/762/
 The Hamming distance between two integers is the number of positions at which the corresponding bits are different.

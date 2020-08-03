@@ -1,4 +1,4 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.design;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,12 @@
-package leetcode.top_interview_questions.easy;
+package leetcode.top_interview_questions.easy.dynamicProgramming;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
+https://leetcode.com/explore/featured/card/top-interview-questions-easy/97/dynamic-programming/566/
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+ */
 public class MaximumSubarray {
 
     public int maxSubArray(int[] nums) {
