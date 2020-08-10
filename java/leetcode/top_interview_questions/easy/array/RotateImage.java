@@ -60,34 +60,22 @@ public class RotateImage {
         if(aa.length>1){
             int n = aa.length;// size of matrix
             int last = n-1;
-            // loop for circles
             int tmpToSave; // to preserve
-            int tmpToInsert; // to insert
+            // loop for circles, 0 circle - external, n/2 circle - internal
             for(int i=0;i<n/2;i++){
-                // attempt to work in 1 loop
-                // copy right vertical line in buffer
-                // copy top line in the place of right vertical line and fill buffer
+                // save 1 value in top line reassign values from circle lines in counter-clockwise direction
                 for(int j=i;j<last-i;j++){
-                    // from top line to right line
-                    tmpToSave=aa[j][last-i];
-                    aa[j][last-i]=aa[i][j];
+                    // save and rewrite top left line, iteration direction in line is from left to right
+                    tmpToSave=aa[i][j];
+                    aa[i][j] = aa[last-j][i]; // value from left line to top line, value iteration direction in line is from bottom to top
+                    aa[last-j][i] = aa[last-i][last-j]; // value from bottom line to left line, value iteration direction in line is from right to left
+                    aa[last-i][last-j] = aa[j][last-i]; // value from right line, value iteration direction in line is from top to bottom
+                    aa[j][last-i] = tmpToSave;
 
-                    // from right line to bottom line
-                    tmpToInsert=tmpToSave; // preserve for replace
-                    tmpToSave=aa[last-i][last-j];
-                    aa[last-i][last-j]=tmpToInsert;
-
-                    // from bottom line to left line
-                    tmpToInsert=tmpToSave; // preserve for replace
-                    tmpToSave=aa[last-j][i];
-                    aa[last-j][i]=tmpToInsert;
-
-                    aa[i][j]=tmpToSave;
                 }
 //
 //                System.out.println("---------------------"+i+" after");
 //                System.out.println(convert2dToString(aa));
-
             }
         }
     }
