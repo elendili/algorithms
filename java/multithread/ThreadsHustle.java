@@ -15,6 +15,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static helpers.Helpers.sleep;
 
@@ -78,18 +79,20 @@ public class ThreadsHustle {
     @Test
     public void producerConsumerOnBasicSynchronization() {
         final LinkedList<Integer> list = new LinkedList<>();
-        final int size = 10;
-        AtomicInteger data = new AtomicInteger(0);
+        final int size = 10; // size of queue after which it will be blocked for adding
+        final AtomicInteger data = new AtomicInteger(0); // counter for uniq data generating
+        final int howMuchProduceConsume = 100;
+        final int threadsCount = 10; // consumer/producer threads count
 
         Runnable supplier = () -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < howMuchProduceConsume; i++) {
                 int s = data.incrementAndGet();
                 synchronized (list) {
-                    while (list.size() >= size) {
+                    while (list.size() >= size) { // wait till place element is ready for consumption
                         Helpers.wait(list, 0);
                     }
                     list.add(s);
-                    list.notifyAll();
+                    list.notifyAll(); // element is ready for consumption
                 }
                 System.out.println(Thread.currentThread().getName() + "->" + s);
                 sleep(1);
@@ -97,25 +100,27 @@ public class ThreadsHustle {
         };
 
         Runnable consumer = () -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < howMuchProduceConsume; i++) {
                 int s;
                 synchronized (list) {
                     while (list.isEmpty()) {
-                        Helpers.wait(list, 0);
+                        Helpers.wait(list, 0); // wait till
                     }
                     s = list.poll();
-                    list.notifyAll();
+                    list.notifyAll();  // list is (probably) empty, notify producer
                 }
                 System.out.println(Thread.currentThread().getName() + "<-" + s);
                 sleep(1);
             }
         };
 
-        List<Thread> threads = IntStream.rangeClosed(1, 10)
-                .mapToObj(i -> i % 2 == 0 ? new Thread(supplier, "s " + i)
-                        : new Thread(consumer, "c " + i))
+        List<Thread> threads = Stream.concat(
+                IntStream.rangeClosed(1, threadsCount).mapToObj(i -> new Thread(supplier, "s " + i)),
+                IntStream.rangeClosed(1, threadsCount).mapToObj(i -> new Thread(consumer, "c " + i))
+        )
                 .peek(Thread::start)
                 .collect(Collectors.toList());
+
         threads.forEach(Helpers::join);
     }
 
@@ -156,8 +161,8 @@ public class ThreadsHustle {
         int size = 10;
         AtomicInteger data = new AtomicInteger(0);
         ReentrantLock lock = new ReentrantLock();
-        Condition consumed = lock.newCondition();
-        Condition produced = lock.newCondition();
+        Condition consumed = lock.newCondition(); // signal on consumption, waited by producer when queue is full
+        Condition produced = lock.newCondition(); // signal on producing, waited by consumer when queue is empty
 
         Runnable supplier = () -> {
             for (int i = 0; i < 10; i++) {
