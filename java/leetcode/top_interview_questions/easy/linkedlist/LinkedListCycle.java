@@ -34,14 +34,7 @@ Can you solve it using O(1) (i.e. constant) memory?
 
  */
 public class LinkedListCycle {
- class ListNode {
-     int val;
-     ListNode next;
-     ListNode(int x) {
-         val = x;
-         next = null;
-     }
- }
+
     public boolean hasCycle(ListNode head) {
         // loop with 2 pointers
         ListNode jump1=head;

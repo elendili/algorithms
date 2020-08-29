@@ -31,11 +31,6 @@ Do not return anything from your function.
  */
 public class DeleteNodeInALinkedList {
 
-      public static class ListNode {
-          int val;
-          ListNode next;
-          ListNode(int x) { val = x; }
-      }
     public void deleteNode(ListNode node) {
         //loop and shift values
         ListNode cur = node;
@@ -58,16 +53,9 @@ public class DeleteNodeInALinkedList {
         ListNode ln2 = new ListNode(9);
         ln1.next=ln2;
         deleteNode(toDel);
-        assertEquals("4>1>9>",listNodeToString(top));
+        assertEquals("4>1>9>", top.toString());
     }
 
-    private static String listNodeToString(ListNode ln){
-          StringBuilder out= new StringBuilder();
-          while(ln!=null){
-              out.append(ln.val).append(">");
-              ln=ln.next;
-          }
-          return out.toString();
-    }
+
 
 }
