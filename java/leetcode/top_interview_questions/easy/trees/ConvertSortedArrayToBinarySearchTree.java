@@ -47,7 +47,7 @@ public class ConvertSortedArrayToBinarySearchTree {
 
     @Test
     public void test(){
-//        Assertions.assertEquals(TreeNode.from(0).toString(),sortedArrayToBST(new int[]{0}).toString());
+        Assertions.assertEquals(TreeNode.from(0).toString(),sortedArrayToBST(new int[]{0}).toString());
         Assertions.assertEquals(TreeNode.from(1,0).toString(),sortedArrayToBST(new int[]{0,1}).toString());
         Assertions.assertEquals(TreeNode.from(1,0,2).toString(),sortedArrayToBST(new int[]{0,1,2}).toString());
         Assertions.assertEquals(TreeNode.from(0,-3,9,-10,null,5).toString(),sortedArrayToBST(new int[]{-10,-3,0,5,9}).toString());
