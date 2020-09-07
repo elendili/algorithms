@@ -16,6 +16,21 @@ public class TreeNode {
     public TreeNode() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TreeNode treeNode = (TreeNode) o;
+        return val == treeNode.val &&
+                Objects.equals(left, treeNode.left) &&
+                Objects.equals(right, treeNode.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(val, left, right);
+    }
+
     public TreeNode(int val) {
         this.val = val;
     }
@@ -60,9 +75,39 @@ public class TreeNode {
         return list.stream().map(e -> String.valueOf(e)).collect(Collectors.joining(",", "[", "]"));
     }
 
+    public int[] inOrderArray() {
+        List<Integer> list = new ArrayList<>();
+        recursiveInOrder(this,list);
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+
+    private void recursiveInOrder(TreeNode n, List<Integer> list) {
+        if(n!=null){
+            recursiveInOrder(n.left,list);
+            list.add(n.val);
+            recursiveInOrder(n.right,list);
+        }
+    }
+
+    public int[] preOrderArray() {
+        List<Integer> list = new ArrayList<>();
+        recursivePreOrder(this,list);
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+
+    private void recursivePreOrder(TreeNode n, List<Integer> list) {
+        if(n!=null){
+            list.add(n.val);
+            recursiveInOrder(n.left,list);
+            recursiveInOrder(n.right,list);
+        }
+    }
+
     public static TreeNode from(Integer... ints) {
         int n = ints.length;
-        assert n > 0;
+        if(n==0){
+            return null;
+        }
         final List<TreeNode> list = Arrays.stream(ints)
                 .map(i -> i != null ? new TreeNode(i) : null)
                 .collect(toList());
