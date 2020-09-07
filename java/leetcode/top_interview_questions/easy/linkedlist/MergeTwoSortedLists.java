@@ -1,5 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
+import leetcode.top_interview_questions.ListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -48,9 +49,9 @@ public class MergeTwoSortedLists {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>1>",mergeTwoLists(ListNode.genListForTest(1),ListNode.genListForTest(1)).toString());
-        Assertions.assertEquals("3>3>4>4>5>",mergeTwoLists(ListNode.genListForTest(3,4),ListNode.genListForTest(3,5)).toString());
-        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(ListNode.genListForTest(3),ListNode.genListForTest(2)).toString());
+        Assertions.assertEquals("1>1>",mergeTwoLists(ListNode.genListFromZeroToNum(1),ListNode.genListFromZeroToNum(1)).toString());
+        Assertions.assertEquals("3>3>4>4>5>",mergeTwoLists(ListNode.genListFromRange(3,4),ListNode.genListFromRange(3,5)).toString());
+        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(ListNode.genListFromZeroToNum(3),ListNode.genListFromZeroToNum(2)).toString());
     }
 
 }

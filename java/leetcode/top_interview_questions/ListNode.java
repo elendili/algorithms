@@ -1,21 +1,21 @@
-package leetcode.top_interview_questions.easy.linkedlist;
+package leetcode.top_interview_questions;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
-    ListNode() {
+    public ListNode() {
     }
 
-    ListNode(int val) {
+    public  ListNode(int val) {
         this.val = val;
     }
 
-    ListNode(int val, ListNode next) {
+    public ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
     }
@@ -30,11 +30,11 @@ public final class ListNode {
         return out.toString();
     }
 
-    public static ListNode genListForTest(int n) {
-        return genListForTest(1,n);
+    public static ListNode genListFromZeroToNum(int n) {
+        return genListFromRange(1,n);
     }
 
-    public static ListNode genListForTest(int start,int end) {
+    public static ListNode genListFromRange(int start, int end) {
         assert start<=end;
         ListNode head = new ListNode(start);;
         if(start==end){
@@ -48,8 +48,10 @@ public final class ListNode {
         return head;
     }
 
-    public static ListNode genListForTest(int... ints) {
-        assert ints.length>0;
+    public static ListNode genListFromNums(int... ints) {
+        if(ints.length==0){
+            return new ListNode();
+        }
         ListNode head = new ListNode(ints[0]);;
         ListNode cur = head;
         for(int i=1;i<ints.length;i++){
@@ -62,10 +64,10 @@ public final class ListNode {
     static class Test4ListNode{
         @Test
         public void test(){
-            assertEquals("1>",genListForTest(1,1).toString());
-            assertEquals("1>2>",genListForTest(1,2).toString());
-            assertEquals("1>2>3>",genListForTest(1,3).toString());
-            assertEquals("3>4>5>",genListForTest(3,5).toString());
+            assertEquals("1>", genListFromRange(1,1).toString());
+            assertEquals("1>2>", genListFromRange(1,2).toString());
+            assertEquals("1>2>3>", genListFromRange(1,3).toString());
+            assertEquals("3>4>5>", genListFromRange(3,5).toString());
         }
     }
 

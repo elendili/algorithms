@@ -1,13 +1,11 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
+import leetcode.top_interview_questions.ListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static leetcode.top_interview_questions.easy.linkedlist.ListNode.genListForTest;
 
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/93/linked-list/772/
@@ -47,13 +45,13 @@ public class PalindromeLinkedList {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>2>2>1>",genListForTest(1,2,2,1).toString());
-        Assertions.assertEquals(false,isPalindrome(genListForTest(1,2,1,2)));
-        Assertions.assertEquals(false,isPalindrome(genListForTest(1,2)));
+        Assertions.assertEquals("1>2>2>1>", ListNode.genListFromNums(1,2,2,1).toString());
+        Assertions.assertEquals(false,isPalindrome(ListNode.genListFromNums(1,2,1,2)));
+        Assertions.assertEquals(false,isPalindrome(ListNode.genListFromRange(1,2)));
 
-        Assertions.assertEquals(true,isPalindrome(genListForTest(1,1)));
-        Assertions.assertEquals(true,isPalindrome(genListForTest(1,2,1)));
-        Assertions.assertEquals(true,isPalindrome(genListForTest(2,2,2,2)));
-        Assertions.assertEquals(true,isPalindrome(genListForTest(1,2,2,1)));
+        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromRange(1,1)));
+        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(1,2,1)));
+        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(2,2,2,2)));
+        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(1,2,2,1)));
     }
 }

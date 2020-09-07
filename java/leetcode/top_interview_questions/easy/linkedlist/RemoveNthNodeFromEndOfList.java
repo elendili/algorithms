@@ -1,5 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
+import leetcode.top_interview_questions.ListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -59,12 +60,12 @@ public class RemoveNthNodeFromEndOfList {
 
     @Test
     public void testLongList(){
-        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(ListNode.genListForTest(5),1).toString());
-        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(ListNode.genListForTest(5),2).toString());
-        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(ListNode.genListForTest(5),3).toString());
-        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(ListNode.genListForTest(5),4).toString());
-        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(ListNode.genListForTest(5),5).toString());
-        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(ListNode.genListForTest(5),6).toString());
+        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),1).toString());
+        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),2).toString());
+        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),3).toString());
+        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),4).toString());
+        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),5).toString());
+        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),6).toString());
     }
 
 

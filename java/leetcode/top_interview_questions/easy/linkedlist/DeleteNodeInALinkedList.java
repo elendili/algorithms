@@ -1,5 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
+import leetcode.top_interview_questions.ListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
