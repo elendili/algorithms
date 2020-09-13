@@ -21,40 +21,37 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
  */
 public class KthLargestElementInArray {
-
-    public int findKthLargest(final int[] a, final int k) {
-        final int ki = k - 1; // required element will be in this index, because of descending order
-        int lo = 0, hi = a.length - 1;
-        while (lo < hi) {
-            final int j = partition(a, lo, hi);
-            if (j < ki) {
-                lo = j + 1;
-            } else if (j > ki) {
-                hi = j - 1;
-            } else {
-                break;
-            }
-        }
-        return a[ki];
+    public int findKthLargest(int[] nums, int k) {
+        //note nums.length-k since kth largest. not kth smallest
+        sortFoKthLargest(nums, 0, nums.length-1, nums.length-k);
+        return nums[nums.length - k];
     }
 
-    // sort in descending order: from big to small
-    private int partition(int[] a,
-                          final int lo,
-                          final int hi
-    ) {
-        int left = lo;
-        int right = hi + 1;
-        while (true) {
-            while (left < hi && (a[++left] > a[lo])) ;
-            while (right > lo && (a[lo] > a[--right])) ;
-            if (left >= right) {
-                break;
+    private void sortFoKthLargest(int[] nums, int start, int end, int k){
+        if (start <= end) {
+            int left = start;
+            int right = end;
+            int mid = (left + right)/2;
+            int pivot = nums[mid];
+            while(left <= right){
+                while(nums[left] < pivot){ //*
+                    left++;
+                }
+                while(nums[right] > pivot){ //**
+                    right--;
+                }
+                if(left <= right){
+                    swap(nums, left++, right--);
+                }
             }
-            swap(a, left, right);
+            //if k in left half, sort only left half
+            if (start <= k && k <= right ) {
+                sortFoKthLargest(nums, start, right, k);
+                //else sort right half
+            } else if (left <= k && k <= end) {
+                sortFoKthLargest(nums, left, end, k);
+            }
         }
-        swap(a, lo, right);
-        return right;
     }
 
     void swap(int[] a, int i, int j) {
