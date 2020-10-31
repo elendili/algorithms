@@ -70,13 +70,6 @@ public class CompareVersionNumbers {
     }
 
     public int compareVersion(String version1, String version2) {
-        Scanner sc1 = new Scanner(version1).useDelimiter("\\.");
-        Scanner sc2 = new Scanner(version2).useDelimiter("\\.");
-        while (sc1.hasNext() && sc2.hasNext()) {
-            int i1 = sc1.nextInt();
-            int i2 = sc2.nextInt();
-        }
-
         int[] a1 = Arrays.stream(version1.split("\\.")).mapToInt(Integer::valueOf).toArray();
         int[] a2 = Arrays.stream(version2.split("\\.")).mapToInt(Integer::valueOf).toArray();
         int count = Math.min(a1.length, a2.length);
