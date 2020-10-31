@@ -40,21 +40,23 @@ public class TopKFrequentElement2 {
         }
 
         int n = nums.length;
+        // gather frequencies via emulated hash map
         int[][] freqs = new int[n][];
-        int count=0;
+        int bucketsCount=0;
         for (int num : nums) {
             int hash = hash(num, n);
+            // skip buckets with other keys
             while (freqs[hash]!=null && freqs[hash][0] != num) {
                 hash++;
             }
-            if(freqs[hash]==null){
-                count++;
+            if(freqs[hash]==null){ // create bucket
+                bucketsCount++;
                 freqs[hash]=new int[]{num,0};
             }
-            freqs[hash][1]++;
+            freqs[hash][1]++; // increase freq
         }
 
-        k = Math.min(count,k);
+        k = Math.min(bucketsCount,k);
 
         // use kind of bucket sort
         List<Integer>[] sorted = (List<Integer>[]) new List[n+1];
@@ -68,7 +70,7 @@ public class TopKFrequentElement2 {
             }
         }
 
-        // fill out array
+        // fill out array from sorted buckets
         int[]out=new int[k];
         for(int ki=0, i=n; i>-1 && ki<k; i--){
             if(sorted[i]!=null) {

@@ -2,6 +2,8 @@ package leetcode.top_interview_questions;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class ListNode {
@@ -28,6 +30,20 @@ public final class ListNode {
             ln=ln.next;
         }
         return out.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListNode listNode = (ListNode) o;
+        return val == listNode.val &&
+                Objects.equals(next, listNode.next);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(val, next);
     }
 
     public static ListNode genListFromZeroToNum(int n) {
