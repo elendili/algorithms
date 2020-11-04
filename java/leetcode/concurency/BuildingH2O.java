@@ -1,4 +1,4 @@
-package leetcode.medium;
+package leetcode.concurency;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
