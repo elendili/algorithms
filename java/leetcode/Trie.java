@@ -4,9 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class Trie {
+    public static final int alphabetSize = 26;
 
-    static class TrieNode {
-        TrieNode[] children = new TrieNode[26];
+    class TrieNode {
+        TrieNode[] children = new TrieNode[alphabetSize];
         boolean leaf = false;
     }
 

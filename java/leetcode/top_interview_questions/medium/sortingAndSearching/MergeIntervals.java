@@ -32,14 +32,14 @@ public class MergeIntervals {
             return a;
         }
         // sort
-        Arrays.sort(a, Comparator.comparingInt(e -> e[0]));
+        Arrays.sort(a, Comparator.comparingInt(e -> e[0])); // use first element to compare
         //work with sorted
-        int prevI=0;
+        int prevI = 0; //previous element index
         for (int i=1;i<a.length;i++) {
             int[] c = a[i];
             if(c[0]<=a[prevI][1]) {
                 //merge
-                a[prevI][1] = Math.max(c[1], a[prevI][1]);
+                a[prevI][1] = Math.max(c[1], a[prevI][1]); // expand previous element border to include current
             } else {
                 a[++prevI]=c;
             }

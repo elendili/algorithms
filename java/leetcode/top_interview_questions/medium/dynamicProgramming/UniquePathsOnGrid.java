@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.top_interview_questions.medium.dynamicProgramming;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

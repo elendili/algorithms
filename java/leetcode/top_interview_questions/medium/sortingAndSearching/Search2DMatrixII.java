@@ -34,9 +34,9 @@ public class Search2DMatrixII {
                 if (v == target) {
                     return true;
                 } else if (v > target) {
-                    col--;
+                    col--; // exclude column (right) from further search
                 } else {
-                    row++;
+                    row++; // exclude row  (above) from further search
                 }
             }
         }
