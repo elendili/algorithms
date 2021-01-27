@@ -1,4 +1,4 @@
-package multithread;
+package multithreadConcurrency;
 
 import java.io.Console;
 import java.util.ArrayList;

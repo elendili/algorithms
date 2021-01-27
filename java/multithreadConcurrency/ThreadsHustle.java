@@ -1,4 +1,4 @@
-package multithread;
+package multithreadConcurrency;
 
 import helpers.Helpers;
 import org.junit.jupiter.api.Assertions;
