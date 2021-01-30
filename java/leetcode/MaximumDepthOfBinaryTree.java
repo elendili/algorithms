@@ -1,6 +1,6 @@
 package leetcode;
 
-import helpers.TreeNode;
+import leetcode.top_interview_questions.TreeNode;
 
 //    https://leetcode.com/problems/maximum-depth-of-binary-tree/submissions/
 public class MaximumDepthOfBinaryTree {

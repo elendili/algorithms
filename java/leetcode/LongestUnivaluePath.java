@@ -1,6 +1,6 @@
 package leetcode;
 
-import helpers.TreeNode;
+import leetcode.top_interview_questions.TreeNode;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayDeque;
