@@ -147,59 +147,51 @@ public class RangeSumQueryMutable {
          *            *   *   *   *
          * indices: 0 1 2 3 4 5 6 7 8
          */
-        private int[] values;
-        private int[] BIT;// binary indexed tree
-        private int n;
+        int[] a;
+        int[] BIT;
 
-        public NumArray_BinaryIndexedTree_FenwickTree(int[] nums) {
-            if (nums.length > 0) {
-                n = nums.length;
-                values = nums;
-                BIT = new int[n + 1];
-                for (int i = 0; i < n; i++) {
-                    addDiffInTree(i, values[i]);
-                }
+        NumArray_BinaryIndexedTree_FenwickTree(int[] a) {
+            this.a = new int[a.length];
+            this.BIT = new int[a.length + 1];
+            for (int i = 0; i < a.length; i++) {
+                update(i, a[i]);
             }
         }
 
-        private void addDiffInTree(int i, int v) {
+        @Override
+        public void update(int i, int val) {
+            int delta = val - a[i];
+            a[i] = val;
             i += 1;
-            while (i <= n) {
-                BIT[i] += v;
-                i += (i & -i); // shift to parent index using least significant bit
+            while (i < BIT.length) {
+                BIT[i] += delta;
+                i += (i & -i);
             }
         }
 
-        public void update(int index, int val) {
-            int diff = val - values[index];
-            values[index] = val;
-            addDiffInTree(index, diff);
-        }
-
-        private int getSum(int i) {
+        int getSum(int i) {
+            i += 1;
             int out = 0;
-            i += 1;
             while (i > 0) {
-                int v = BIT[i];
-                out += v;
-                i -= (i & -i); // to the left child
+                out += BIT[i];
+                i -= (i & -i);
             }
             return out;
         }
 
+        @Override
         public int sumRange(int left, int right) {
             return getSum(right) - getSum(left - 1);
         }
     }
 
-
     public static Stream<Class<? extends NumArray>> predicateStream() {
         return Stream.of(
-//                NumArray_ShortSegmentTree.class
-//                ,
+                NumArray_ShortSegmentTree.class
+                ,
                 NumArray_BinaryTree.class
-//                ,
-//                NumArray_BinaryIndexedTree_FenwickTree.class
+                ,
+                NumArray_BinaryIndexedTree_FenwickTree.class
         );
     }
 
