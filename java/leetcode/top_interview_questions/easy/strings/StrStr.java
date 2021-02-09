@@ -1,11 +1,13 @@
 package leetcode.top_interview_questions.easy.strings;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/127/strings/885/
-Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+Return the index of the first occurrence of needle in haystack,
+or -1 if needle is not part of haystack.
 
 Example 1:
 
@@ -64,7 +66,7 @@ public class StrStr {
     }
 
     // Partial match table  == failure function
-    private int[] kmpTable(char[] wa) {
+    public int[] kmpTable(char[] wa) {
         int[] out = new int[wa.length];
         out[0] = -1;
         for (int i = 1,
@@ -86,11 +88,14 @@ public class StrStr {
 
     @Test
     public void test() {
-        Assertions.assertEquals(4, strStr("hellohellohello", "ohellohe"));
-        Assertions.assertEquals(2, strStr("hello", "ll"));
-        Assertions.assertEquals(0, strStr("hello", ""));
-        Assertions.assertEquals(-1, strStr("hello", "le"));
-        Assertions.assertEquals(-1, strStr("hello", "z"));
-        Assertions.assertEquals(-1, strStr("hello", "hello2"));
+        assertEquals(4, strStr("hellohellohello", "ohellohe"));
+        assertEquals(2, strStr("hello", "ll"));
+        assertEquals(0, strStr("hello", ""));
+        assertEquals(-1, strStr("hello", "le"));
+        assertEquals(-1, strStr("hello", "z"));
+        assertEquals(-1, strStr("hello", "hello2"));
     }
+
 }
+
+
