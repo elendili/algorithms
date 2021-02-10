@@ -8,7 +8,6 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class KnuthMorrisPratt1 {
-
     private final int[] failureTable;
     private final String pattern;
 
@@ -69,18 +68,18 @@ class KnuthMorrisPratt2 {
         this.failureTable = failureTable(pattern);
     }
 
-    private int[] failureTable(String pattern) {
-        int[] out = new int[pattern.length()];
-        if (pattern.length() > 0) {
+    int[] failureTable(String s) {
+        int[] out = new int[s.length()];
+        if (s.length() > 0) {
             out[0] = -1;
-            for (int i = 1, cnd = 0;
-                 i < pattern.length();
-                 i++, cnd++) {
-                if (pattern.charAt(i) == pattern.charAt(cnd)) {
+            for (int i = 1,
+                 cnd = 0;
+                 i < s.length(); i++, cnd++) {
+                if (s.charAt(i) == s.charAt(cnd)) {
                     out[i] = out[cnd];
                 } else {
                     out[i] = cnd;
-                    while (cnd >= 0 && pattern.charAt(i) != pattern.charAt(cnd)) {
+                    while (cnd > -1 && s.charAt(i) != s.charAt(cnd)) {
                         cnd = out[cnd];
                     }
                 }
@@ -89,12 +88,12 @@ class KnuthMorrisPratt2 {
         return out;
     }
 
-    public int first(String text) {
+    int first(String text) {
         if (pattern.length() > 0) {
             for (int ti = 0, pi = 0; ti < text.length(); ) {
                 if (text.charAt(ti) == pattern.charAt(pi)) {
-                    ti += 1;
                     pi += 1;
+                    ti += 1;
                     if (pi == pattern.length()) {
                         return ti - pi;
                     }
@@ -114,6 +113,31 @@ class KnuthMorrisPratt2 {
 class Tester {
     @Test
     public void text1() {
+        Assertions.assertEquals(0,
+                new KnuthMorrisPratt1("aabaab")
+                        .first("aabaab"));
+        Assertions.assertEquals(1,
+                new KnuthMorrisPratt1("lololo")
+                        .first("olololo"));
+        Assertions.assertEquals(2,
+                new KnuthMorrisPratt1("ll")
+                        .first("hello"));
+        Assertions.assertEquals(4,
+                new KnuthMorrisPratt1("ohellohe")
+                        .first("hellohellohello"));
+        Assertions.assertEquals(-1,
+                new KnuthMorrisPratt1("")
+                        .first("hello"));
+        Assertions.assertEquals(-1,
+                new KnuthMorrisPratt1("z")
+                        .first("dfasdf"));
+        Assertions.assertEquals(1,
+                new KnuthMorrisPratt1("aaa aaa aaa")
+                        .first("aaaa aaa aaa aaa"));
+    }
+
+    @Test
+    public void text2() {
         Assertions.assertEquals(0,
                 new KnuthMorrisPratt2("aabaab")
                         .first("aabaab"));
