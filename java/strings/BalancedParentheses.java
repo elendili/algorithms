@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static java.util.Arrays.asList;
 
 public class BalancedParentheses {
-
+    // o - open, defined as 0
+    // c - closed, defined as 0
     public void generate(String cur, int o, int c, int n, String path) {
         if (cur.length() == 2 * n) {
             System.out.println(path);
@@ -69,23 +71,14 @@ public class BalancedParentheses {
         System.out.println(allBalancedStrings(2));
     }
 
-    public List<String> balancedParentheses(int n) {
-        return null;
-//        int c=0, o=0;
-//        for(){
-//
-//        }
-    }
-
     @Test
-    public void t() {
-        List<String> exp = asList(
+    public void test() {
+        Set<String> exp = new TreeSet<>(asList(
                 "()()()",
                 "((()))",
                 "(())()",
                 "()(())",
-                "(()())")
-                .stream().sorted().collect(Collectors.toList());
-        Assertions.assertEquals(exp, balancedParentheses(3));
+                "(()())"));
+        Assertions.assertEquals(exp, new TreeSet<>(allBalancedStrings(3)));
     }
 }

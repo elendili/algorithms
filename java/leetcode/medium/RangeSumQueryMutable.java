@@ -138,20 +138,20 @@ public class RangeSumQueryMutable {
         }
     }
 
-    static class NumArray_BinaryIndexedTree_FenwickTree implements NumArray {
-        /*
-         * BIT[] as a binary tree:
-         *            ______________*
-         *            ______*
-         *            __*     __*
-         *            *   *   *   *
-         * indices: 0 1 2 3 4 5 6 7 8
-         */
-        int[] a;
-        int[] BIT;
+    /*
+     * BIT[] as a binary tree:
+     *            ______________*
+     *            ______*
+     *            __*     __*
+     *            *   *   *   *
+     * indices: 0 1 2 3 4 5 6 7 8
+     */
+    static class NumArray_BinaryIndexedTree_FenwickTree2 implements NumArray {
+        private final int[] BIT;
+        private final int[] values;
 
-        NumArray_BinaryIndexedTree_FenwickTree(int[] a) {
-            this.a = new int[a.length];
+        NumArray_BinaryIndexedTree_FenwickTree2(int[] a) {
+            this.values = new int[a.length];
             this.BIT = new int[a.length + 1];
             for (int i = 0; i < a.length; i++) {
                 update(i, a[i]);
@@ -159,9 +159,9 @@ public class RangeSumQueryMutable {
         }
 
         @Override
-        public void update(int i, int val) {
-            int delta = val - a[i];
-            a[i] = val;
+        public void update(int i, int v) {
+            int delta = v - values[i];
+            values[i] = v;
             i += 1;
             while (i < BIT.length) {
                 BIT[i] += delta;
@@ -169,7 +169,7 @@ public class RangeSumQueryMutable {
             }
         }
 
-        int getSum(int i) {
+        private int getSum(int i) {
             i += 1;
             int out = 0;
             while (i > 0) {
@@ -185,6 +185,47 @@ public class RangeSumQueryMutable {
         }
     }
 
+    static class NumArray_BinaryIndexedTree_FenwickTree implements NumArray {
+
+        private final int[] BIT;
+        private final int[] values;
+
+        NumArray_BinaryIndexedTree_FenwickTree(int[] a) {
+            this.values = new int[a.length];
+            this.BIT = new int[a.length + 1];
+            for (int i = 0; i < a.length; i++) {
+                update(i, a[i]);
+            }
+        }
+
+        public void update(int i, int v) {
+            int delta = v - values[i];
+            values[i] = v;
+            i += 1;
+            while (i < BIT.length) {
+                BIT[i] += delta;
+                i += (i & -i);
+            }
+        }
+
+        int getSum(int i) {
+            int out = 0;
+            i += 1;
+            while (i > 0) {
+                out += BIT[i];
+                i -= (i & -i);
+            }
+            return out;
+        }
+
+        @Override
+        public int sumRange(int left, int right) {
+            return getSum(right) - getSum(left - 1);
+        }
+
+
+    }
+
     public static Stream<Class<? extends NumArray>> predicateStream() {
         return Stream.of(
                 NumArray_ShortSegmentTree.class
@@ -192,6 +233,8 @@ public class RangeSumQueryMutable {
                 NumArray_BinaryTree.class
                 ,
                 NumArray_BinaryIndexedTree_FenwickTree.class
+                ,
+                NumArray_BinaryIndexedTree_FenwickTree2.class
         );
     }
 

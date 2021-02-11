@@ -117,21 +117,47 @@ public class SymmetricTree {
                     && isSymmetric_Mirroring_Helper(left.left,right.right)
                     && isSymmetric_Mirroring_Helper(left.right,right.left);
         }
+/*
+      1
+  2       2
+3    4  4   3
 
-        public static boolean isSymmetric_BreadthFirst(TreeNode node) {
-            if(node==null || (node.left==null && node.right==null)){
-                return true;
-            }
-            // apply in-order traversal
-            List<List<Integer>> lists = new ArrayList<>();
-            recursiveBreadthFirstHelper(node,0,lists);
-            for(List<Integer> list:lists){
-                if(!checkSymmetry(list)){
-                    return false;
-                }
-            }
-            return true;
+struct Node {
+    Node *l, *r;
+    int value;
+}
+
+isSymetric(Node n){
+    if(n==null || (n.l==null && n.r==null)){
+        return true;
+    }
+    return isSymetric(n.l,n.r);
+}
+
+isSymetric(Node l, Node r){
+    if(l==null || r == null){
+        return l==r;
+    }
+    boolean out = l.value == r.value;
+    out &= isSymetric(l, r) ; <==== my error
+    out &= isSymetric(r,l) ;
+    return out;
+}
+ */
+public static boolean isSymmetric_BreadthFirst(TreeNode node) {
+    if (node == null || (node.left == null && node.right == null)) {
+        return true;
+    }
+    // apply in-order traversal
+    List<List<Integer>> lists = new ArrayList<>();
+    recursiveBreadthFirstHelper(node, 0, lists);
+    for (List<Integer> list : lists) {
+        if (!checkSymmetry(list)) {
+            return false;
         }
+    }
+    return true;
+}
 
         private static void recursiveBreadthFirstHelper(TreeNode node, int layer, List<List<Integer>> lists){
             if(node!=null) {
