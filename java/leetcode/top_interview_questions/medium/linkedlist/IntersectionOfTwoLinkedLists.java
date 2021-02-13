@@ -104,9 +104,9 @@ public class IntersectionOfTwoLinkedLists {
 
     @Test
     public void test1(){
-        ListNode ln1 = ListNode.genListFromNums(4, 1, 8, 4, 5);
+        ListNode ln1 = ListNode.from(4, 1, 8, 4, 5);
         ListNode intersection = ln1.next.next;
-        ListNode ln2 = ListNode.genListFromNums(5, 6, 1);
+        ListNode ln2 = ListNode.from(5, 6, 1);
         ln2.next.next.next=intersection;
         Assertions.assertEquals(intersection,getIntersectionNode(ln1,ln2));
         Assertions.assertEquals(intersection,getIntersectionNode(ln2,ln1));
@@ -114,29 +114,29 @@ public class IntersectionOfTwoLinkedLists {
 
     @Test
     public void test2(){
-        ListNode ln1 = ListNode.genListFromNums(3,2,4);
+        ListNode ln1 = ListNode.from(3, 2, 4);
         ListNode intersection = ln1.next;
-        ListNode ln2 = ListNode.genListFromNums(1, 9, 1);
+        ListNode ln2 = ListNode.from(1, 9, 1);
         ln2.next.next.next=intersection;
         Assertions.assertEquals(intersection,getIntersectionNode(ln1,ln2));
         Assertions.assertEquals(intersection,getIntersectionNode(ln2,ln1));
     }
 
     @Test
-    public void test3(){
-        ListNode ln1 = ListNode.genListFromNums(2,6,4);
-        ListNode ln2 = ListNode.genListFromNums(1, 5);
-        Assertions.assertEquals(null,getIntersectionNode(ln1,ln2));
-        Assertions.assertEquals(null,getIntersectionNode(ln2,ln1));
+    public void test3() {
+        ListNode ln1 = ListNode.from(2, 6, 4);
+        ListNode ln2 = ListNode.from(1, 5);
+        Assertions.assertEquals(null, getIntersectionNode(ln1, ln2));
+        Assertions.assertEquals(null, getIntersectionNode(ln2, ln1));
     }
 
     @Test
-    public void test4(){
-        ListNode ln1 = ListNode.genListFromNums(1);
-        ListNode ln2 = ListNode.genListFromNums(2);
+    public void test4() {
+        ListNode ln1 = ListNode.from(1);
+        ListNode ln2 = ListNode.from(2);
         ln2.next = ln1;
-        Assertions.assertEquals(ln1,getIntersectionNode(ln2,ln1));
-        Assertions.assertEquals(ln1,getIntersectionNode(ln1,ln2));
+        Assertions.assertEquals(ln1, getIntersectionNode(ln2, ln1));
+        Assertions.assertEquals(ln1, getIntersectionNode(ln1, ln2));
     }
 
 }

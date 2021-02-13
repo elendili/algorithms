@@ -58,29 +58,29 @@ public class AddTwoNumbers {
 
     @Test
     public void test(){
-        Assertions.assertEquals(ListNode.genListFromNums(2,4,3).toString(),
-                addTwoNumbers(ListNode.genListFromNums(2,4,3),ListNode.genListFromNums()).toString());
+        Assertions.assertEquals(ListNode.from(2, 4, 3).toString(),
+                addTwoNumbers(ListNode.from(2, 4, 3), ListNode.from()).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(7).toString(),
-                addTwoNumbers(ListNode.genListFromNums(2),ListNode.genListFromNums(5)).toString());
+        Assertions.assertEquals(ListNode.from(7).toString(),
+                addTwoNumbers(ListNode.from(2), ListNode.from(5)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(0,1).toString(),
-                addTwoNumbers(ListNode.genListFromNums(5),ListNode.genListFromNums(5)).toString());
+        Assertions.assertEquals(ListNode.from(0, 1).toString(),
+                addTwoNumbers(ListNode.from(5), ListNode.from(5)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(7,4,3).toString(),
-                addTwoNumbers(ListNode.genListFromNums(2,4,3),ListNode.genListFromNums(5)).toString());
+        Assertions.assertEquals(ListNode.from(7, 4, 3).toString(),
+                addTwoNumbers(ListNode.from(2, 4, 3), ListNode.from(5)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(2,2,3).toString(),
-                addTwoNumbers(ListNode.genListFromNums(1),ListNode.genListFromNums(1,2,3)).toString());
+        Assertions.assertEquals(ListNode.from(2, 2, 3).toString(),
+                addTwoNumbers(ListNode.from(1), ListNode.from(1, 2, 3)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(7,0,8).toString(),
-                addTwoNumbers(ListNode.genListFromNums(2,4,3),ListNode.genListFromNums(5,6,4)).toString());
+        Assertions.assertEquals(ListNode.from(7, 0, 8).toString(),
+                addTwoNumbers(ListNode.from(2, 4, 3), ListNode.from(5, 6, 4)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(0,0,0,1).toString(),
-                addTwoNumbers(ListNode.genListFromNums(1),ListNode.genListFromNums(9,9,9)).toString());
+        Assertions.assertEquals(ListNode.from(0, 0, 0, 1).toString(),
+                addTwoNumbers(ListNode.from(1), ListNode.from(9, 9, 9)).toString());
 
-        Assertions.assertEquals(ListNode.genListFromNums(8,9,1).toString(),
-                addTwoNumbers(ListNode.genListFromNums(9,9),ListNode.genListFromNums(9,9)).toString());
+        Assertions.assertEquals(ListNode.from(8, 9, 1).toString(),
+                addTwoNumbers(ListNode.from(9, 9), ListNode.from(9, 9)).toString());
 
 
     }

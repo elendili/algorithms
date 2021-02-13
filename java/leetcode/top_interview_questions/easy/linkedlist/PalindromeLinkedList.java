@@ -45,13 +45,13 @@ public class PalindromeLinkedList {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>2>2>1>", ListNode.genListFromNums(1,2,2,1).toString());
-        Assertions.assertEquals(false,isPalindrome(ListNode.genListFromNums(1,2,1,2)));
-        Assertions.assertEquals(false,isPalindrome(ListNode.genListFromRange(1,2)));
+        Assertions.assertEquals("1>2>2>1>", ListNode.from(1, 2, 2, 1).toString());
+        Assertions.assertEquals(false, isPalindrome(ListNode.from(1, 2, 1, 2)));
+        Assertions.assertEquals(false, isPalindrome(ListNode.genListFromRange(1, 2)));
 
-        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromRange(1,1)));
-        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(1,2,1)));
-        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(2,2,2,2)));
-        Assertions.assertEquals(true,isPalindrome(ListNode.genListFromNums(1,2,2,1)));
+        Assertions.assertEquals(true, isPalindrome(ListNode.genListFromRange(1, 1)));
+        Assertions.assertEquals(true, isPalindrome(ListNode.from(1, 2, 1)));
+        Assertions.assertEquals(true, isPalindrome(ListNode.from(2, 2, 2, 2)));
+        Assertions.assertEquals(true, isPalindrome(ListNode.from(1, 2, 2, 1)));
     }
 }

@@ -86,33 +86,33 @@ public class AddTwoNumbersII {
 
     @Test
     public void test1() {
-        ListNode a = ListNode.genListFromNums(9);
-        ListNode b = ListNode.genListFromNums(9);
-        ListNode expected = ListNode.genListFromNums(1, 8);
+        ListNode a = ListNode.from(9);
+        ListNode b = ListNode.from(9);
+        ListNode expected = ListNode.from(1, 8);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test2() {
-        ListNode a = ListNode.genListFromNums(9, 9);
-        ListNode b = ListNode.genListFromNums(9);
-        ListNode expected = ListNode.genListFromNums(1, 0, 8);
+        ListNode a = ListNode.from(9, 9);
+        ListNode b = ListNode.from(9);
+        ListNode expected = ListNode.from(1, 0, 8);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test0() {
-        ListNode a = ListNode.genListFromNums(0);
-        ListNode b = ListNode.genListFromNums(0);
-        ListNode expected = ListNode.genListFromNums(0);
+        ListNode a = ListNode.from(0);
+        ListNode b = ListNode.from(0);
+        ListNode expected = ListNode.from(0);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test() {
-        ListNode a = ListNode.genListFromNums(7, 2, 4, 3);
-        ListNode b = ListNode.genListFromNums(5, 6, 4);
-        ListNode expected = ListNode.genListFromNums(7, 8, 0, 7);
+        ListNode a = ListNode.from(7, 2, 4, 3);
+        ListNode b = ListNode.from(5, 6, 4);
+        ListNode expected = ListNode.from(7, 8, 0, 7);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 }

@@ -58,13 +58,13 @@ public class OddEvenLinkedList {
 
     @Test
     public void test(){
-        Assertions.assertEquals(ListNode.genListFromNums(1,3,5,2,4).toString(),oddEvenList(ListNode.genListFromRange(1,5)).toString());
-        Assertions.assertEquals(ListNode.genListFromNums(2,3,6,7,1,5,4).toString(),oddEvenList(ListNode.genListFromNums(2,1,3,5,6,4,7)).toString());
+        Assertions.assertEquals(ListNode.from(1, 3, 5, 2, 4).toString(), oddEvenList(ListNode.genListFromRange(1, 5)).toString());
+        Assertions.assertEquals(ListNode.from(2, 3, 6, 7, 1, 5, 4).toString(), oddEvenList(ListNode.from(2, 1, 3, 5, 6, 4, 7)).toString());
 
         Assertions.assertNull(oddEvenList(null));
-        Assertions.assertEquals(ListNode.genListFromNums(1).toString(),oddEvenList(ListNode.genListFromNums(1)).toString());
-        Assertions.assertEquals(ListNode.genListFromNums(1,2).toString(),oddEvenList(ListNode.genListFromNums(1,2)).toString());
-        Assertions.assertEquals(ListNode.genListFromNums(1,3,2).toString(),oddEvenList(ListNode.genListFromNums(1,2,3)).toString());
+        Assertions.assertEquals(ListNode.from(1).toString(), oddEvenList(ListNode.from(1)).toString());
+        Assertions.assertEquals(ListNode.from(1, 2).toString(), oddEvenList(ListNode.from(1, 2)).toString());
+        Assertions.assertEquals(ListNode.from(1, 3, 2).toString(), oddEvenList(ListNode.from(1, 2, 3)).toString());
     }
 
 }

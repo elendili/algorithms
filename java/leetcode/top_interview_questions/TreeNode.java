@@ -4,9 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 public class TreeNode {
     public int val;
@@ -42,6 +39,25 @@ public class TreeNode {
     }
 
     public String toString() {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(this);
+        LinkedList<Integer> out = new LinkedList<>();
+        while (!q.isEmpty()) {
+            Optional<TreeNode> t = Optional.ofNullable(q.poll());
+            out.add(t.map(n -> n.val).orElse(null));
+            t.ifPresent(n -> {
+                        q.add(n.left);
+                        q.add(n.right);
+                    }
+            );
+        }
+        while (out.peekLast() == null) {
+            out.removeLast();
+        }
+        return out.toString().replaceAll(" ", "");
+    }
+/*
+    public String toString() {
         List<Integer> list = new ArrayList<>();
         Queue<Optional<TreeNode>> q = new ArrayDeque<>();
         q.add(Optional.of(this));
@@ -73,7 +89,7 @@ public class TreeNode {
             list.remove(j);
         }
         return list.stream().map(e -> String.valueOf(e)).collect(Collectors.joining(",", "[", "]"));
-    }
+    }*/
 
     public int[] inOrderArray() {
         List<Integer> list = new ArrayList<>();
@@ -96,37 +112,52 @@ public class TreeNode {
     }
 
     private void recursivePreOrder(TreeNode n, List<Integer> list) {
-        if(n!=null){
+        if (n != null) {
             list.add(n.val);
-            recursiveInOrder(n.left,list);
-            recursiveInOrder(n.right,list);
+            recursiveInOrder(n.left, list);
+            recursiveInOrder(n.right, list);
         }
     }
 
-    public static TreeNode from(Integer... ints) {
-        int n = ints.length;
-        if(n==0){
-            return null;
-        }
-        final List<TreeNode> list = Arrays.stream(ints)
-                .map(i -> i != null ? new TreeNode(i) : null)
-                .collect(toList());
-
-        for (int i = 0; i < n; i++) {
-            TreeNode v = list.get(i);
-            if (v != null) {
-                int leftI = 2 * i + 1;
-                if (leftI < n && list.get(leftI)!=null) {
-                    v.left = list.get(leftI);
+    public static TreeNode from(Integer... arr) {
+        TreeNode root = null;
+        Queue<TreeNode> q = new LinkedList<>();
+        int i = 0;
+        TreeNode t = arr[i] == null ? null : new TreeNode(arr[i]);
+        root = t;
+        q.add(root);
+        i++;
+        while (!q.isEmpty() && i < arr.length) {
+            TreeNode t1 = q.poll();
+            if (t1 != null) {
+                t1.left = arr[i] == null ? null : new TreeNode(arr[i]);
+                q.add(t1.left);
+                i++;
+                if (i >= arr.length) {
+                    break;
                 }
-                int rightI = 2 * i + 2;
-                if (rightI < n && list.get(rightI)!=null) {
-                    v.right = list.get(rightI);
-                }
+                t1.right = arr[i] == null ? null : new TreeNode(arr[i]);
+                q.add(t1.right);
+                i++;
             }
         }
+//        printLevelOrder(root);
+        return root;
+    }
 
-        return list.get(0);
+    private void printLevelOrder(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        StringBuilder sb = new StringBuilder();
+        while (!q.isEmpty()) {
+            TreeNode t = q.poll();
+            sb.append(t == null ? "null" : t.val).append(", ");
+            if (t != null) {
+                q.add(t.left);
+                q.add(t.right);
+            }
+        }
+        System.out.println(sb.toString());
     }
 
     public static class TreeNodeTest {
@@ -145,16 +176,16 @@ public class TreeNode {
             Assertions.assertEquals("[1,2,3,4,5,null,null,null,null,6,7]", head.toString());
 
             head = new TreeNode(1, null, new TreeNode(3, null, new TreeNode(6)));
-            Assertions.assertEquals("[1,null,3,null,null,null,6]", head.toString());
+            Assertions.assertEquals("[1,null,3,null,6]", head.toString());
         }
 
         @Test
         public void testFrom() {
             Assertions.assertEquals("[1,2]", TreeNode.from(1, 2).toString());
-            Assertions.assertEquals("[1,2,null,4]", TreeNode.from(1, 2,null,4).toString());
-            Assertions.assertEquals("[1,2,null,4,5]", TreeNode.from(1, 2,null,4,5,null,null).toString());
-            Assertions.assertEquals("[1,null,3,null,null,null,6]", TreeNode.from(1, null,3,null,null,null,6).toString());
-//            Assertions.assertEquals("[5,4,1,null,1,null,4,2,null,2,null]", TreeNode.from(5,4,1,null,1,null,4,2,null,2,null).toString());
+            Assertions.assertEquals("[1,2,null,4]", TreeNode.from(1, 2, null, 4).toString());
+            Assertions.assertEquals("[1,2,null,4,5]", TreeNode.from(1, 2, null, 4, 5, null, null).toString());
+            Assertions.assertEquals("[1,null,3]", TreeNode.from(1, null, 3, null, null, null, 6).toString());
+            Assertions.assertEquals("[5,4,1,null,1,null,4,2,null,2]", TreeNode.from(5, 4, 1, null, 1, null, 4, 2, null, 2, null).toString());
         }
     }
 }

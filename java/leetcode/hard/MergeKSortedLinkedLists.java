@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.stream.Stream;
 
-import static leetcode.top_interview_questions.ListNode.genListFromNums;
+import static leetcode.top_interview_questions.ListNode.from;
 
 /*
 https://leetcode.com/problems/merge-k-sorted-lists
@@ -102,7 +102,7 @@ public class MergeKSortedLinkedLists {
     public void assymetric(String name, MergeKLists methodUnderTest) {
         Assertions.assertEquals("1>1>2>2>3>3>",
                 methodUnderTest.mergeKLists(
-                        new ListNode[]{genListFromNums(1, 2, 3), genListFromNums(2), genListFromNums(1, 3)})
+                        new ListNode[]{from(1, 2, 3), from(2), from(1, 3)})
                         .toString());
     }
 }

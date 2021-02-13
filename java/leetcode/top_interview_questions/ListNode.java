@@ -64,14 +64,15 @@ public final class ListNode {
         return head;
     }
 
-    public static ListNode genListFromNums(int... ints) {
-        if(ints.length==0){
+    public static ListNode from(int... ints) {
+        if (ints.length == 0) {
             return new ListNode();
         }
-        ListNode head = new ListNode(ints[0]);;
+        ListNode head = new ListNode(ints[0]);
+        ;
         ListNode cur = head;
-        for(int i=1;i<ints.length;i++){
-            cur.next=new ListNode(ints[i]);
+        for (int i = 1; i < ints.length; i++) {
+            cur.next = new ListNode(ints[i]);
             cur = cur.next;
         }
         return head;

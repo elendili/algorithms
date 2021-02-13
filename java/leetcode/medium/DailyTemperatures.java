@@ -13,6 +13,9 @@ import static java.util.Arrays.asList;
 public class DailyTemperatures {
 
     public int[] dailyTemperatures(int[] T) {
+        if (T == null) {
+            return new int[]{};
+        }
         Deque<Integer> stack = new ArrayDeque<>();
         int[] out = new int[T.length];
         for (int i = 0; i < T.length; i++) {
