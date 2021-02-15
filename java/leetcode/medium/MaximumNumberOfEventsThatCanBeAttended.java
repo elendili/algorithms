@@ -1,5 +1,6 @@
 package leetcode.medium;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -113,6 +114,7 @@ public class MaximumNumberOfEventsThatCanBeAttended {
     }
 
     @Test
+    @Disabled
     public void test_big() throws IOException {
         String s = Files.readString(Path.of("/Users/elendili/git-projects/algorithms/java/leetcode/medium/x.txt"));
         int[][] x = Arrays.stream(s.split("],"))
