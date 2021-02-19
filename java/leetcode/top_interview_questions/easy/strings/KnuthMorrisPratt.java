@@ -7,63 +7,11 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class KnuthMorrisPratt1 {
+class KnuthMorrisPratt {
     private final int[] failureTable;
     private final String pattern;
 
-    KnuthMorrisPratt1(String pattern) {
-        this.pattern = pattern;
-        this.failureTable = failureTable(pattern);
-    }
-
-    private int[] failureTable(String pattern) {
-        int[] out = new int[pattern.length()];
-        if (pattern.length() > 0) {
-            out[0] = -1;
-            for (int i = 1,
-                 cnd = 0; // candidate
-                 i < pattern.length(); i++, cnd++) {
-                if (pattern.charAt(i) == pattern.charAt(cnd)) {
-                    out[i] = out[cnd];
-                } else {
-                    out[i] = cnd;
-                    while (cnd >= 0 && pattern.charAt(i) != pattern.charAt(cnd)) {
-                        cnd = out[cnd];
-                    }
-                }
-            }
-        }
-        return out;
-    }
-
-    public int first(String text) {
-        if (pattern.length() > 0) {
-            for (int j = 0, k = 0; j < text.length(); ) {
-                if (text.charAt(j) == pattern.charAt(k)) {
-                    j += 1;
-                    k += 1;
-                    if (k == pattern.length()) {
-                        return j - k;
-                    }
-                } else {
-                    k = failureTable[k];
-                    if (k < 0) {
-                        k += 1;
-                        j += 1;
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-}
-
-
-class KnuthMorrisPratt2 {
-    private final int[] failureTable;
-    private final String pattern;
-
-    KnuthMorrisPratt2(String pattern) {
+    KnuthMorrisPratt(String pattern) {
         this.pattern = pattern;
         this.failureTable = failureTable(pattern);
     }
@@ -110,29 +58,79 @@ class KnuthMorrisPratt2 {
     }
 }
 
+
+class KnuthMorrisPratt2 {
+    private final int[] failureTable;
+    private final String pattern;
+
+    KnuthMorrisPratt2(String pattern) {
+        this.pattern = pattern;
+        this.failureTable = failureTable(pattern);
+    }
+
+    int[] failureTable(String s) {
+        int[] out = new int[s.length()];
+        if (!s.isEmpty()) {
+            out[0] = -1;
+            for (int i = 1, cnd = 0; i < s.length(); i++, cnd++) {
+                if (s.charAt(i) == s.charAt(cnd)) {
+                    out[i] = out[cnd];
+                } else {
+                    out[i] = cnd;
+                    while (cnd > -1 && s.charAt(i) != s.charAt(cnd)) {
+                        cnd = out[cnd];
+                    }
+                }
+            }
+        }
+        return out;
+    }
+
+    int first(String text) {
+        if (!pattern.isEmpty()) {
+            for (int ti = 0, pi = 0; ti < text.length(); ) {
+                if (text.charAt(ti) == pattern.charAt(pi)) {
+                    ti++;
+                    pi++;
+                    if (pi == pattern.length()) {
+                        return ti - pi;
+                    }
+                } else {
+                    pi = failureTable[pi];
+                    if (pi < 0) {
+                        pi++;
+                        ti++;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
+
 class Tester {
     @Test
     public void text1() {
         Assertions.assertEquals(0,
-                new KnuthMorrisPratt1("aabaab")
+                new KnuthMorrisPratt("aabaab")
                         .first("aabaab"));
         Assertions.assertEquals(1,
-                new KnuthMorrisPratt1("lololo")
+                new KnuthMorrisPratt("lololo")
                         .first("olololo"));
         Assertions.assertEquals(2,
-                new KnuthMorrisPratt1("ll")
+                new KnuthMorrisPratt("ll")
                         .first("hello"));
         Assertions.assertEquals(4,
-                new KnuthMorrisPratt1("ohellohe")
+                new KnuthMorrisPratt("ohellohe")
                         .first("hellohellohello"));
         Assertions.assertEquals(-1,
-                new KnuthMorrisPratt1("")
+                new KnuthMorrisPratt("")
                         .first("hello"));
         Assertions.assertEquals(-1,
-                new KnuthMorrisPratt1("z")
+                new KnuthMorrisPratt("z")
                         .first("dfasdf"));
         Assertions.assertEquals(1,
-                new KnuthMorrisPratt1("aaa aaa aaa")
+                new KnuthMorrisPratt("aaa aaa aaa")
                         .first("aaaa aaa aaa aaa"));
     }
 
@@ -211,7 +209,7 @@ class KnuthMorrisPratt_NoNegative {
                 Arrays.toString(failure_table("aabaab")));
         assertEquals(Arrays.toString(new int[]{0, 1, 0, 1, 2, 3, 4, 5, 6}),
                 Arrays.toString(failure_table("aabaabaab")));
-        assertEquals(Arrays.toString(new int[]{0, 1, 0, 1, 2, 3, 4, 5, 6}),
+        assertEquals(Arrays.toString(new int[]{0, 1, 0, 1, 2, 3, 4, 5, 0}),
                 Arrays.toString(failure_table("aabaabaa2")));
     }
 

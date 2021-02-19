@@ -147,41 +147,41 @@ public class RangeSumQueryMutable {
      * indices: 0 1 2 3 4 5 6 7 8
      */
     static class NumArray_BinaryIndexedTree_FenwickTree2 implements NumArray {
-        private final int[] BIT;
-        private final int[] values;
+        int[] BIT;
+        int[] values;
 
         NumArray_BinaryIndexedTree_FenwickTree2(int[] a) {
-            this.values = new int[a.length];
-            this.BIT = new int[a.length + 1];
+            values = new int[a.length];
+            BIT = new int[a.length + 1];
             for (int i = 0; i < a.length; i++) {
                 update(i, a[i]);
             }
         }
 
         @Override
-        public void update(int i, int v) {
-            int delta = v - values[i];
-            values[i] = v;
+        public void update(int i, int val) {
+            int d = val - values[i];
+            values[i] = val;
             i += 1;
             while (i < BIT.length) {
-                BIT[i] += delta;
+                BIT[i] += d;
                 i += (i & -i);
             }
-        }
-
-        private int getSum(int i) {
-            i += 1;
-            int out = 0;
-            while (i > 0) {
-                out += BIT[i];
-                i -= (i & -i);
-            }
-            return out;
         }
 
         @Override
         public int sumRange(int left, int right) {
             return getSum(right) - getSum(left - 1);
+        }
+
+        private int getSum(int i) {
+            int out = 0;
+            i += 1;
+            while (i > 0) {
+                out += BIT[i];
+                i -= (i & -i);
+            }
+            return out;
         }
     }
 
