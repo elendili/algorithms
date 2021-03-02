@@ -19,7 +19,7 @@ public class SortByAmountOfPhrases {
         return strings.stream()
                 .map(s -> new AbstractMap.SimpleImmutableEntry<>(s, s.chars().filter(p).count()))
                 .sorted(Map.Entry.comparingByValue())
-                .map(AbstractMap.SimpleImmutableEntry::getKey)
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
