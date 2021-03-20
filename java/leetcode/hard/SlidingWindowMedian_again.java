@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.hard;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // https://leetcode.com/problems/sliding-window-median/
-public class SlidingWindowMedian {
+public class SlidingWindowMedian_again {
     static class MedianWindow {
         private final TreeMap<Integer, Integer> smallerValuesMap = new TreeMap<>();
         private final TreeMap<Integer, Integer> biggerValuesMap = new TreeMap<>();
