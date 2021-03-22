@@ -1,4 +1,4 @@
-package multithreadConcurrency.exercises;
+package concurrency.exercises;
 
 public class CounterFromPimco implements Runnable {
     final static int iterations = 4_000_000;

@@ -1,4 +1,4 @@
-package multithreadConcurrency.exercises;
+package concurrency.exercises;
 
 public class DeadLock {
     static class Friend {

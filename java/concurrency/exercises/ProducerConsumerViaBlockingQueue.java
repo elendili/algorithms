@@ -1,4 +1,4 @@
-package multithreadConcurrency.exercises;
+package concurrency.exercises;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
