@@ -40,31 +40,31 @@ public class MaxPointsOnALine {
     private String getEquationFromPoints(int[] p1, int[] p2) {
         // slope calculation
         //   y2-y1
-        int slope_dividend = p2[1] - p1[1];
+        int slope_numerator = p2[1] - p1[1];
         //  (x2-x1)
-        int slope_divisor = p2[0] - p1[0];
-        int s_gcd = gcd(slope_dividend, slope_divisor);
+        int slope_denominator = p2[0] - p1[0];
+        int s_gcd = gcd(slope_numerator, slope_denominator);
         if (s_gcd != 0) {
-            slope_dividend /= s_gcd;
-            slope_divisor /= s_gcd;
+            slope_numerator /= s_gcd;
+            slope_denominator /= s_gcd;
         }
         // shift calculation
         // y = slope*x + b
         // b = y - slope*x
         // b = y1 - slope*x1
-        // b = y1 - slope_dividend*x1/slope_divisor
-        // b = ( y1*slope_divisor - slope_dividend*x1)/slope_divisor
-        // b_divident = ( y1*slope_divisor - slope_dividend*x1)
-        // b_divisor = slope_divisor
+        // b = y1 - slope_numerator*x1/slope_denominator
+        // b = ( y1*slope_denominator - slope_numerator*x1)/slope_denominator
+        // b_numerator = ( y1*slope_denominator - slope_numerator*x1)
+        // b_denominator = slope_denominator
         // get gcd for both
-        int b_divident = p1[1] * slope_divisor - slope_dividend * p1[0];
-        int b_divisor = slope_divisor;
-        int b_gcd = gcd(b_divident, b_divisor);
+        int b_numerator = p1[1] * slope_denominator - slope_numerator * p1[0];
+        int b_denominator = slope_denominator;
+        int b_gcd = gcd(b_numerator, b_denominator);
         if (b_gcd != 0) {
-            b_divident /= b_gcd;
-            b_divisor /= b_gcd;
+            b_numerator /= b_gcd;
+            b_denominator /= b_gcd;
         }
-        String out = slope_dividend + "/" + slope_divisor + " + " + b_divident + "/" + b_divisor;
+        String out = slope_numerator + "/" + slope_denominator + " + " + b_numerator + "/" + b_denominator;
         return out;
     }
 
@@ -118,6 +118,11 @@ public class MaxPointsOnALine {
     @Test
     public void test4() {
         Assertions.assertEquals(4, maxPoints(new int[][]{{1, 1}, {3, 2}, {5, 3}, {4, 1}, {2, 3}, {1, 4}}));
+    }
+
+    @Test
+    public void testBig() {
+        Assertions.assertEquals(2, maxPoints(new int[][]{{0, 0}, {94911151, 94911150}, {94911152, 94911151}}));
     }
 
 }
