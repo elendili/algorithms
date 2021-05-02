@@ -1,4 +1,4 @@
-package yandex.contest;
+package yandex.contest.old;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -11,7 +11,7 @@ import java.io.PrintStream;
 import static hackerrank.TestHelper.assertStdOutAfterStdInput;
 import static hackerrank.TestHelper.stubStdInAndStdOut;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static yandex.contest._6_mergeSortedListsInOne.*;
+import static yandex.contest.old._6_mergeSortedListsInOne.*;
 
 public class _6_mergeSortedListsInOneTest {
     @Test

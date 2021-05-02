@@ -1,10 +1,7 @@
-package yandex.contest;
+package yandex.contest.old;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

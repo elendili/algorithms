@@ -1,4 +1,4 @@
-package yandex.contest;
+package yandex.contest.old;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

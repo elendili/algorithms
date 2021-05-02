@@ -1,4 +1,4 @@
-package yandex.contest;
+package yandex.contest.old;
 
 import org.junit.jupiter.api.Test;
 
