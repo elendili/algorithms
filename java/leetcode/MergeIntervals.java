@@ -1,11 +1,11 @@
 package leetcode;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.stream.Collectors;
 
 //https://leetcode.com/problems/merge-intervals/submissions/
 public class MergeIntervals {
@@ -34,13 +34,19 @@ public class MergeIntervals {
             return out;
         }
     }
+
     @Test
-    public void test(){
+    public void test() {
         Solution s = new Solution();
-        assertArrayEquals(new int[][]{{1,6},{8,10},{15,18}},
-                s.merge(new int[][]{{1,3},{2,6},{8,10},{15,18}}));
-        assertArrayEquals(new int[][]{{1,4}},s.merge(new int[][]{{1,4},{2,3}}));
-        assertArrayEquals(new int[][]{{0,4}},s.merge(new int[][]{{1,4},{0,4}}));
-        assertArrayEquals(new int[][]{{0,0},{1,4}},s.merge(new int[][]{{1,4},{0,0}}));
+        check("[1, 6],[8, 10],[15, 18]",
+                s.merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}}));
+        check("[1, 4]", s.merge(new int[][]{{1, 4}, {2, 3}}));
+        check("[0, 4]", s.merge(new int[][]{{1, 4}, {0, 4}}));
+        check("[0, 0],[1, 4]", s.merge(new int[][]{{1, 4}, {0, 0}}));
+    }
+
+    void check(String expected, int[][] actual) {
+        String aString = Arrays.stream(actual).map(a -> Arrays.toString(a)).collect(Collectors.joining(","));
+        Assertions.assertEquals(expected, aString);
     }
 }
