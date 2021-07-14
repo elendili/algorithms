@@ -14,11 +14,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class OwnBlockingQueue<E> {
+public class MyBlockingQueue<E> {
     private final LinkedList<E> list = new LinkedList<>();
     final int limit;
 
-    public OwnBlockingQueue(int limit) {
+    public MyBlockingQueue(int limit) {
         this.limit = limit;
     }
 
@@ -49,15 +49,16 @@ public class OwnBlockingQueue<E> {
 
 }
 
-class OwnBlockingQueueTest {
+class MyBlockingQueueTest {
     @Test
     public void test() throws InterruptedException {
         final int count = 10_000;
         final ThreadLocalRandom tlr = ThreadLocalRandom.current();
-        OwnBlockingQueue<Integer> queue = new OwnBlockingQueue<>(5);
+        MyBlockingQueue<Integer> queue = new MyBlockingQueue<>(5);
         ExecutorService threadPool = Executors.newCachedThreadPool();
         List<Integer> out = new ArrayList<>();
         CountDownLatch latch = new CountDownLatch(2);
+        // supplier
         threadPool.submit(() -> {
             for (int i = 0; i < count; i++) {
                 Helpers.sleep(tlr.nextInt(2));
@@ -65,6 +66,7 @@ class OwnBlockingQueueTest {
             }
             latch.countDown();
         });
+        // consumer
         threadPool.submit(() -> {
             for (int i = 0; i < count; i++) {
                 Helpers.sleep(tlr.nextInt(2));

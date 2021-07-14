@@ -23,7 +23,7 @@ public class GetArticleTitles {
         int totalPages = Integer.MAX_VALUE;
         int page = 0;
         while (page < totalPages) {
-            Map<String, Object> res = request(author, ++page);
+            Map<String, Object> res = makeRequestReturnResponseAsMap(author, ++page);
             totalPages = ((Number) res.get("total_pages")).intValue();
             page = ((Number) res.get("page")).intValue();
             processData(res, out);
@@ -43,7 +43,7 @@ public class GetArticleTitles {
                 });
     }
 
-    private static Map<String, Object> request(String author, int page) {
+    private static Map<String, Object> makeRequestReturnResponseAsMap(String author, int page) {
         try {
             URL url =
                     new URL(
