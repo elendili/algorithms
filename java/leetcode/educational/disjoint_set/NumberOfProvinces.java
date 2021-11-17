@@ -2,6 +2,8 @@ package leetcode.educational.disjoint_set;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -17,46 +19,98 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 public class NumberOfProvinces {
-    // return 1 if joined, 0 otherwise
-    private int union(int[] a, int i, int j) {
-        int iRoot = find(a, i);
-        int jRoot = find(a, j);
-        if (iRoot != jRoot) {
-            a[j] = i;
-            return 1;
+    private static class UnionFind {
+        private final int[] disjoinedSets;
+        private int count;
+
+        UnionFind(int size) {
+            this.disjoinedSets = new int[size];
+            this.count = size;
+            Arrays.fill(disjoinedSets, -1);
         }
-        return 0;
+
+        void union(int i, int j) {
+            int iRoot = find(i);
+            int jRoot = find(j);
+            if (iRoot != jRoot) {
+                disjoinedSets[jRoot] = iRoot;
+                count--;
+            }
+        }
+
+        private int find(int i) {
+            if (disjoinedSets[i] == -1) {
+                return i;
+            }
+            int out = find(disjoinedSets[i]);
+            disjoinedSets[i] = out;
+            return out;
+        }
+
+        private int count() {
+            return count;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < disjoinedSets.length; i++) {
+                sb.append(i).append(" ").append(disjoinedSets[i]).append("\n");
+            }
+            return sb.toString();
+        }
     }
 
-    private int find(int[] a, int i) {
-        if (i == a[i]) {
-            return i;
-        }
-        return a[i] = find(a, a[i]);
-    }
 
-    public int findCircleNum(int[][] isConnected) {
-        if (isConnected == null || isConnected.length == 0) {
+    public int findCircleNum(int[][] isConnectedArray) {
+        if (isConnectedArray == null || isConnectedArray.length == 0) {
             return 0;
         }
-        int n = isConnected.length;
-        int out = n;
-
-        int[] disSets = new int[n];
-        for (int i = 0; i < n; i++) {
-            disSets[i] = i; // set current as root
-        }
+        int n = isConnectedArray.length;
+        UnionFind uf = new UnionFind(n);
 
         for (int i = 0; i < n; i++) {
-            int[] row = isConnected[i];
             for (int j = i + 1; j < n; j++) {
-                int v = row[j];
-                if (v == 1) {
-                    out -= union(disSets, i, j);
+                if (isConnectedArray[i][j] == 1) {
+                    uf.union(i, j);
                 }
             }
         }
-        return out;
+        return uf.count();
+    }
+
+    @Test
+    public void testFromLeetCode() {
+        int[][] input = new int[][]{
+                {1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // 0,1,7
+                {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0,1
+                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 2 <---
+                {0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, // 3,5,6
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, // 3,4,9,10
+                {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0}, // 3,4,5,10 --
+                {0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0}, // 6,8,13
+                {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, // 6,7,8,13
+                {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0}, // 6,7,8,13
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1}, // 3,9,11,14
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0}, // 3,4,5,9,10,11
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0}, // 3,4,5,9,10,11
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}, // 12 <---
+                {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0}, // 6,7,8,13
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}  // 9,14
+        };
+        assertEquals(3, findCircleNum(input));
+    }
+
+
+    @Test
+    public void test2() {
+        assertEquals(3, findCircleNum(new int[][]{
+                {1, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 0, 1, 0, 1},
+                {0, 0, 0, 1, 1},
+                {0, 0, 1, 1, 1},
+        }));
     }
 
     @Test
@@ -71,6 +125,47 @@ public class NumberOfProvinces {
                 {0, 1, 0, 1},
                 {0, 0, 1, 0},
                 {0, 1, 0, 1},
+        }));
+        assertEquals(4, findCircleNum(new int[][]{
+                {1, 0, 0, 0, 0},
+                {0, 1, 0, 1, 0},
+                {0, 0, 1, 0, 0},
+                {0, 1, 0, 1, 0},
+                {0, 0, 0, 0, 1},
+        }));
+        assertEquals(3, findCircleNum(new int[][]{
+                {1, 0, 0, 0, 1},
+                {0, 1, 0, 1, 0},
+                {0, 0, 1, 0, 0},
+                {0, 1, 0, 1, 0},
+                {1, 0, 0, 0, 1},
+        }));
+        assertEquals(3, findCircleNum(new int[][]{
+                {1, 0, 0, 0, 1},
+                {0, 1, 1, 0, 0},
+                {0, 1, 1, 0, 0},
+                {0, 0, 0, 1, 0},
+                {1, 0, 0, 0, 1},
+        }));
+        assertEquals(2, findCircleNum(new int[][]{
+                {1, 1, 0, 0, 1},
+                {1, 1, 1, 0, 0},
+                {0, 1, 1, 0, 0},
+                {0, 0, 0, 1, 0},
+                {1, 0, 0, 0, 1},
+        }));
+        assertEquals(4, findCircleNum(new int[][]{
+                {1, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0},
+                {0, 0, 1, 0, 1, 0},
+                {0, 0, 0, 1, 1, 0},
+                {0, 0, 1, 1, 1, 0},
+                {0, 0, 0, 0, 0, 1},
+        }));
+        assertEquals(2, findCircleNum(new int[][]{
+                {1, 1, 0},
+                {1, 1, 0},
+                {0, 0, 1},
         }));
     }
 }
