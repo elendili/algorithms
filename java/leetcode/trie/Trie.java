@@ -1,8 +1,8 @@
-package leetcode;
+package leetcode.trie;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+// https://leetcode.com/explore/learn/card/trie/147/basic-operations/1047/
 public class Trie {
     public static final int alphabetSize = 26;
 
