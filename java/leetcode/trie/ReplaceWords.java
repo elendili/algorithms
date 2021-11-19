@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
 https://leetcode.com/problems/replace-words/
@@ -36,28 +36,24 @@ public class ReplaceWords {
                     list.add(String.valueOf(c));
                 }
             }
-            return String.join(",", list);
+            return "["+String.join(",", list)+"]";
         }
 
         /**
          * insert word into Trie
          */
-        public void insert(String word) {
-            char[] ca = word.toCharArray();
-            RecursiveTrieNode current = this;
-            for (int i = 0; i < ca.length; i++) {
-                int childIndex = ca[i] - 97;
-                RecursiveTrieNode curChild = current.children[childIndex];
-                RecursiveTrieNode next;
-                if (curChild != null) {
-                    next = curChild;
-                } else {
-                    next = new RecursiveTrieNode();
+        public void insert(String string) {
+            if(string.length()>0){
+                int childIndex = string.charAt(0) -'a';
+                RecursiveTrieNode child = children[childIndex];
+                if (child == null) {
+                    child = new RecursiveTrieNode();
                 }
-                current.children[childIndex] = next;
-                current = next;
+                child.insert(string.substring(1));
+                children[childIndex] = child;
+            } else  {
+                leaf=true;
             }
-            current.leaf = true;
         }
 
         /**
@@ -76,17 +72,16 @@ public class ReplaceWords {
         }
 
         private RecursiveTrieNode getLastNodeForString(String string) {
-            char[] ca = string.toCharArray();
-            RecursiveTrieNode current = this;
-            for (int i = 0; i < ca.length; i++) {
-                RecursiveTrieNode next = current.children[ca[i] - 97];
-                if (next != null) {
-                    current = next;
-                } else {
-                    return null;
+            if(string.length()>0){
+                int childIndex = string.charAt(0) -'a';
+                RecursiveTrieNode child = children[childIndex];
+                if (child != null) {
+                    return child.getLastNodeForString(string.substring(1));
                 }
+            } else {
+                return this;
             }
-            return current;
+            return null;
         }
 
         public String getSmallestPrefixForString(String string) {
@@ -100,7 +95,7 @@ public class ReplaceWords {
                 if (next != null) {
                     current = next;
                 } else {
-                    return string;
+                    break;
                 }
             }
             return string;
@@ -118,6 +113,26 @@ public class ReplaceWords {
         }
         String out = String.join(" ", words);
         return out;
+    }
+
+    @Test
+    public void testTrie() {
+        RecursiveTrieNode rtn = new RecursiveTrieNode();
+        rtn.insert("cat");
+        rtn.insert("cato");
+        assertTrue(rtn.search("cat"));
+        assertTrue(rtn.search("cato"));
+        assertFalse(rtn.search("cata"));
+
+        assertTrue(rtn.hasWordWhichStartsWithPrefix("c"));
+        assertTrue(rtn.hasWordWhichStartsWithPrefix("cat"));
+        assertTrue(rtn.hasWordWhichStartsWithPrefix("cato"));
+        assertFalse(rtn.hasWordWhichStartsWithPrefix("catt"));
+        assertFalse(rtn.hasWordWhichStartsWithPrefix("catot"));
+
+        assertEquals("cat",rtn.getSmallestPrefixForString("cater"));
+        assertEquals("cac",rtn.getSmallestPrefixForString("cac"));
+        assertEquals("cat",rtn.getSmallestPrefixForString("cato"));
     }
 
     @Test
