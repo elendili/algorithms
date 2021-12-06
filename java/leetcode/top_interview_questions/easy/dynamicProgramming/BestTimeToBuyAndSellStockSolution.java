@@ -2,7 +2,6 @@ package leetcode.top_interview_questions.easy.dynamicProgramming;
 
 import org.junit.jupiter.api.Test;
 
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /* https://leetcode.com/explore/featured/card/top-interview-questions-easy/97/dynamic-programming/572/
