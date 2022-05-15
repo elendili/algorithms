@@ -34,7 +34,7 @@ public class MinimumNumberOfStepsToMakeTwoStringsAnagram {
     public void test() {
         Solution s = new Solution();
         Assertions.assertEquals(1, s.minSteps("bab", "aba"));
-        Assertions.assertEquals(5, s.minSteps("leetcode", "practice"));
+        Assertions.assertEquals(5, s.minSteps("java/leetcode", "practice"));
         Assertions.assertEquals(0, s.minSteps("anagram", "mangaar"));
         Assertions.assertEquals(0, s.minSteps("xxyyzz", "xxyyzz"));
         Assertions.assertEquals(4, s.minSteps("friend", "family"));

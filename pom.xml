@@ -105,7 +105,7 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>java</source>
+                                <source>src/main/java</source>
                                 <source>python</source>
                                 <source>target/generated-sources/annotations</source>
                             </sourceDirs>

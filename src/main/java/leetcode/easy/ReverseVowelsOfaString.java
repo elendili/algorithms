@@ -76,7 +76,7 @@ public class ReverseVowelsOfaString {
 
     @Test
     public void testfromtask() {
-        assertEquals("leotcede", reverseVowels("leetcode"));
+        assertEquals("leotcede", reverseVowels("java/leetcode"));
     }
 
 }
