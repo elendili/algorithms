@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.hard;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -100,7 +100,7 @@ public class NQueens {
             Assertions.assertEquals(10, solveNQueens(5).size());
             Assertions.assertEquals(4, solveNQueens(6).size());
             Assertions.assertEquals(40, solveNQueens(7).size());
-//            Assertions.assertEquals(724,  solveNQueens(10).size());
+            Assertions.assertEquals(724,  solveNQueens(10).size());
 //            Assertions.assertEquals(365_596,  solveNQueens(14).size());
 
 //            System.out.println(
