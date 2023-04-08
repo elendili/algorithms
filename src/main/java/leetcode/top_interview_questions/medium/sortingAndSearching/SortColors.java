@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 /*
 https://leetcode.com/explore/featured/card/top-interview-questions-medium/110/sorting-and-searching/798/
+https://leetcode.com/problems/sort-colors
 Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent,
 with the colors in the order red, white, and blue.
 
@@ -48,21 +49,17 @@ public class SortColors {
 
             while (mid <= hi) {
                 switch (a[mid]) {
-                    case 0: {
+                    case 0 -> {
                         a[mid] = a[lo];
                         a[lo] = 0;
                         lo++;
                         mid++;
-                        break;
                     }
-                    case 1:
-                        mid++;
-                        break;
-                    case 2: {
+                    case 1 -> mid++;
+                    case 2 -> {
                         a[mid] = a[hi];
                         a[hi] = 2;
                         hi--;
-                        break;
                     }
                 }
             }
