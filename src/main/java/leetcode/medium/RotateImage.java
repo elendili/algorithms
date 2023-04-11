@@ -2,9 +2,7 @@ package leetcode.medium;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+import static hackerrank.TestHelper.twoDArrayToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //
@@ -41,11 +39,7 @@ public class RotateImage {
         a[y][x]=v;
         return out;
     }
-    String twoDArrayToString(int[][]a){
-        return Arrays.stream(a)
-                .map(row->Arrays.toString(row))
-                .collect(Collectors.joining("\n"));
-    }
+
     @Test
     public void test1(){
         int[][] actualInplace= new int[][]{{9}};
@@ -78,7 +72,13 @@ public class RotateImage {
                 {13,14,15,16}
         };
         rotate(actualInplace);
-        assertEquals(twoDArrayToString(new int[][]{{7,4,1},{8,5,2},{9,6,3}}),
+        int[][] expected = new int[][]{
+                {13, 9, 5, 1},
+                {14, 10, 6, 2},
+                {15, 11, 7, 3},
+                {16, 12, 8, 4}
+        };
+        assertEquals(twoDArrayToString(expected),
                 twoDArrayToString(actualInplace));
     }
 }

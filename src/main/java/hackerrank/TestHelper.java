@@ -6,7 +6,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.function.BiConsumer;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class TestHelper {
 
@@ -45,5 +46,11 @@ public class TestHelper {
             System.setIn(oldIn);
             System.setOut(oldOut);
         }
+    }
+
+    public static String twoDArrayToString(int[][]a){
+        return Arrays.stream(a)
+                .map(row->Arrays.toString(row))
+                .collect(Collectors.joining("\n"));
     }
 }
