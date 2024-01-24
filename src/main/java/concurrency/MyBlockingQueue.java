@@ -11,7 +11,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MyBlockingQueue<E> {
@@ -75,7 +74,7 @@ class MyBlockingQueueTest {
             latch.countDown();
         });
         latch.await();
-        String expected = IntStream.range(0, count).boxed().collect(Collectors.toList()).toString();
+        String expected = IntStream.range(0, count).boxed().toList().toString();
         Assertions.assertEquals(expected, out.toString());
     }
 }

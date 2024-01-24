@@ -57,6 +57,11 @@ public class Helpers {
         return out;
     }
 
+    public static String currentThreadName() {
+        String n = Thread.currentThread().getName();
+        return n;
+    }
+
     @Test
     public void arraycopyTest() {
         int[] a = new int[]{1, 2, 3, 4};
