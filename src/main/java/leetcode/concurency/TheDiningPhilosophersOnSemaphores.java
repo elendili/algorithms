@@ -61,9 +61,10 @@ Constraints:
 
 
  */
-public class TheDiningPhilosophers {
+public class TheDiningPhilosophersOnSemaphores {
     /**
-     * NOTE: really test on leetcode side doesn't consider different ordering of left/right, which can be really correct.
+     * NOTE: really test on leetcode side doesn't consider different ordering of left/right,
+     * which can be really correct.
      * So hard to guess.
      * Used workaround: tests passed via simple synchronized(this){} for entire method body
      */
@@ -120,7 +121,7 @@ class TestPhilosophers {
 
     @Test
     public void test1() {
-        String actual = ztestBody(1).stream().map(Object::toString).sorted().collect(Collectors.toList()).toString().replaceAll(" ", "");
+        String actual = ztestBody(1).stream().map(Object::toString).sorted().toList().toString().replaceAll(" ", "");
         Assertions.assertEquals(
                 "[[0,0,3],[0,1,1],[0,1,2],[0,2,1],[0,2,2],[1,0,3],[1,1,1],[1,1,2],[1,2,1],[1,2,2],[2,0,3],[2,1,1],[2,1,2],[2,2,1],[2,2,2],[3,0,3],[3,1,1],[3,1,2],[3,2,1],[3,2,2],[4,0,3],[4,1,1],[4,1,2],[4,2,1],[4,2,2]]",
                 actual);
@@ -128,7 +129,7 @@ class TestPhilosophers {
 
     private List<List<Integer>> ztestBody(int howManyCalls) {
         List<List<Integer>> out = new CopyOnWriteArrayList<>();
-        TheDiningPhilosophers sut = new TheDiningPhilosophers();
+        TheDiningPhilosophersOnSemaphores sut = new TheDiningPhilosophersOnSemaphores();
         List<Future<?>> futures = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Future<?> f = runPhilosopher(out, sut, i, howManyCalls);
@@ -137,18 +138,14 @@ class TestPhilosophers {
         futures.forEach(f -> {
             try {
                 f.get(100, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (TimeoutException e) {
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 e.printStackTrace();
             }
         });
         return out;
     }
 
-    private Future<?> runPhilosopher(List<List<Integer>> out, TheDiningPhilosophers theDiningPhilosophers, int id, int howManyCalls) {
+    private Future<?> runPhilosopher(List<List<Integer>> out, TheDiningPhilosophersOnSemaphores theDiningPhilosophers, int id, int howManyCalls) {
         return Executors.newSingleThreadExecutor().submit(() -> {
             for (int i = 0; i < howManyCalls; i++) {
                 try {
@@ -168,7 +165,7 @@ class TestPhilosophers {
 
     @Test
     public void test2() {
-        String actual = ztestBody(2).stream().map(Object::toString).sorted().collect(Collectors.toList()).toString().replaceAll(" ", "");
+        String actual = ztestBody(2).stream().map(Object::toString).sorted().toList().toString().replaceAll(" ", "");
         Assertions.assertEquals(
                 "[[0,0,3],[0,0,3],[0,1,1],[0,1,1],[0,1,2],[0,1,2],[0,2,1],[0,2,1],[0,2,2],[0,2,2],[1,0,3],[1,0,3],[1,1,1],[1,1,1],[1,1,2],[1,1,2],[1,2,1],[1,2,1],[1,2,2],[1,2,2],[2,0,3],[2,0,3],[2,1,1],[2,1,1],[2,1,2],[2,1,2],[2,2,1],[2,2,1],[2,2,2],[2,2,2],[3,0,3],[3,0,3],[3,1,1],[3,1,1],[3,1,2],[3,1,2],[3,2,1],[3,2,1],[3,2,2],[3,2,2],[4,0,3],[4,0,3],[4,1,1],[4,1,1],[4,1,2],[4,1,2],[4,2,1],[4,2,1],[4,2,2],[4,2,2]]",
                 actual);
