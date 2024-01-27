@@ -23,28 +23,20 @@ public class BoundedBlockingQueue {
         this.capacity = capacity;
     }
 
-    private void waitOn(Object o) {
-        try {
-            o.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void enqueue(Integer element) {
+    void enqueue(Integer element) throws InterruptedException {
         synchronized (data) {
             while (data.size() >= capacity) {
-                waitOn(data);
+                data.wait();
             }
             data.add(element);
             data.notifyAll();
         }
     }
 
-    Integer dequeue() {
+    Integer dequeue() throws InterruptedException {
         synchronized (data) {
             while (data.isEmpty()) {
-                waitOn(data);
+                data.wait();
             }
             Integer out = data.poll();
             data.notifyAll();
@@ -71,12 +63,20 @@ class BoundedBlockingQueueTest {
         e.submit(() -> {
             for (int i = 0; i < loopCount; i++) {
                 assert bbq.size() <= capacity;
-                out.add(bbq.dequeue());
+                try {
+                    out.add(bbq.dequeue());
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         e.submit(() -> {
             for (int i = 0; i < loopCount; i++) {
-                bbq.enqueue(ai.getAndIncrement());
+                try {
+                    bbq.enqueue(ai.getAndIncrement());
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
                 assert bbq.size() <= capacity;
             }
         });
