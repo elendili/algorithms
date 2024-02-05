@@ -1,3 +1,5 @@
+package misc;
+
 public class ObfuscationHelloWorld {
     public static void main(String... a) {
         String s = "";
