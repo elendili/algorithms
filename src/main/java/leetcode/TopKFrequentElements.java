@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -34,7 +33,7 @@ public class TopKFrequentElements {
 
     @Test
     public void test() {
-        // [1,1,1,2,2,3], k = 2
+        // [1,1,1,2,2,3], key = 2
         Assertions.assertEquals(asList(-1, 2), topKFrequent(new int[]{4, 1, -1, 2, -1, 2, 3}, 2));
         Assertions.assertEquals(asList(), topKFrequent(new int[]{1, 2, 3}, 0));
         Assertions.assertEquals(asList(1), topKFrequent(new int[]{1}, 1));

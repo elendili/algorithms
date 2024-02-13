@@ -111,7 +111,7 @@ public class SlidingWindowMaximum {
             indexes.addLast(i);
 
             if(!indexes.isEmpty() && i>=k-1) {
-                out[j++] = nums[indexes.peek()];
+                out[j++] = nums[indexes.peekFirst()];
             }
         }
         return out;
