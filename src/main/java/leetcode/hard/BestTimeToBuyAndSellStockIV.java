@@ -22,6 +22,7 @@ public class BestTimeToBuyAndSellStockIV {
         }
         // generalize solution from BestTimeToBuyAndSellStockIII
         // costs[i] represent cost of t-sh transaction considering compensation from previous transactions (t-1,t-2,..,first transaction)
+        // transaction here is a buy-sell actions combination
         int[] costs = new int[k];
         Arrays.fill(costs, Integer.MAX_VALUE);
         // profits[i] represent profit of t-sh transaction considering cost of this transaction

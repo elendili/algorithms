@@ -30,9 +30,8 @@ public class FindMedianFromDataStream {
 
         public void addNum(int num) {
             minHeap.add(num);
-            maxHeap.add(minHeap.poll());
-            if (minHeap.size() < maxHeap.size()) {
-                minHeap.offer(maxHeap.poll());
+            if(minHeap.size()>maxHeap.size()+1){
+                maxHeap.add(minHeap.poll());
             }
         }
 
