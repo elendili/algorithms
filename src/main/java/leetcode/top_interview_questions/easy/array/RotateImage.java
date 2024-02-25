@@ -2,12 +2,7 @@ package leetcode.top_interview_questions.easy.array;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+import static hackerrank.TestHelper.twoDArrayToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
@@ -75,7 +70,7 @@ public class RotateImage {
                 }
 //
 //                System.out.println("---------------------"+i+" after");
-//                System.out.println(convert2dToString(aa));
+//                System.out.println(twoDArrayToString(aa));
             }
         }
     }
@@ -92,7 +87,7 @@ public class RotateImage {
                 {4, 2},
         };
         rotate(actual);
-        assertEquals(convert2dToString(expected), convert2dToString(actual));
+        assertEquals(twoDArrayToString(expected), twoDArrayToString(actual));
     }
 
     @Test
@@ -109,7 +104,7 @@ public class RotateImage {
                 {9, 6, 3}
         };
         rotate(actual);
-        assertEquals(convert2dToString(expected), convert2dToString(actual));
+        assertEquals(twoDArrayToString(expected), twoDArrayToString(actual));
     }
 
     @Test
@@ -128,7 +123,7 @@ public class RotateImage {
                 {16, 12, 8, 4}
         };
         rotate(actual);
-        assertEquals(convert2dToString(expected), convert2dToString(actual));
+        assertEquals(twoDArrayToString(expected), twoDArrayToString(actual));
     }
 
     @Test
@@ -149,7 +144,7 @@ public class RotateImage {
                 {25, 20, 15, 10, 5}
         };
         rotate(actual);
-        assertEquals(convert2dToString(expected), convert2dToString(actual));
+        assertEquals(twoDArrayToString(expected), twoDArrayToString(actual));
     }
 
     @Test
@@ -172,12 +167,7 @@ public class RotateImage {
                 {36,30,24,18,12, 6},
         };
         rotate(actual);
-        assertEquals(convert2dToString(expected), convert2dToString(actual));
+        assertEquals(twoDArrayToString(expected), twoDArrayToString(actual));
     }
 
-    private String convert2dToString(int[][] matrix){
-        return Arrays.stream(matrix).map(
-                a->Arrays.stream(a).mapToObj(i->String.format("%2d",i)).collect(joining(","))
-        ).collect(Collectors.joining("\n"));
-    }
 }
