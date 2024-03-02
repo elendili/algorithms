@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * https://leetcode.com/problems/range-sum-query-mutable/description/
+ */
 public class RangeSumQueryMutable {
     interface NumArray {
         void update(int index, int val);
@@ -145,12 +148,13 @@ public class RangeSumQueryMutable {
      *            __*     __*
      *            *   *   *   *
      * indices: 0 1 2 3 4 5 6 7 8
+     * https://en.wikipedia.org/wiki/Fenwick_tree
      */
-    static class NumArray_BinaryIndexedTree_FenwickTree2 implements NumArray {
-        int[] BIT;
+    static class NumArray_BinaryIndexedTree_FenwickTree implements NumArray {
+        int[] BIT; // binary indexed tree, 
         int[] values;
 
-        NumArray_BinaryIndexedTree_FenwickTree2(int[] a) {
+        NumArray_BinaryIndexedTree_FenwickTree(int[] a) {
             values = new int[a.length];
             BIT = new int[a.length + 1];
             for (int i = 0; i < a.length; i++) {
@@ -160,18 +164,27 @@ public class RangeSumQueryMutable {
 
         @Override
         public void update(int i, int val) {
-            int d = val - values[i];
+            int diff = val - values[i];
             values[i] = val;
             i += 1;
             while (i < BIT.length) {
-                BIT[i] += d;
-                i += (i & -i);
+                BIT[i] += diff;
+                i += getLeastSignificantSetBit(i & -i);  // magic of getting index in a tree
             }
         }
 
+        /**
+         * https://en.wikipedia.org/wiki/Find_first_set
+         */
+        private int getLeastSignificantSetBit(int i){
+            int out = i & -i;
+            return out;
+        }
         @Override
         public int sumRange(int left, int right) {
-            return getSum(right) - getSum(left - 1);
+            int toRightInclusiveSum = getSum(right);
+            int beforeLeftSum = getSum(left - 1); // exclusive
+            return toRightInclusiveSum-beforeLeftSum;
         }
 
         private int getSum(int i) {
@@ -179,51 +192,10 @@ public class RangeSumQueryMutable {
             i += 1;
             while (i > 0) {
                 out += BIT[i];
-                i -= (i & -i);
+                i -= getLeastSignificantSetBit(i);
             }
             return out;
         }
-    }
-
-    static class NumArray_BinaryIndexedTree_FenwickTree implements NumArray {
-
-        private final int[] BIT;
-        private final int[] values;
-
-        NumArray_BinaryIndexedTree_FenwickTree(int[] a) {
-            this.values = new int[a.length];
-            this.BIT = new int[a.length + 1];
-            for (int i = 0; i < a.length; i++) {
-                update(i, a[i]);
-            }
-        }
-
-        public void update(int i, int v) {
-            int delta = v - values[i];
-            values[i] = v;
-            i += 1;
-            while (i < BIT.length) {
-                BIT[i] += delta;
-                i += (i & -i);
-            }
-        }
-
-        int getSum(int i) {
-            int out = 0;
-            i += 1;
-            while (i > 0) {
-                out += BIT[i];
-                i -= (i & -i);
-            }
-            return out;
-        }
-
-        @Override
-        public int sumRange(int left, int right) {
-            return getSum(right) - getSum(left - 1);
-        }
-
-
     }
 
     public static Stream<Class<? extends NumArray>> predicateStream() {
@@ -233,8 +205,6 @@ public class RangeSumQueryMutable {
                 NumArray_BinaryTree.class
                 ,
                 NumArray_BinaryIndexedTree_FenwickTree.class
-                ,
-                NumArray_BinaryIndexedTree_FenwickTree2.class
         );
     }
 

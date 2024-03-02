@@ -1,4 +1,4 @@
-/*
+package usaco;/*
 ID: elendil2
 LANG: JAVA
 TASK: test
@@ -7,7 +7,7 @@ TASK: test
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class test {
+public class Test {
     public static void main(String[] args) throws IOException {
         // Use BufferedReader rather than RandomAccessFile; it's much faster
         BufferedReader f = new BufferedReader(new FileReader("test.in"));

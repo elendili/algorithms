@@ -1,4 +1,4 @@
-/*
+package usaco;/*
 ID: elendil2
 LANG: JAVA
 TASK: ride
@@ -7,7 +7,7 @@ TASK: ride
 import java.io.*;
 
 // https://train.usaco.org/usacoprob2?a=UcYDRz1p0P0&S=ride
-public class ride {
+public class Ride {
     static boolean decideToGo(String s1, String s2) {
         return getStringProductModulo47(s1) == getStringProductModulo47(s2);
     }
