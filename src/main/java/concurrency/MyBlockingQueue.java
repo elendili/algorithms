@@ -1,6 +1,5 @@
 package concurrency;
 
-import helpers.Helpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +11,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
+
+import static helpers.ConcurrencyHelpers.sleep;
 
 public class MyBlockingQueue<E> {
     private final LinkedList<E> list = new LinkedList<>();
@@ -60,7 +61,7 @@ class MyBlockingQueueTest {
         // supplier
         threadPool.submit(() -> {
             for (int i = 0; i < count; i++) {
-                Helpers.sleep(tlr.nextInt(2));
+                sleep(tlr.nextInt(2));
                 queue.blockingAdd(i);
             }
             latch.countDown();
@@ -68,7 +69,7 @@ class MyBlockingQueueTest {
         // consumer
         threadPool.submit(() -> {
             for (int i = 0; i < count; i++) {
-                Helpers.sleep(tlr.nextInt(2));
+                sleep(tlr.nextInt(2));
                 out.add(queue.blockingPoll());
             }
             latch.countDown();

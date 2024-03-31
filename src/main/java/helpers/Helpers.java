@@ -4,48 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 
 public class Helpers {
-    public static void barrierAwait(CyclicBarrier c) {
-        try {
-            c.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (BrokenBarrierException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void swap(int[] a, int i, int j) {
         int tmp = a[i];
         a[i] = a[j];
         a[j] = tmp;
-    }
-
-    public static void sleep(long timeout) {
-        try {
-            Thread.sleep(timeout);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void wait(Object o, long timeout) {
-        try {
-            o.wait(timeout);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void join(Thread t) {
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public static int getLogBase2(int n) {
@@ -55,11 +20,6 @@ public class Helpers {
             out++;
         }
         return out;
-    }
-
-    public static String currentThreadName() {
-        String n = Thread.currentThread().getName();
-        return n;
     }
 
     @Test

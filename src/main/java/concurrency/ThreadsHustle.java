@@ -1,6 +1,6 @@
 package concurrency;
 
-import helpers.Helpers;
+import helpers.ConcurrencyHelpers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static helpers.Helpers.sleep;
+import static helpers.ConcurrencyHelpers.sleep;
 
 public class ThreadsHustle {
     /* task ?
@@ -88,9 +88,8 @@ public class ThreadsHustle {
             for (int i = 0; i < howMuchProduceConsume; i++) {
                 int s = data.incrementAndGet();
                 synchronized (list) {
-                    while (list.size() >= size) { // wait till place element is ready for consumption
-                        Helpers.wait(list, 0);
-                    }
+                    // wait till place element is ready for consumption
+                    while (list.size() >= size) ConcurrencyHelpers.wait(list, 0);
                     list.add(s);
                     list.notifyAll(); // element is ready for consumption
                 }
@@ -104,7 +103,7 @@ public class ThreadsHustle {
                 int s;
                 synchronized (list) {
                     while (list.isEmpty()) {
-                        Helpers.wait(list, 0); // wait till
+                        ConcurrencyHelpers.wait(list, 0); // wait till
                     }
                     s = list.poll();
                     list.notifyAll();  // list is (probably) empty, notify producer
@@ -121,7 +120,7 @@ public class ThreadsHustle {
                 .peek(Thread::start)
                 .collect(Collectors.toList());
 
-        threads.forEach(Helpers::join);
+        threads.forEach(ConcurrencyHelpers::join);
     }
 
     @Test
@@ -152,7 +151,7 @@ public class ThreadsHustle {
                         : new Thread(consumer, "c " + i))
                 .peek(Thread::start)
                 .collect(Collectors.toList());
-        threads.forEach(Helpers::join);
+        threads.forEach(ConcurrencyHelpers::join);
     }
 
     @Test
@@ -211,7 +210,7 @@ public class ThreadsHustle {
                         : new Thread(consumer, "c " + i))
                 .peek(Thread::start)
                 .collect(Collectors.toList());
-        threads.forEach(Helpers::join);
+        threads.forEach(ConcurrencyHelpers::join);
     }
 
 
@@ -232,7 +231,7 @@ public class ThreadsHustle {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         // Create DeadLock
         Future<?> f1 = executorService.submit(() -> {
-            Helpers.barrierAwait(cyclicBarrier);
+            ConcurrencyHelpers.barrierAwait(cyclicBarrier);
             synchronized (o1) {
                 System.out.println(Thread.currentThread().getName() + ". Acquired lock on o1");
                 synchronized (o2) {
@@ -242,7 +241,7 @@ public class ThreadsHustle {
         });
 
         Future<?> f2 = executorService.submit(() -> {
-            Helpers.barrierAwait(cyclicBarrier);
+            ConcurrencyHelpers.barrierAwait(cyclicBarrier);
             synchronized (o2) {
                 System.out.println(Thread.currentThread().getName() + ". Acquired lock on o2");
                 synchronized (o1) {

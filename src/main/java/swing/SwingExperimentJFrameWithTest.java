@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
-import static helpers.Helpers.currentThreadName;
-import static helpers.Helpers.sleep;
+import static helpers.ConcurrencyHelpers.currentThreadName;
+import static helpers.ConcurrencyHelpers.sleep;
 import static helpers.Strings.f;
 import static javax.swing.SwingWorker.StateValue.DONE;
 
