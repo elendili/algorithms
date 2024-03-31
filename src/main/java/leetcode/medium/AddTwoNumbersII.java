@@ -1,6 +1,6 @@
 package leetcode.medium;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ Output: 7 -> 8 -> 0 -> 7
 public class AddTwoNumbersII {
 
     // without list node reversion
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public LinkedListNode addTwoNumbers(LinkedListNode l1, LinkedListNode l2) {
         // get length
         int[] a1 = toArray(l1);
         int[] a2 = toArray(l2);
@@ -50,7 +50,7 @@ public class AddTwoNumbersII {
         return toListNode(a1);
     }
 
-    int length(ListNode n) {
+    int length(LinkedListNode n) {
         int out = 0;
         while (n != null) {
             out++;
@@ -59,7 +59,7 @@ public class AddTwoNumbersII {
         return out;
     }
 
-    int[] toArray(ListNode n) {
+    int[] toArray(LinkedListNode n) {
         int l = length(n);
         int[] out = new int[l + 1];
         int i = out.length - 2;
@@ -70,14 +70,14 @@ public class AddTwoNumbersII {
         return out;
     }
 
-    ListNode toListNode(int[] a) {
+    LinkedListNode toListNode(int[] a) {
         int i = a.length;
         while (a[--i] == 0 && i>0) ;
-        ListNode out = new ListNode(), c = out;
+        LinkedListNode out = new LinkedListNode(), c = out;
         for (; i > -1; i--) {
             c.val = a[i];
             if (i > 0) {
-                c.next = new ListNode();
+                c.next = new LinkedListNode();
             }
             c = c.next;
         }
@@ -86,33 +86,33 @@ public class AddTwoNumbersII {
 
     @Test
     public void test1() {
-        ListNode a = ListNode.from(9);
-        ListNode b = ListNode.from(9);
-        ListNode expected = ListNode.from(1, 8);
+        LinkedListNode a = LinkedListNode.from(9);
+        LinkedListNode b = LinkedListNode.from(9);
+        LinkedListNode expected = LinkedListNode.from(1, 8);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test2() {
-        ListNode a = ListNode.from(9, 9);
-        ListNode b = ListNode.from(9);
-        ListNode expected = ListNode.from(1, 0, 8);
+        LinkedListNode a = LinkedListNode.from(9, 9);
+        LinkedListNode b = LinkedListNode.from(9);
+        LinkedListNode expected = LinkedListNode.from(1, 0, 8);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test0() {
-        ListNode a = ListNode.from(0);
-        ListNode b = ListNode.from(0);
-        ListNode expected = ListNode.from(0);
+        LinkedListNode a = LinkedListNode.from(0);
+        LinkedListNode b = LinkedListNode.from(0);
+        LinkedListNode expected = LinkedListNode.from(0);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 
     @Test
     public void test() {
-        ListNode a = ListNode.from(7, 2, 4, 3);
-        ListNode b = ListNode.from(5, 6, 4);
-        ListNode expected = ListNode.from(7, 8, 0, 7);
+        LinkedListNode a = LinkedListNode.from(7, 2, 4, 3);
+        LinkedListNode b = LinkedListNode.from(5, 6, 4);
+        LinkedListNode expected = LinkedListNode.from(7, 8, 0, 7);
         Assertions.assertEquals(expected, addTwoNumbers(a, b));
     }
 }

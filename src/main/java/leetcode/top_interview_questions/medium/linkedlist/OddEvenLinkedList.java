@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.medium.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,18 +28,18 @@ The first node is considered odd, the second node even and so on ...
 The length of the linked list is between [0, 10^4].
  */
 public class OddEvenLinkedList {
-    public ListNode oddEvenList(ListNode head) {
+    public LinkedListNode oddEvenList(LinkedListNode head) {
         if(head==null || head.next==null || head.next.next == null) {
             return head;
         }
-        ListNode oddPrev = head;
-        ListNode headEven = head.next;
-        ListNode evenPrev = headEven;
+        LinkedListNode oddPrev = head;
+        LinkedListNode headEven = head.next;
+        LinkedListNode evenPrev = headEven;
 
         int counter = 0;
-        ListNode c = head;
+        LinkedListNode c = head;
         while (c!=null){
-            ListNode next = c.next;
+            LinkedListNode next = c.next;
             if(++counter % 2 == 1){
                 // for odd
                 oddPrev.next = c;
@@ -58,13 +58,13 @@ public class OddEvenLinkedList {
 
     @Test
     public void test(){
-        Assertions.assertEquals(ListNode.from(1, 3, 5, 2, 4).toString(), oddEvenList(ListNode.genListFromRange(1, 5)).toString());
-        Assertions.assertEquals(ListNode.from(2, 3, 6, 7, 1, 5, 4).toString(), oddEvenList(ListNode.from(2, 1, 3, 5, 6, 4, 7)).toString());
+        Assertions.assertEquals(LinkedListNode.from(1, 3, 5, 2, 4).toString(), oddEvenList(LinkedListNode.genListFromRange(1, 5)).toString());
+        Assertions.assertEquals(LinkedListNode.from(2, 3, 6, 7, 1, 5, 4).toString(), oddEvenList(LinkedListNode.from(2, 1, 3, 5, 6, 4, 7)).toString());
 
         Assertions.assertNull(oddEvenList(null));
-        Assertions.assertEquals(ListNode.from(1).toString(), oddEvenList(ListNode.from(1)).toString());
-        Assertions.assertEquals(ListNode.from(1, 2).toString(), oddEvenList(ListNode.from(1, 2)).toString());
-        Assertions.assertEquals(ListNode.from(1, 3, 2).toString(), oddEvenList(ListNode.from(1, 2, 3)).toString());
+        Assertions.assertEquals(LinkedListNode.from(1).toString(), oddEvenList(LinkedListNode.from(1)).toString());
+        Assertions.assertEquals(LinkedListNode.from(1, 2).toString(), oddEvenList(LinkedListNode.from(1, 2)).toString());
+        Assertions.assertEquals(LinkedListNode.from(1, 3, 2).toString(), oddEvenList(LinkedListNode.from(1, 2, 3)).toString());
     }
 
 }

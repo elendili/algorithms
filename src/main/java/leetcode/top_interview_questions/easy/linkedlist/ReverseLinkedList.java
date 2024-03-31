@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -22,20 +22,20 @@ A linked list can be reversed either iteratively or recursively. Could you imple
  */
 public class ReverseLinkedList {
 
-    public ListNode reverseListRecutsion(final ListNode head) {
+    public LinkedListNode reverseListRecutsion(final LinkedListNode head) {
         if (head==null){
             return null;
         }
-        AtomicReference<ListNode> newHeadR = new AtomicReference<>();
+        AtomicReference<LinkedListNode> newHeadR = new AtomicReference<>();
         reverseListRecursionHelper(head,newHeadR);
         return newHeadR.get();
     }
 
-    private ListNode reverseListRecursionHelper(final ListNode n, AtomicReference<ListNode> newHeadR) {
+    private LinkedListNode reverseListRecursionHelper(final LinkedListNode n, AtomicReference<LinkedListNode> newHeadR) {
         if(n.next==null){
             newHeadR.set(n);
         } else{
-            ListNode x = reverseListRecursionHelper(n.next,newHeadR);
+            LinkedListNode x = reverseListRecursionHelper(n.next,newHeadR);
             x.next=n;
             n.next=null; //  to prevent eternal recursion
         }
@@ -43,14 +43,14 @@ public class ReverseLinkedList {
     }
 
 
-    public ListNode reverseList(final ListNode head) {
+    public LinkedListNode reverseList(final LinkedListNode head) {
         if (head==null){
             return null;
         }
-        ListNode prev = head;
-        ListNode cur = head.next;
+        LinkedListNode prev = head;
+        LinkedListNode cur = head.next;
         head.next=null;
-        ListNode tmp=head;
+        LinkedListNode tmp=head;
         while(cur!=null){
             tmp = cur;
             cur = cur.next;
@@ -62,20 +62,20 @@ public class ReverseLinkedList {
 
     @Test
     public void testRecursive(){
-        Assertions.assertEquals("1>", reverseListRecutsion(ListNode.genListFromOneToNum(1)).toString());
-        Assertions.assertEquals("2>1>", reverseListRecutsion(ListNode.genListFromOneToNum(2)).toString());
-        Assertions.assertEquals("3>2>1>", reverseListRecutsion(ListNode.genListFromOneToNum(3)).toString());
-        Assertions.assertEquals("4>3>2>1>", reverseListRecutsion(ListNode.genListFromOneToNum(4)).toString());
-        Assertions.assertEquals("5>4>3>2>1>", reverseListRecutsion(ListNode.genListFromOneToNum(5)).toString());
+        Assertions.assertEquals("1>", reverseListRecutsion(LinkedListNode.genListFromOneToNum(1)).toString());
+        Assertions.assertEquals("2>1>", reverseListRecutsion(LinkedListNode.genListFromOneToNum(2)).toString());
+        Assertions.assertEquals("3>2>1>", reverseListRecutsion(LinkedListNode.genListFromOneToNum(3)).toString());
+        Assertions.assertEquals("4>3>2>1>", reverseListRecutsion(LinkedListNode.genListFromOneToNum(4)).toString());
+        Assertions.assertEquals("5>4>3>2>1>", reverseListRecutsion(LinkedListNode.genListFromOneToNum(5)).toString());
     }
 
     @Test
     public void testIteration(){
         Assertions.assertEquals(null, reverseList(null));
-        Assertions.assertEquals("1>", reverseList(ListNode.genListFromOneToNum(1)).toString());
-        Assertions.assertEquals("2>1>", reverseList(ListNode.genListFromOneToNum(2)).toString());
-        Assertions.assertEquals("3>2>1>", reverseList(ListNode.genListFromOneToNum(3)).toString());
-        Assertions.assertEquals("4>3>2>1>", reverseList(ListNode.genListFromOneToNum(4)).toString());
-        Assertions.assertEquals("5>4>3>2>1>", reverseList(ListNode.genListFromOneToNum(5)).toString());
+        Assertions.assertEquals("1>", reverseList(LinkedListNode.genListFromOneToNum(1)).toString());
+        Assertions.assertEquals("2>1>", reverseList(LinkedListNode.genListFromOneToNum(2)).toString());
+        Assertions.assertEquals("3>2>1>", reverseList(LinkedListNode.genListFromOneToNum(3)).toString());
+        Assertions.assertEquals("4>3>2>1>", reverseList(LinkedListNode.genListFromOneToNum(4)).toString());
+        Assertions.assertEquals("5>4>3>2>1>", reverseList(LinkedListNode.genListFromOneToNum(5)).toString());
     }
 }

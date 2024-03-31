@@ -1,9 +1,9 @@
 package leetcode.hard;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Test;
 
-import static leetcode.top_interview_questions.ListNode.genListFromOneToNum;
+import static leetcode.top_interview_questions.LinkedListNode.genListFromOneToNum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -13,19 +13,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ReverseNodesInKGroup {
 
 
-    public ListNode reverseLinkedList(ListNode head, int k) {
+    public LinkedListNode reverseLinkedList(LinkedListNode head, int k) {
 
         // Reverse k nodes of the given linked list.
         // This function assumes that the list contains
         // atleast k nodes.
-        ListNode new_head = null;
-        ListNode ptr = head;
+        LinkedListNode new_head = null;
+        LinkedListNode ptr = head;
 
         while (k > 0) {
 
             // Keep track of the next node to process in the
             // original list
-            ListNode next_node = ptr.next;
+            LinkedListNode next_node = ptr.next;
 
             // Insert the node pointed to by "ptr"
             // at the beginning of the reversed list
@@ -45,13 +45,13 @@ public class ReverseNodesInKGroup {
 
     }
 
-    public ListNode reverseKGroup(ListNode head, int k) {
+    public LinkedListNode reverseKGroup(LinkedListNode head, int k) {
 
-        ListNode ptr = head;
-        ListNode ktail = null;
+        LinkedListNode ptr = head;
+        LinkedListNode ktail = null;
 
         // Head of the final, moified linked list
-        ListNode new_head = null;
+        LinkedListNode new_head = null;
 
         // Keep going until there are nodes in the list
         while (ptr != null) {
@@ -71,7 +71,7 @@ public class ReverseNodesInKGroup {
             if (count == k) {
 
                 // Reverse k nodes and get the new head
-                ListNode revHead = this.reverseLinkedList(head, k);
+                LinkedListNode revHead = this.reverseLinkedList(head, k);
 
                 // new_head is the head of the final linked list
                 if (new_head == null)

@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.medium.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -56,19 +56,19 @@ Your code should preferably run in O(n) time and use only O(1) memory.
 
  */
 public class IntersectionOfTwoLinkedLists {
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    public LinkedListNode getIntersectionNode(LinkedListNode headA, LinkedListNode headB) {
         if(headA==null || headB==null){
             return null;
         }
         // get length and tail of
         int la = 0;
-        ListNode ac = headA;
+        LinkedListNode ac = headA;
         while(ac.next!=null){
             ac=ac.next;
             la++;
         }
         int lb = 0;
-        ListNode bc = headB;
+        LinkedListNode bc = headB;
         while(bc.next!=null){
             bc=bc.next;
             lb++;
@@ -104,9 +104,9 @@ public class IntersectionOfTwoLinkedLists {
 
     @Test
     public void test1(){
-        ListNode ln1 = ListNode.from(4, 1, 8, 4, 5);
-        ListNode intersection = ln1.next.next;
-        ListNode ln2 = ListNode.from(5, 6, 1);
+        LinkedListNode ln1 = LinkedListNode.from(4, 1, 8, 4, 5);
+        LinkedListNode intersection = ln1.next.next;
+        LinkedListNode ln2 = LinkedListNode.from(5, 6, 1);
         ln2.next.next.next=intersection;
         Assertions.assertEquals(intersection,getIntersectionNode(ln1,ln2));
         Assertions.assertEquals(intersection,getIntersectionNode(ln2,ln1));
@@ -114,9 +114,9 @@ public class IntersectionOfTwoLinkedLists {
 
     @Test
     public void test2(){
-        ListNode ln1 = ListNode.from(3, 2, 4);
-        ListNode intersection = ln1.next;
-        ListNode ln2 = ListNode.from(1, 9, 1);
+        LinkedListNode ln1 = LinkedListNode.from(3, 2, 4);
+        LinkedListNode intersection = ln1.next;
+        LinkedListNode ln2 = LinkedListNode.from(1, 9, 1);
         ln2.next.next.next=intersection;
         Assertions.assertEquals(intersection,getIntersectionNode(ln1,ln2));
         Assertions.assertEquals(intersection,getIntersectionNode(ln2,ln1));
@@ -124,16 +124,16 @@ public class IntersectionOfTwoLinkedLists {
 
     @Test
     public void test3() {
-        ListNode ln1 = ListNode.from(2, 6, 4);
-        ListNode ln2 = ListNode.from(1, 5);
+        LinkedListNode ln1 = LinkedListNode.from(2, 6, 4);
+        LinkedListNode ln2 = LinkedListNode.from(1, 5);
         Assertions.assertEquals(null, getIntersectionNode(ln1, ln2));
         Assertions.assertEquals(null, getIntersectionNode(ln2, ln1));
     }
 
     @Test
     public void test4() {
-        ListNode ln1 = ListNode.from(1);
-        ListNode ln2 = ListNode.from(2);
+        LinkedListNode ln1 = LinkedListNode.from(1);
+        LinkedListNode ln2 = LinkedListNode.from(2);
         ln2.next = ln1;
         Assertions.assertEquals(ln1, getIntersectionNode(ln2, ln1));
         Assertions.assertEquals(ln1, getIntersectionNode(ln1, ln2));

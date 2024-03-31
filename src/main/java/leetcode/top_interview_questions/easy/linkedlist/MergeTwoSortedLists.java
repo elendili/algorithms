@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +18,11 @@ Output: 1->1->2->3->4->4
 public class MergeTwoSortedLists {
 
 
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode newHead = new ListNode(-1);
-        ListNode c0 = newHead;
-        ListNode c1 = l1;
-        ListNode c2 = l2;
+    public LinkedListNode mergeTwoLists(LinkedListNode l1, LinkedListNode l2) {
+        LinkedListNode newHead = new LinkedListNode(-1);
+        LinkedListNode c0 = newHead;
+        LinkedListNode c1 = l1;
+        LinkedListNode c2 = l2;
         while(c1!=null && c2!=null){
             if (c1.val<=c2.val){
                 c0.next=c1;
@@ -49,9 +49,9 @@ public class MergeTwoSortedLists {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>1>",mergeTwoLists(ListNode.genListFromOneToNum(1),ListNode.genListFromOneToNum(1)).toString());
-        Assertions.assertEquals("3>3>4>4>5>",mergeTwoLists(ListNode.genListFromRange(3,4),ListNode.genListFromRange(3,5)).toString());
-        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(ListNode.genListFromOneToNum(3),ListNode.genListFromOneToNum(2)).toString());
+        Assertions.assertEquals("1>1>",mergeTwoLists(LinkedListNode.genListFromOneToNum(1), LinkedListNode.genListFromOneToNum(1)).toString());
+        Assertions.assertEquals("3>3>4>4>5>",mergeTwoLists(LinkedListNode.genListFromRange(3,4), LinkedListNode.genListFromRange(3,5)).toString());
+        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(LinkedListNode.genListFromOneToNum(3), LinkedListNode.genListFromOneToNum(2)).toString());
     }
 
 }

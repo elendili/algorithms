@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,10 +32,10 @@ Do not return anything from your function.
  */
 public class DeleteNodeInALinkedList {
 
-    public void deleteNode(ListNode node) {
+    public void deleteNode(LinkedListNode node) {
         //loop and shift values
-        ListNode cur = node;
-        ListNode prev=cur;
+        LinkedListNode cur = node;
+        LinkedListNode prev=cur;
         while(cur.next!=null){
             cur.val = cur.next.val;
             prev=cur;
@@ -46,12 +46,12 @@ public class DeleteNodeInALinkedList {
 
     @Test
     public void test() {
-        ListNode top= new ListNode(4);
-        ListNode toDel = new ListNode(5);
+        LinkedListNode top= new LinkedListNode(4);
+        LinkedListNode toDel = new LinkedListNode(5);
         top.next=toDel;
-        ListNode ln1  = new ListNode(1);
+        LinkedListNode ln1  = new LinkedListNode(1);
         toDel.next=ln1;
-        ListNode ln2 = new ListNode(9);
+        LinkedListNode ln2 = new LinkedListNode(9);
         ln1.next=ln2;
         deleteNode(toDel);
         assertEquals("4>1>9>", top.toString());

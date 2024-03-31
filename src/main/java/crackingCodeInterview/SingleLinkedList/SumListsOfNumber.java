@@ -1,72 +1,73 @@
-package crackingCodeInterview.SingleLinkedList;
+package crackingCodeInterview.LinkedListNode;
 
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SumListsOfNumber {
-    int getForwardNumber(Node root) {
-        Node node = root;
+    int getForwardNumber(LinkedListNode root) {
+        LinkedListNode LinkedListNode = root;
         int power = -1;
-        while (node != null) {
+        while (LinkedListNode != null) {
             power += 1;
-            node = node.next;
+            LinkedListNode = LinkedListNode.next;
         }
 
-        node = root;
+        LinkedListNode = root;
         int out = 0;
-        while (node != null) {
-            out += node.data * Math.pow(10, power);
+        while (LinkedListNode != null) {
+            out += LinkedListNode.val * Math.pow(10, power);
             power -= 1;
-            node = node.next;
+            LinkedListNode = LinkedListNode.next;
         }
         return out;
     }
 
 
-    int getForwardNumbersSum(Node a, Node b) {
+    int getForwardNumbersSum(LinkedListNode a, LinkedListNode b) {
         return getForwardNumber(a) + getForwardNumber(b);
     }
 
     @Test
     public void getForwardNumberTest() {
         Assertions.assertEquals(716,
-                getForwardNumber(SingleLinkedList.from(7, 1, 6).root()));
+                getForwardNumber(LinkedListNode.from(7, 1, 6)));
         Assertions.assertEquals(7,
-                getForwardNumber(SingleLinkedList.from(7).root()));
+                getForwardNumber(LinkedListNode.from(7)));
     }
 
-    int getReverseNumber(Node node) {
+    int getReverseNumber(LinkedListNode LinkedListNode) {
         int out = 0;
         int power = 1;
-        while (node != null) {
-            out += node.data * power;
+        while (LinkedListNode != null) {
+            out += LinkedListNode.val * power;
             power *= 10;
-            node = node.next;
+            LinkedListNode = LinkedListNode.next;
         }
         return out;
     }
 
-    int getReverseNumbersSum(Node a, Node b) {
+    int getReverseNumbersSum(LinkedListNode a, LinkedListNode b) {
         return getReverseNumber(a) + getReverseNumber(b);
     }
 
     @Test
     public void getReverseNumberTest() {
-        Node a = SingleLinkedList.from(7, 1, 6).root();
+        LinkedListNode a = LinkedListNode.from(7, 1, 6);
         Assertions.assertEquals(617, getReverseNumber(a));
     }
 
     @Test
     public void getReverseNumbersSumTest() {
-        Node a = SingleLinkedList.from(7, 1, 6).root();
-        Node b = SingleLinkedList.from(5, 9, 2).root();
+        LinkedListNode a = LinkedListNode.from(7, 1, 6);
+        LinkedListNode b = LinkedListNode.from(5, 9, 2);
         Assertions.assertEquals((617 + 295),
                 getReverseNumbersSum(a, b));
     }
     @Test
     public void getForwardNumbersSumTest() {
-        Node a = SingleLinkedList.from(7, 1, 6).root();
-        Node b = SingleLinkedList.from(5, 9, 2).root();
+        LinkedListNode a = LinkedListNode.from(7, 1, 6);
+        LinkedListNode b = LinkedListNode.from(5, 9, 2);
         Assertions.assertEquals((716 + 592),
                 getForwardNumbersSum(a, b));
     }

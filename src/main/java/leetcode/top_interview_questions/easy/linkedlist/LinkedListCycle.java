@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,10 +36,10 @@ Can you solve it using O(1) (i.e. constant) memory?
  */
 public class LinkedListCycle {
 
-    public boolean hasCycle(ListNode head) {
+    public boolean hasCycle(LinkedListNode head) {
         // loop with 2 pointers
-        ListNode jump1=head;
-        ListNode jump2=head;
+        LinkedListNode jump1=head;
+        LinkedListNode jump2=head;
         while(jump1!=null && jump2!=null){
             jump1=jump1.next;
             jump2=jump2.next;
@@ -55,10 +55,10 @@ public class LinkedListCycle {
 
     @Test
     public void test() {
-        ListNode head= new ListNode(4);
-        ListNode ln1  = new ListNode(1);
+        LinkedListNode head= new LinkedListNode(4);
+        LinkedListNode ln1  = new LinkedListNode(1);
         head.next=ln1;
-        ListNode ln2 = new ListNode(9);
+        LinkedListNode ln2 = new LinkedListNode(9);
         ln1.next=ln2;
         assertFalse(hasCycle(head));
 

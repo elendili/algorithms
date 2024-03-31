@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +24,12 @@ Could you do it in O(n) time and O(1) space?
 
  */
 public class PalindromeLinkedList {
-    public boolean isPalindrome(ListNode head) {
+    public boolean isPalindrome(LinkedListNode head) {
         if(head==null || head.next==null){
             return true;
         }
         List<Integer> list = new ArrayList<>();
-        ListNode cur = head;
+        LinkedListNode cur = head;
         while(cur!=null){
             list.add(cur.val);
             cur = cur.next;
@@ -45,13 +45,13 @@ public class PalindromeLinkedList {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>2>2>1>", ListNode.from(1, 2, 2, 1).toString());
-        Assertions.assertEquals(false, isPalindrome(ListNode.from(1, 2, 1, 2)));
-        Assertions.assertEquals(false, isPalindrome(ListNode.genListFromRange(1, 2)));
+        Assertions.assertEquals("1>2>2>1>", LinkedListNode.from(1, 2, 2, 1).toString());
+        Assertions.assertEquals(false, isPalindrome(LinkedListNode.from(1, 2, 1, 2)));
+        Assertions.assertEquals(false, isPalindrome(LinkedListNode.genListFromRange(1, 2)));
 
-        Assertions.assertEquals(true, isPalindrome(ListNode.genListFromRange(1, 1)));
-        Assertions.assertEquals(true, isPalindrome(ListNode.from(1, 2, 1)));
-        Assertions.assertEquals(true, isPalindrome(ListNode.from(2, 2, 2, 2)));
-        Assertions.assertEquals(true, isPalindrome(ListNode.from(1, 2, 2, 1)));
+        Assertions.assertEquals(true, isPalindrome(LinkedListNode.genListFromRange(1, 1)));
+        Assertions.assertEquals(true, isPalindrome(LinkedListNode.from(1, 2, 1)));
+        Assertions.assertEquals(true, isPalindrome(LinkedListNode.from(2, 2, 2, 2)));
+        Assertions.assertEquals(true, isPalindrome(LinkedListNode.from(1, 2, 2, 1)));
     }
 }

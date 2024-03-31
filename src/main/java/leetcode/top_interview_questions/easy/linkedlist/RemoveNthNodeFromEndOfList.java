@@ -1,6 +1,6 @@
 package leetcode.top_interview_questions.easy.linkedlist;
 
-import leetcode.top_interview_questions.ListNode;
+import leetcode.top_interview_questions.LinkedListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +23,11 @@ Could you do this in one pass?
  */
 public class RemoveNthNodeFromEndOfList {
 
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public LinkedListNode removeNthFromEnd(LinkedListNode head, int n) {
         if(n<1){
             return head;
         }
-        ListNode cur = head, preN=head;
+        LinkedListNode cur = head, preN=head;
         int counter=0;
         while(cur!=null && counter<=n) {
             cur = cur.next;
@@ -49,23 +49,23 @@ public class RemoveNthNodeFromEndOfList {
 
     @Test
     public void test(){
-        ListNode _1 = new ListNode(1);
+        LinkedListNode _1 = new LinkedListNode(1);
         Assertions.assertEquals("1>", removeNthFromEnd(_1,0).toString());
-        _1.next=new ListNode(2);
+        _1.next=new LinkedListNode(2);
         Assertions.assertEquals("1>", removeNthFromEnd(_1,1).toString());
-        _1.next=new ListNode(2);
-        _1.next.next=new ListNode(3);
+        _1.next=new LinkedListNode(2);
+        _1.next.next=new LinkedListNode(3);
         Assertions.assertEquals("1>3>", removeNthFromEnd(_1,2).toString());
     }
 
     @Test
     public void testLongList(){
-        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(ListNode.genListFromOneToNum(5),1).toString());
-        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),2).toString());
-        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),3).toString());
-        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),4).toString());
-        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),5).toString());
-        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),6).toString());
+        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),1).toString());
+        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),2).toString());
+        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),3).toString());
+        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),4).toString());
+        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),5).toString());
+        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(LinkedListNode.genListFromOneToNum(5),6).toString());
     }
 
 
