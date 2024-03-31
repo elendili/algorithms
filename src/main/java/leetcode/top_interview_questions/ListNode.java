@@ -25,9 +25,16 @@ public final class ListNode {
     public String toString(){
         StringBuilder out= new StringBuilder();
         ListNode ln = this;
+        ListNode visited = null;
         while(ln!=null){
+            if(visited==null){
+                visited=ln;
+            } else if (visited==ln){
+                return "self cycle: "+out;
+            }
             out.append(ln.val).append(">");
             ln=ln.next;
+
         }
         return out.toString();
     }
@@ -46,7 +53,7 @@ public final class ListNode {
         return Objects.hash(val, next);
     }
 
-    public static ListNode genListFromZeroToNum(int n) {
+    public static ListNode genListFromOneToNum(int n) {
         return genListFromRange(1,n);
     }
 

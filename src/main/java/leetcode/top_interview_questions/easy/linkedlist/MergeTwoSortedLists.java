@@ -49,9 +49,9 @@ public class MergeTwoSortedLists {
 
     @Test
     public void test(){
-        Assertions.assertEquals("1>1>",mergeTwoLists(ListNode.genListFromZeroToNum(1),ListNode.genListFromZeroToNum(1)).toString());
+        Assertions.assertEquals("1>1>",mergeTwoLists(ListNode.genListFromOneToNum(1),ListNode.genListFromOneToNum(1)).toString());
         Assertions.assertEquals("3>3>4>4>5>",mergeTwoLists(ListNode.genListFromRange(3,4),ListNode.genListFromRange(3,5)).toString());
-        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(ListNode.genListFromZeroToNum(3),ListNode.genListFromZeroToNum(2)).toString());
+        Assertions.assertEquals("1>1>2>2>3>",mergeTwoLists(ListNode.genListFromOneToNum(3),ListNode.genListFromOneToNum(2)).toString());
     }
 
 }

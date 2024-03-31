@@ -60,12 +60,12 @@ public class RemoveNthNodeFromEndOfList {
 
     @Test
     public void testLongList(){
-        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),1).toString());
-        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),2).toString());
-        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),3).toString());
-        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),4).toString());
-        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),5).toString());
-        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(ListNode.genListFromZeroToNum(5),6).toString());
+        Assertions.assertEquals("1>2>3>4>", removeNthFromEnd(ListNode.genListFromOneToNum(5),1).toString());
+        Assertions.assertEquals("1>2>3>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),2).toString());
+        Assertions.assertEquals("1>2>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),3).toString());
+        Assertions.assertEquals("1>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),4).toString());
+        Assertions.assertEquals("2>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),5).toString());
+        Assertions.assertEquals("1>2>3>4>5>", removeNthFromEnd(ListNode.genListFromOneToNum(5),6).toString());
     }
 
 
