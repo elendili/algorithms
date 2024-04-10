@@ -49,8 +49,6 @@ public class DesignTextEditor {
         Assertions.assertEquals("leetxxx|code", te.toString());
         Assertions.assertEquals(3, te.deleteText(3));
         Assertions.assertEquals("leet|code", te.toString());
-
-
     }
 
 }
