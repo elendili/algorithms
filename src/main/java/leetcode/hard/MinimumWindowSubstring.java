@@ -3,6 +3,10 @@ package leetcode.hard;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * https://leetcode.com/problems/minimum-window-substring/description/
  */
@@ -91,8 +95,69 @@ public class MinimumWindowSubstring {
         Assertions.assertEquals("a", minWindow("a", "a"));
         Assertions.assertEquals("", minWindow("a", "aa"));
     }
+
     @Test
     public void test2() {
         Assertions.assertEquals("fsrvmrnczjzjevkdvroiluthhpqtff", minWindow("cgklivwehljxrdzpfdqsapogwvjtvbzahjnsejwnuhmomlfsrvmrnczjzjevkdvroiluthhpqtffhlzyglrvorgnalk", "mqfff"));
     }
+
+
+    /**
+     * below is what was given on real interview and my code
+     * <p>
+     * Дан некоторый алфавит и строка. Необходимо найти в строке панграмму минимальной длины,
+     * где панграмма - это такая подстрока исходной строки,
+     * в которую входят все буквы из алфавита (но не обязательно только они).
+     * Пример:
+     * A = {a, b, c}
+     * s = "dfagabkaceb"
+     * Ответом на пример будут подстроки "bkac" или "aceb".
+     */
+
+    String findPangramm(Set<Character> alphabet, String s) {
+        if (s != null || s.length() == 0) {
+            return null;
+        }
+        Map<Character, Integer> freq = new HashMap<>();
+        int left = 0, right = 0;
+        int desiredCharCount = alphabet.size();
+        int newGoodCharCount = 0;
+        int minWindowSize = s.length();
+        String curMinString = null;
+        // alphabet = {a}, s = "ba";
+        for (; right < s.length(); right++) {
+            char c = s.charAt(right);
+
+            if (alphabet.contains(c)) {
+                if (!freq.containsKey(c)) {
+                    newGoodCharCount += 1;
+                }
+                // add to freq
+                freq.compute(c, (k, v) -> v == null ? 1 : v + 1);
+            }
+
+            // check that we can decrease window
+            if (newGoodCharCount >= desiredCharCount) {
+                // check left boundary of window
+                while (true) {
+                    char leftC = s.charAt(left);
+                    if (!alphabet.contains(leftC)) {
+                        left++;
+                    } else if (freq.getOrDefault(leftC, 0) > 1) {
+                        freq.put(leftC, freq.get(leftC) - 1);
+                        left++;
+                    } else {
+                        break;
+                    }
+                }
+                int curWindowSize = right - left + 1;
+                if (curWindowSize < minWindowSize) {
+                    curMinString = s.substring(left, right + 1);
+                    minWindowSize = curWindowSize;
+                }
+            }
+        }
+        return curMinString;
+    }
+
 }
