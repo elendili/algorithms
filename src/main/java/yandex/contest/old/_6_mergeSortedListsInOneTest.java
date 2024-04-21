@@ -8,8 +8,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
-import static hackerrank.TestHelper.stubStdInAndStdOut;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.stubStdInAndStdOut;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static yandex.contest.old._6_mergeSortedListsInOne.*;
 

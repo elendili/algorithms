@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static hackerrank.TestHelper.twoDArrayToString;
+import static helpers.TestHelper.twoDArrayToString;
 
 /**
  * https://leetcode.com/problems/sort-the-matrix-diagonally/description/

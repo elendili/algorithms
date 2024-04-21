@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
 
 public class _2_sequencesTest {
 

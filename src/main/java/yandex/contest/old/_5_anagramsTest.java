@@ -2,7 +2,7 @@ package yandex.contest.old;
 
 import org.junit.jupiter.api.Test;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
 
 public class _5_anagramsTest {
 

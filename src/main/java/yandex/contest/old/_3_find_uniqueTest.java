@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
-import static hackerrank.TestHelper.stubStdInAndStdOut;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.stubStdInAndStdOut;
 
 public class _3_find_uniqueTest {
 

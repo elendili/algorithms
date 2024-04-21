@@ -2,7 +2,7 @@ package leetcode.medium;
 
 import org.junit.jupiter.api.Test;
 
-import static hackerrank.TestHelper.twoDArrayToString;
+import static helpers.TestHelper.twoDArrayToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpiralMatrix2 {

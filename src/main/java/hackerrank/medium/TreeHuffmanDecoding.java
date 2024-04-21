@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
 
 class Node implements Comparable<Node> {
     public int frequency; // the frequency of this tree

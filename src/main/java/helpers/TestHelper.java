@@ -1,4 +1,4 @@
-package hackerrank;
+package helpers;
 
 import org.junit.jupiter.api.Assertions;
 

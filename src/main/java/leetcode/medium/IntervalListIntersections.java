@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hackerrank.TestHelper.twoDArrayToString;
+import static helpers.TestHelper.twoDArrayToString;
 
 public class IntervalListIntersections {
     public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {

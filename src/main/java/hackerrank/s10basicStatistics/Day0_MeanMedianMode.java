@@ -1,13 +1,12 @@
 package hackerrank.s10basicStatistics;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
 import static java.util.stream.Collectors.toList;
 
 public class Day0_MeanMedianMode {

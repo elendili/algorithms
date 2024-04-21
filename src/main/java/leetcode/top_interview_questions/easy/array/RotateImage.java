@@ -2,7 +2,7 @@ package leetcode.top_interview_questions.easy.array;
 
 import org.junit.jupiter.api.Test;
 
-import static hackerrank.TestHelper.twoDArrayToString;
+import static helpers.TestHelper.twoDArrayToString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*

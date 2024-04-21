@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
-import static hackerrank.TestHelper.assertStdOutAfterStdInput;
+import static helpers.TestHelper.assertStdOutAfterStdInput;
 import static hierarchy.TreeUtils.getTreeRootFromSystemInput;
 
 public class TreePreOrderTraversal {
