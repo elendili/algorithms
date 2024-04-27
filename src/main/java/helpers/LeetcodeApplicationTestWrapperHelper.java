@@ -3,11 +3,13 @@ package helpers;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Executable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,61 +75,60 @@ public class LeetcodeApplicationTestWrapperHelper {
         @Override
         public String toString() {
             String inp = inputArguments.stream().map(String::valueOf).collect(Collectors.joining(", "));
-            return method+"("+inp+") => "+expected;
+            return method + "(" + inp + ") => " + expected;
         }
     }
 
-    void execute() {
-        Object app = createApp(instructions.get(0));
+    public void execute() {
+        Instruction appCreationInstr = instructions.get(0);
+        Object app = createApp(appCreationInstr.method(), appCreationInstr.inputArguments());
         instructions.stream().skip(1).forEach(i -> {
                     Object actual = executeInstruction(app, i.method(), i.inputArguments());
                     String actualString = String.valueOf(actual);
                     String expectedString = String.valueOf(i.expected);
-                    System.out.println(expectedString+", "+actualString);
-                    assertEquals(expectedString, actualString, "on instr "+i);
+                    System.out.println(expectedString + ", " + actualString);
+                    assertEquals(expectedString, actualString, "on instr " + i);
                 }
         );
     }
 
-    Object createApp(Instruction instruction) {
-        Instruction creationInstruction = instruction;
-        Class<?> clazz = findClass(creationInstruction.method());
-        Constructor<?> c = getConstructor(clazz);
-        try {
-            return c.newInstance();
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     Class<?> findClass(String className) {
-        try {
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        Optional<Class<?>> opt = classForName(className);
+        if(opt.isEmpty()){
+            opt = findClassInStacktrace(className);
         }
+        return opt.get();
+    }
+    Optional<Class<?>> findClassInStacktrace(String className) {
+        List<StackTraceElement> stes = Arrays.asList(new RuntimeException().getStackTrace());
+        Optional<Class<?>> outOpt = stes.stream()
+                .map(e->classForName(e.getClassName()).get())
+                .flatMap(e->Arrays.stream(e.getDeclaredClasses()))
+                .filter(e -> e.getName().replaceAll("^.*(\\.|\\$)", "").equals(className))
+                .findFirst();
+        return outOpt;
     }
 
-    Constructor<?> getConstructor(Class<?> clazz) {
+    Optional<Class<?>> classForName(String className) {
         try {
-            return clazz.getConstructor();
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            return Optional.of(Class.forName(className));
+        } catch (ClassNotFoundException e) {
+            return Optional.empty();
         }
     }
 
     Method findMethod(Class<?> clazz, String method) {
         List<Method> methods = Arrays.stream(clazz.getMethods()).filter(m -> m.getName().equals(method)).toList();
         if (methods.size() != 1) {
-            throw new RuntimeException("Many methods found with name " + method);
+            throw new RuntimeException("Many methods "+methods.size()+" found with name " + method);
         }
         return methods.get(0);
     }
 
-    Object[] convertArgumentsToExpectedTypes(Method method, List<?> rawArguments) {
-        Class<?>[] parameterTypes = method.getParameterTypes();
+    Object[] convertArgumentsToExpectedTypes(Executable executable, List<?> rawArguments) {
+        Class<?>[] parameterTypes = executable.getParameterTypes();
         int n = parameterTypes.length;
-        assert rawArguments.size() == n : "amount of raw arguments " + rawArguments.size() + " differs from expected by method " + method + " " + n;
+        assert rawArguments.size() == n : "amount of raw arguments " + rawArguments.size() + " differs from expected by method " + executable + " " + n;
         Object[] out = new Object[n];
         for (int i = 0; i < parameterTypes.length; i++) {
             Class<?> pt = parameterTypes[i];
@@ -142,6 +143,27 @@ public class LeetcodeApplicationTestWrapperHelper {
             }
             out[i] = argToOut;
         }
+        return out;
+    }
+
+    Object createApp(String className, List<?> rawArguments) {
+        if (!className.matches("[A-Z].*")) {
+            throw new RuntimeException("Not a camel case Class name: " + className);
+        }
+        Class<?> clazz = findClass(className);
+
+        Constructor<?>[] constructorsArray = clazz.getConstructors();
+        Object[] args = convertArgumentsToExpectedTypes(constructorsArray[0], rawArguments);
+
+
+        Method m = findMethod(clazz, "init");
+        Object[] params = convertArgumentsToExpectedTypes(m, rawArguments);
+        Object out=null;
+//        try {
+//            out = m.invoke(application, params);
+//        } catch (IllegalAccessException | InvocationTargetException e) {
+//            throw new RuntimeException(e);
+//        }
         return out;
     }
 
