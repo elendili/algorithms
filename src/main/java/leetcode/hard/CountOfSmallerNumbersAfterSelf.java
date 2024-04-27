@@ -10,8 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * https://leetcode.com/problems/count-of-smaller-numbers-after-self/description/
  */
 public class CountOfSmallerNumbersAfterSelf {
-    private static int offset = 10_000;
-    private static int possibleValuesCount = 2 * offset + 1;
+    private static boolean onlyPositive = true;
+    private static int offset = onlyPositive ? 0 : 10_000;
+    private static int possibleValuesCount = onlyPositive ? 10 : 2 * offset + 1;
+
     // via segment tree
     public List<Integer> countSmaller(int[] nums) {
         int[] tree = new int[2 * possibleValuesCount];

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 // https://leetcode.com/problems/check-if-there-is-a-valid-path-in-a-grid/
-public class ValidPathInAGridWithStreets {
+public class ValidPathInBellmanFordGridWithStreets {
     public boolean hasValidPath(int[][] grid) {
         int yLength = grid.length;
         int xLength = grid[0].length;
