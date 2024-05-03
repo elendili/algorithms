@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Pick any nums[i] and delete it to earn nums[i] points. Afterwards, you must delete every element equal to nums[i] - 1 and every element equal to nums[i] + 1.
  * Return the maximum number of points you can earn by applying the above operation some number of times.
  */
-public class DeleteAndEarn {
+public class DeleteAndEarn_740 {
 
     int recursiveSearch(int[] freqs, int[] dp, int from, int toExcl, int level) {
         if (from >= toExcl) {
