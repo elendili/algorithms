@@ -20,17 +20,19 @@ Follow up: Could you improve it to O(n log n) time complexity?
  */
 public class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
-        int[] seqs = new int[nums.length];
+        // contains numbers from input nums which form increasing sequence
+        int[] increasingSequence = new int[nums.length];
         int l = 0;
         int seqsIndex;
         for (int i = 0; i < nums.length; i++) {
-            int v = nums[i];
-            seqsIndex = Arrays.binarySearch(seqs, 0, l, v);
+            final int v = nums[i];
+            seqsIndex = Arrays.binarySearch(increasingSequence, 0, l, v);
             if (seqsIndex < 0) {
                 seqsIndex = -(seqsIndex + 1);
             }
-            l = Math.max(l, seqsIndex + 1);
-            seqs[seqsIndex] = v;
+            final int curLength = seqsIndex + 1;
+            l = Math.max(l, curLength);
+            increasingSequence[seqsIndex] = v;
         }
         return l;
     }

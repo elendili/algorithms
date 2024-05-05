@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/description/
  */
-public class MinimumDifficultyOfJobSchedule {
+public class MinimumDifficultyOfJobSchedule_1335 {
     // [1,2,3,4,5], d=2. => [1][2,3,4,5]=6
     // [1,2,3,4,5], d=3. => [1][2][3,4,5]=8
     // [1,2,3,4,5], d=1. => [1,2,3,4,5]=5

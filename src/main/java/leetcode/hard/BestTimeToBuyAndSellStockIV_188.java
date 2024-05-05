@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * <p>
  * Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
  */
-public class BestTimeToBuyAndSellStockIV {
+public class BestTimeToBuyAndSellStockIV_188 {
     public int maxProfit(int k, int[] prices) {
         int n = prices.length;
         if (n < 2 || k < 1) {
@@ -29,9 +29,11 @@ public class BestTimeToBuyAndSellStockIV {
         int[] profits = new int[k];
         for (int price : prices) {
             for (int t = 0; t < k; t++) {
-                int prevCompensation = (t == 0) ? 0 : profits[t - 1];
-                costs[t] = Math.min(costs[t], price - prevCompensation);
-                profits[t] = Math.max(profits[t], price - costs[t]);
+                final int prevCompensation = (t == 0) ? 0 : profits[t - 1];
+                final int currentCost = price - prevCompensation;
+                costs[t] = Math.min(costs[t], currentCost);
+                final int currentProfit = price - costs[t];
+                profits[t] = Math.max(profits[t], currentProfit);
             }
         }
         return profits[k - 1];
