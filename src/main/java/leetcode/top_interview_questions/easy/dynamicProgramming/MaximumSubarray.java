@@ -3,12 +3,15 @@ package leetcode.top_interview_questions.easy.dynamicProgramming;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-/*
+/**
 https://leetcode.com/explore/featured/card/top-interview-questions-easy/97/dynamic-programming/566/
 Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+https://leetcode.com/explore/featured/card/dynamic-programming/633/common-patterns-continued/4140/
  */
 public class MaximumSubarray {
 
+    // Kadane's Algorithm
     public int maxSubArray(int[] nums) {
         if(nums==null || nums.length==0){
             return 0;

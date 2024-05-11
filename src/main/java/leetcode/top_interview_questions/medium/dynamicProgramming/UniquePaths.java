@@ -3,6 +3,8 @@ package leetcode.top_interview_questions.medium.dynamicProgramming;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 /*
 https://leetcode.com/explore/interview/card/top-interview-questions-medium/111/dynamic-programming/808/
 https://leetcode.com/problems/unique-paths/
@@ -27,47 +29,52 @@ public class UniquePaths {
      So, the question is how many ways we can rearrange decisions (to down or to right) on the paths.
      Path can be described as: drdrddrr, where N - total amount of letters, and K is amount of some letter.
 
-    Combinations N choose K: C(N,K)=N!/(K!*(N-K)!)
+     Combinations N choose K: C(N,K)=N!/(K!*(N-K)!)
 
-    To simplify calculation we can use
+     To simplify calculation we can use
 
-    (N!/K!)/(N-K)!
+     (N!/K!)/(N-K)! => N!/(K!(N-K)!)
 
-    where
+     where
        (N-K)! can be easily calculated if K is biggest number from rows/columns
        (N!/K!) can be calculated as N*(N-1)*(N-2)*....*(K+1)
 
-    so we need "factorial" method which can multiply sequence of numbers from K+1 to N,
-    which is factorial as is when K=0
+     so we need "factorial" method which can multiply sequence of numbers from K+1 to N,
+     which is factorial as is when K=0
 
-    Some discussion is here: https://leetcode.com/explore/interview/card/top-interview-questions-medium/111/dynamic-programming/808/discuss/22958/Math-solution-O(1)-space
-    */
+     Some discussion is here: https://leetcode.com/explore/interview/card/top-interview-questions-medium/111/dynamic-programming/808/discuss/22958/Math-solution-O(1)-space
+     */
     public int uniquePaths(int m, int n) {
-        int N = (m-1)+(n-1);
-        int K = Math.max(m,n)-1; // choose maximum to decrease loop in sequence multiplying
+        int N = (m - 1) + (n - 1);
+        int K = Math.max(m, n) - 1; // choose maximum to decrease loop in sequence multiplying
         // use long to prevent overflow
         // calculate (N!/K!)
-        long denominator = multiplySequence(K,N);
+        BigDecimal denominator = multiplySequence(K, N);
         // calculate (N-K)!
-        long divisor = multiplySequence(0,N-K);
-        long out = denominator/divisor;
-        return (int)out; // after divisions answer is not overflowed
+        BigDecimal divisor = multiplySequence(0, N - K);
+        BigDecimal out = denominator.divide(divisor);
+        return out.intValue(); // after divisions answer is not overflowed
     }
 
-    private long multiplySequence(int from,int to){
-        long out=1;
-        for(int i=from+1;i<=to;i++){
-            out*=i;
+    private BigDecimal multiplySequence(int from, int to) {
+        BigDecimal out = BigDecimal.ONE;
+        for (int i = from + 1; i <= to; i++) {
+            out = out.multiply(new BigDecimal(i));
         }
         return out;
     }
 
     @Test
-    public void test(){
+    public void test() {
         Assertions.assertEquals(3, uniquePaths(2, 3));
-        Assertions.assertEquals(6, uniquePaths(3,3));
-        Assertions.assertEquals(20, uniquePaths(4,4));
-        Assertions.assertEquals(120, uniquePaths(4,8));
+        Assertions.assertEquals(6, uniquePaths(3, 3));
+        Assertions.assertEquals(20, uniquePaths(4, 4));
+        Assertions.assertEquals(120, uniquePaths(4, 8));
         Assertions.assertEquals(193536720, uniquePaths(23, 12));
+    }
+
+    @Test
+    public void test16_16() {
+        Assertions.assertEquals(155117520, uniquePaths(16, 16));
     }
 }
