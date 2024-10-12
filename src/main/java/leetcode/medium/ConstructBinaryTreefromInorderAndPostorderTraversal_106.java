@@ -7,9 +7,11 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+ */
 public class ConstructBinaryTreefromInorderAndPostorderTraversal_106 {
 
-    private int[] inorder;
     private int[] postorder;
     private int pi;
     private Map<Integer, Integer> inorderIndexes;
@@ -20,7 +22,6 @@ public class ConstructBinaryTreefromInorderAndPostorderTraversal_106 {
         // take postorder latest as new root
         // find value in inorder, and split inorder to left and right parts
         // and go recursion with right, then left
-        this.inorder = inorder;
         this.postorder = postorder;
         this.pi = postorder.length - 1;
         this.inorderIndexes = new HashMap<>();
