@@ -1,5 +1,6 @@
 package leetcode.medium;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,13 @@ public class ListNode {
         return head;
     }
 
+    static ListNode createFromNumbers(Integer... numbers) {
+        return createFromNumbers(Arrays.asList(numbers));
+    }
     static ListNode createFromNumbers(List<Integer> numbers) {
+        if(numbers.isEmpty()){
+            return null;
+        }
         ListNode head = new ListNode(numbers.get(0));
         ListNode cur = head;
         for (int i = 1; i < numbers.size(); i++) {
