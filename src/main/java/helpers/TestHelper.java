@@ -50,7 +50,12 @@ public class TestHelper {
 
     public static String twoDArrayToString(int[][]a){
         return Arrays.stream(a)
-                .map(row->Arrays.toString(row))
+                .map(Arrays::toString)
+                .collect(Collectors.joining("\n"));
+    }
+    public static String twoDArrayToString(char[][]a){
+        return Arrays.stream(a)
+                .map(Arrays::toString)
                 .collect(Collectors.joining("\n"));
     }
 }
