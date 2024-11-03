@@ -114,6 +114,11 @@ public class CoinChange {
     public void test2(String name, BiFunction<int[], Integer, Integer> methodUnderTest) {
         Assertions.assertEquals(20, methodUnderTest.apply(new int[]{186, 419, 83, 408}, 6249));
     }
+    @ParameterizedTest(name = "{index}. {0}")
+    @MethodSource("predicateStream")
+    public void test_TLE(String name, BiFunction<int[], Integer, Integer> methodUnderTest) {
+        Assertions.assertEquals(24, methodUnderTest.apply(new int[]{411,412,413,414,415,416,417,418,419,420,421,422}, 9864));
+    }
 
     public static Stream<Arguments> predicateStream() {
         return Stream.of(
