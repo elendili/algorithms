@@ -3,45 +3,46 @@ package leetcode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // https://leetcode.com/problems/course-schedule
 public class CourseSchedule {
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
+        List<Integer>[] graph = new List[numCourses];
         for (int[] p : prerequisites) {
             int key = p[0];
             int val = p[1];
-            graph.computeIfAbsent(key, k -> new ArrayList<>());
-            graph.computeIfPresent(key, (k, v) -> {
-                v.add(val);
-                return v;
-            });
+            if (graph[key] == null) {
+                graph[key] = new ArrayList<>();
+            }
+            graph[key].add(val);
         }
 
-        Set<Integer> visited = new HashSet<>();
-        for (Integer course : graph.keySet()) {
+        boolean[] visited = new boolean[numCourses];
+        for (int course = 0; course < numCourses; course++) {
             if (dfs_hasCycle(graph, visited, course))
                 return false; // can not complete course
         }
         return true;
     }
 
-    private boolean dfs_hasCycle(Map<Integer, List<Integer>> graph,
-                                 Set<Integer> visited,
+    private boolean dfs_hasCycle(List<Integer>[] graph,
+                                 boolean[] visited,
                                  int course) {
-        visited.add(course);
-        if (graph.containsKey(course)) {
-            List<Integer> list = graph.get(course);
+        visited[course] = true;
+        if (graph[course] != null) {
+            List<Integer> list = graph[course];
             for (Integer childCourse : list) {
-                if (visited.contains(childCourse)
+                if (visited[childCourse]
                         || dfs_hasCycle(graph, visited, childCourse)) {
                     return true;
                 }
             }
         }
-        visited.remove(course);
+        visited[course] = false;
+        graph[course] = null;
         return false;
     }
 
