@@ -60,7 +60,7 @@ public class CoinChange {
     }
 
     /*
-        perf  complexity O(S*n)
+        perf  cpomplexity O(S*n)
         space complexity O(n)
      */
     public static int coinChangeDP(int[] coins, final int amount) {
