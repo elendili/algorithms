@@ -38,12 +38,14 @@ public class LongestIncreasingSubsequence {
         int[] memo = new int[n + 1];
         int lastIndex = 0;
         for (int i = 0; i < n; i++) {
+            int cur = a[i];
             int lo = 1;
             int hi = lastIndex;
             // binary search of index
             while (lo <= hi) {
                 int mid = lo + ((hi - lo) / 2);
-                if (a[memo[mid]] < a[i]) {
+                int idFromMemo = memo[mid]; // index Of Last Element Of Longest Subsequence in mid
+                if (a[idFromMemo] < cur) {
                     lo = mid + 1;
                 } else {
                     hi = mid - 1;
