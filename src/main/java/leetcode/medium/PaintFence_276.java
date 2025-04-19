@@ -46,6 +46,9 @@ public class PaintFence_276 {
 
     static class BottomUp implements PaintFence {
         public int numWays(int n, int k) {
+            if (n == 1) {
+                return k;
+            }
             int prevPrev = k;
             int prev = k * k;
 
@@ -72,5 +75,6 @@ public class PaintFence_276 {
         assertEquals(6, impl.numWays(3, 2));
         assertEquals(24, impl.numWays(3, 3));
         assertEquals(42, impl.numWays(7, 2));
+        assertEquals(2, impl.numWays(1, 2));
     }
 }
