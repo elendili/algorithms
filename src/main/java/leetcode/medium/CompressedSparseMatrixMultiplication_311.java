@@ -3,6 +3,7 @@ package leetcode.medium;
 import helpers.TestHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,82 +12,100 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class CompressedSparseMatrixMultiplication_311 {
     static class CompressedSparseMatrix {
-        public ArrayList<Integer> values = new ArrayList<>();
-        public ArrayList<Integer> valueIndexInRowOrColumn = new ArrayList<>();
-        public ArrayList<Integer> rowOrColumnStarts = new ArrayList<>();
+        // sequence - is a specific row or column in matrix
+        private int valuesCount = 0;
+        private List<Integer> values;
+        private List<Integer> valueIndexInSequence;
+        private List<Integer> sequencesStarts;
 
         static CompressedSparseMatrix asScarceRow(int[][] matrix){
             int rows = matrix.length;
             int cols = matrix[0].length;
             CompressedSparseMatrix sm = new CompressedSparseMatrix();
-            sm.rowOrColumnStarts.add(0);
+            int supposedSize = rows*cols/2;
+            sm.values = new ArrayList<>(supposedSize);
+            sm.valueIndexInSequence = new ArrayList<>(supposedSize);
+            sm.sequencesStarts = new ArrayList<>(supposedSize);
+            sm.sequencesStarts.add(0);
 
             for (int row = 0; row < rows; ++row) {
                 for (int col = 0; col < cols; ++col) {
-                    if (matrix[row][col] != 0) {
-                        sm.values.add(matrix[row][col]);
-                        sm.valueIndexInRowOrColumn.add(col);
-                    }
+                    addVal(sm, col, matrix[row][col]);
                 }
-                sm.rowOrColumnStarts.add(sm.values.size());
+                sm.sequencesStarts.add(sm.valuesCount);
             }
             return sm;
         }
 
         // Compressed Sparse Row
-        public static CompressedSparseMatrix asScarceColumn(int[][] matrix) {
+        static CompressedSparseMatrix asScarceColumn(int[][] matrix) {
             int rows = matrix.length;
             int cols = matrix[0].length;
             CompressedSparseMatrix sm = new CompressedSparseMatrix();
-            sm.rowOrColumnStarts.add(0);
+            int supposedSize = rows*cols/2;
+            sm.values = new ArrayList<>(supposedSize);
+            sm.valueIndexInSequence = new ArrayList<>(supposedSize);
+            sm.sequencesStarts = new ArrayList<>(supposedSize);
+            sm.sequencesStarts.add(0);
 
             for (int col = 0; col < cols; ++col) {
                 for (int row = 0; row < rows; ++row) {
-                    if (matrix[row][col] != 0) {
-                        sm.values.add(matrix[row][col]);
-                        sm.valueIndexInRowOrColumn.add(row);
-                    }
+                    addVal(sm, row, matrix[row][col]);
                 }
-                sm.rowOrColumnStarts.add(sm.values.size());
+                sm.sequencesStarts.add(sm.valuesCount);
             }
             return sm;
         }
-    }
+        private static void addVal(CompressedSparseMatrix sm, int indexInSeq, int val) {
+            if (val != 0) {
+                sm.values.add(val);
+                sm.valueIndexInSequence.add(indexInSeq);
+                sm.valuesCount++;
+            }
+        }
+        public static int[][] multiply(int[][] mat1, int[][] mat2) {
+            CompressedSparseMatrix A = CompressedSparseMatrix.asScarceRow(mat1);
+            CompressedSparseMatrix B = CompressedSparseMatrix.asScarceColumn(mat2);
+            int outRows = mat1.length;
+            int outColumns = mat2[0].length;
+            int[][] ans = new int[outRows][outColumns];
 
-    public int[][] multiply(int[][] mat1, int[][] mat2) {
-        CompressedSparseMatrix A = CompressedSparseMatrix.asScarceRow(mat1);
-        CompressedSparseMatrix B = CompressedSparseMatrix.asScarceColumn(mat2);
+            for (int row = 0; row < outRows; ++row) {
+                for (int col = 0; col < outColumns; ++col) {
 
-        int[][] ans = new int[mat1.length][mat2[0].length];
+                    // Row element range indices
+                    int aRowStart = A.sequencesStarts.get(row);
+                    int aRowEnd = A.sequencesStarts.get(row + 1);
 
-        for (int row = 0; row < ans.length; ++row) {
-            for (int col = 0; col < ans[0].length; ++col) {
+                    // Column element range indices
+                    int bColStart = B.sequencesStarts.get(col);
+                    int bColEnd = B.sequencesStarts.get(col + 1);
 
-                // Row element range indices
-                int matrixOneRowStart = A.rowOrColumnStarts.get(row);
-                int matrixOneRowEnd = A.rowOrColumnStarts.get(row + 1);
-
-                // Column element range indices
-                int matrixTwoColStart = B.rowOrColumnStarts.get(col);
-                int matrixTwoColEnd = B.rowOrColumnStarts.get(col + 1);
-
-                // Iterate over both row and column.
-                while (matrixOneRowStart < matrixOneRowEnd && matrixTwoColStart < matrixTwoColEnd) {
-                    if (A.valueIndexInRowOrColumn.get(matrixOneRowStart) < B.valueIndexInRowOrColumn.get(matrixTwoColStart)) {
-                        matrixOneRowStart++;
-                    } else if (A.valueIndexInRowOrColumn.get(matrixOneRowStart) > B.valueIndexInRowOrColumn.get(matrixTwoColStart)) {
-                        matrixTwoColStart++;
-                    } else {
-                        // Row index and col index are same so we can multiply these elements.
-                        ans[row][col] += A.values.get(matrixOneRowStart) * B.values.get(matrixTwoColStart);
-                        matrixOneRowStart++;
-                        matrixTwoColStart++;
+                    // Iterate over both row and column.
+                    while (aRowStart < aRowEnd && bColStart < bColEnd) {
+                        int indexInRow = A.valueIndexInSequence.get(aRowStart);
+                        int indexInCol = B.valueIndexInSequence.get(bColStart);
+                        if (indexInRow < indexInCol) {
+                            aRowStart++;
+                        } else if (indexInRow > indexInCol) {
+                            bColStart++;
+                        } else {
+                            // Row index and col index are same so we can multiply these elements.
+                            ans[row][col] += A.values.get(aRowStart) * B.values.get(bColStart);
+                            aRowStart++;
+                            bColStart++;
+                        }
                     }
                 }
             }
-        }
 
-        return ans;
+            return ans;
+        }
+    }
+
+
+    public int[][] multiply(int[][] mat1, int[][] mat2) {
+        return CompressedSparseMatrix.multiply(mat1, mat2);
     }
 
     public int[][] usual_multiply(int[][] mat1, int[][] mat2) {
