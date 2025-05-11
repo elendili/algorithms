@@ -7,6 +7,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class TestHelper {
@@ -47,12 +49,27 @@ public class TestHelper {
             System.setOut(oldOut);
         }
     }
-
-    public static String twoDArrayToString(int[][]a){
-        return Arrays.stream(a)
-                .map(Arrays::toString)
-                .collect(Collectors.joining("\n"));
+    private static String leftPad(String v, int length){
+        int count = length-v.length();
+        return " ".repeat(count)+v;
     }
+    public static String twoDArrayToString(int[][]a){
+        AtomicInteger maxWidth = new AtomicInteger();
+        List<List<String>> lists  = Arrays.stream(a)
+                .map(aa-> Arrays.stream(aa).mapToObj(String::valueOf)
+                        .peek(s->maxWidth.set(Math.max(s.length(),maxWidth.get())))
+                        .collect(Collectors.toList()))
+                .toList();
+
+        String out = lists.stream()
+                .map(
+                        l->l.stream().map(s->leftPad(s,maxWidth.get()))
+                        .collect(Collectors.joining(",","[","]"))
+                )
+                .collect(Collectors.joining("\n"));
+        return out;
+    }
+    
     public static String twoDArrayToString(char[][]a){
         return Arrays.stream(a)
                 .map(Arrays::toString)
