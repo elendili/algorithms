@@ -25,7 +25,7 @@ public class FourKeysKeyboard_651 {
 
     static Map<BufferKey, Integer> buffer = new HashMap<>();
 
-    public int maxA(int n) {
+    public int maxARecursive(int n) {
         // 2 actions:
         // print letter - weight 1
         // and select-paste - weight 3
@@ -63,6 +63,33 @@ public class FourKeysKeyboard_651 {
         return out;
     }
 
+    /**
+     * Bottom-up iterative DP solution (no recursion).
+     * dp[i] = maximum 'A's that can be produced with i key presses.
+     * Two possibilities for the last actions:
+     *  - press 'A': dp[i] = dp[i-1] + 1
+     *  - perform a sequence: at some earlier stroke b do Ctrl-A, Ctrl-C and then (i-b-2) Ctrl-V presses,
+     *    which yields dp[b] * (i - b - 1) total characters at step i.
+     */
+    public int maxA(int n) {
+        if (n <= 0) return 0;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            // Press 'A'
+            dp[i] = dp[i - 1] + 1;
+            // Try sequences where we copy at position b and paste until i
+            // b must be at least 1, and we need at least 3 strokes after b to perform Ctrl-A,C,V
+            for (int b = i - 3; b >= 1; b--) {
+                int times = i - b - 1; // how many times copied value from step b is inserted
+                int candidate = dp[b] * times;
+                assert candidate > 0:"integer overflow: "+candidate;
+                if (candidate > dp[i]) dp[i] = candidate;
+            }
+        }
+        return dp[n];
+    }
+
 
     @ParameterizedTest
     @CsvSource({
@@ -86,29 +113,11 @@ public class FourKeysKeyboard_651 {
             "18, 192",
             "19, 256",
             "20, 324",
-            "50, 1327104",
-//            "60, 1327104",
+            "50, 1327104",    // can't be calculated recursively with buffer
+            "60, 21233664",
+            "70, 339738624",
     })
     public void test(int n, int expected) {
         assertEquals(expected, maxA(n));
-        System.out.println("buffer.size()=" + buffer.size());
-//
-//        // Create reverted map: value -> sorted set of keys that produced that value
-//        Map<Integer, SortedSet<BufferKey>> revertedBuffer = new TreeMap<>();
-//        for (Map.Entry<BufferKey, Integer> entry : buffer.entrySet()) {
-//            revertedBuffer.computeIfAbsent(entry.getValue(), k -> new TreeSet<>(
-//                    Comparator.comparingInt(BufferKey::printedSize)
-//                            .thenComparingInt(BufferKey::bufferSize)
-//                            .thenComparingInt(BufferKey::pressesLeft)
-//            )).add(entry.getKey());
-//        }
-//
-//        System.out.println("revertedBuffer.size()=" + revertedBuffer.size());
-//        // optional: print first few entries for debugging
-//        int printed = 0;
-//        for (Map.Entry<Integer, SortedSet<BufferKey>> e : revertedBuffer.entrySet()) {
-//            System.out.println(e.getKey() + " -> " + e.getValue());
-//            if (++printed > 40) break;
-//        }
     }
 }
