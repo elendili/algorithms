@@ -24,8 +24,9 @@ dependencies {
     implementation("org.openjdk.jmh:jmh-core:1.19")
     implementation("org.openjdk.jmh:jmh-generator-annprocess:1.19")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.4.0")
     implementation("org.awaitility:awaitility:4.2.0")
+    implementation("org.jetbrains.kotlin:kotlin-test:1.4.0")
+    implementation("org.junit.platform:junit-platform-commons:1.14.2")
 }
 
 group = "sm"
