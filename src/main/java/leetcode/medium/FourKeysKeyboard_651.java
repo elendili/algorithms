@@ -23,7 +23,7 @@ public class FourKeysKeyboard_651 {
     record BufferKey(int printedSize, int bufferSize, int pressesLeft) {
     }
 
-    static Map<BufferKey, Integer> buffer = new HashMap();
+    static Map<BufferKey, Integer> buffer = new HashMap<>();
 
     public int maxA(int n) {
         // 2 actions:
@@ -54,6 +54,11 @@ public class FourKeysKeyboard_651 {
                 out = Math.max(out, recursive(printedSize + bufferSize, bufferSize, pressesLeft - 1));
             }
         }
+        // save to buffer
+        // [a,b,c] -> a=printedSize, b=bufferSize, c=pressesLeft
+        // [a+1,b,c]
+        // [a*2,a,c-3]
+        // [a+b,b,c-1]
         buffer.put(key, out);
         return out;
     }
@@ -86,6 +91,24 @@ public class FourKeysKeyboard_651 {
     })
     public void test(int n, int expected) {
         assertEquals(expected, maxA(n));
-        System.out.println(buffer.size());
+        System.out.println("buffer.size()=" + buffer.size());
+//
+//        // Create reverted map: value -> sorted set of keys that produced that value
+//        Map<Integer, SortedSet<BufferKey>> revertedBuffer = new TreeMap<>();
+//        for (Map.Entry<BufferKey, Integer> entry : buffer.entrySet()) {
+//            revertedBuffer.computeIfAbsent(entry.getValue(), k -> new TreeSet<>(
+//                    Comparator.comparingInt(BufferKey::printedSize)
+//                            .thenComparingInt(BufferKey::bufferSize)
+//                            .thenComparingInt(BufferKey::pressesLeft)
+//            )).add(entry.getKey());
+//        }
+//
+//        System.out.println("revertedBuffer.size()=" + revertedBuffer.size());
+//        // optional: print first few entries for debugging
+//        int printed = 0;
+//        for (Map.Entry<Integer, SortedSet<BufferKey>> e : revertedBuffer.entrySet()) {
+//            System.out.println(e.getKey() + " -> " + e.getValue());
+//            if (++printed > 40) break;
+//        }
     }
 }
