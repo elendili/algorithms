@@ -23,27 +23,27 @@ public class FourKeysKeyboard_651 {
         // print letter - weight 1
         // and select-paste - weight 3
         // and paste - weight 1
-        recursive(0, 0, n);
-        return maxSize;
+        return recursive(0, 0, n);
     }
 
-    private void recursive(int printedSize, int bufferSize, int pressesLeft) {
+    private int recursive(int printedSize, int bufferSize, int pressesLeft) {
 //        System.out.println("printedSize=" + printedSize + ", bufferSize=" + bufferSize + ", pressesLeft=" + pressesLeft);
         if (pressesLeft == 0) {
             maxSize = Math.max(maxSize, printedSize);
-            return;
+            return printedSize;
         }
         // try print 'A'
-        recursive(printedSize + 1, bufferSize, pressesLeft - 1);
+        int out = recursive(printedSize + 1, bufferSize, pressesLeft - 1);
         // select all
         if (printedSize > 0 && pressesLeft > 2) {
             // copy to buffer and paste
-            recursive(printedSize*2, printedSize, pressesLeft - 3);
+            out = Math.max(out, recursive(printedSize*2, printedSize, pressesLeft - 3));
         }
         if (bufferSize > 0) {
             // paste from buffer
-            recursive(printedSize + bufferSize, bufferSize, pressesLeft - 1);
+            out = Math.max(out, recursive(printedSize + bufferSize, bufferSize, pressesLeft - 1));
         }
+        return out;
     }
 
 
