@@ -18,6 +18,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("org.junit.jupiter:junit-jupiter-engine:5.11.2")
     implementation("org.junit.jupiter:junit-jupiter-params:5.11.2")
+//    implementation("org.junit.platform:junit-platform-commons:1.14.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.2")
+
     implementation("org.hamcrest:hamcrest:2.2")
     implementation("org.apache.logging.log4j:log4j-api:2.5")
     implementation("org.apache.logging.log4j:log4j-core:2.13.2")
@@ -26,7 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.0")
     implementation("org.awaitility:awaitility:4.2.0")
     implementation("org.jetbrains.kotlin:kotlin-test:1.4.0")
-    implementation("org.junit.platform:junit-platform-commons:1.14.2")
+
 }
 
 group = "sm"
