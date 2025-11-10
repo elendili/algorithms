@@ -35,7 +35,7 @@ dependencies {
 group = "sm"
 version = "1.0-SNAPSHOT"
 description = "algorithms"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_25
 
 publishing {
     publications.create<MavenPublication>("maven") {

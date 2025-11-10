@@ -269,7 +269,6 @@ public class ThreadsHustle {
                     Thread t = findThreadById(tid);
                     if (t != null) {
                         System.err.println("Found thread " + t.getName() + ". Attempt to stop");
-                        t.stop(); // doesn't work and should not. :-)
                     }
                 }
             }
