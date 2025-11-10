@@ -20,7 +20,7 @@ public class CodecDesign {
         // Decodes a single string to a list of strings.
         public List<String> decode(String s) {
             List<String> list = new ArrayList<>();
-            for (int i = 0; i < s.length(); i++) {
+            for (int i = 0; i < s.length(); ) {
                 int delimiterIndex = s.indexOf(DELIMITER, i);
                 String lengthString = s.substring(i, delimiterIndex);
                 int length = Integer.parseInt(lengthString);
@@ -36,7 +36,7 @@ public class CodecDesign {
     @org.junit.jupiter.api.Test
     public void test(){
         Codec codec = new Codec();
-        List<String> list = List.of("","1","\n","123","!@#$%^\" ");
+        List<String> list = List.of("","1","\n","123","!@#$%^\" ","'\"");
         assertEquals(list.toString(), codec.decode(codec.encode(list)).toString());
     }
 }
