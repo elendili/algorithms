@@ -1,8 +1,12 @@
 package leetcode.medium;
 
 import leetcode.top_interview_questions.TreeNode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,19 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EncodeNaryTreeToBinaryTreeDesign {
     class Codec {
         // Encodes an n-ary tree to a binary tree.
+        // rule: own siblings are on right
+        // rule: own children are on left
         public TreeNode encode(Node root) {
-            // put all children as left child chain recursively?
-            // put all siblings as right child chain recursively?
-
-            // put root first children as left child,
-            // put root second children as right child of first root child
-            // rule: siblings are on right
-            // rule: children are on left
-
-            // collection of children converted to TreeNode of
-            TreeNode out = new TreeNode(root.val);
-            out.left = listOfNodesIntoTreeNode(root.children);
-            return out;
+            return listOfNodesIntoTreeNode(List.of(root));
         }
 
         TreeNode listOfNodesIntoTreeNode(List<Node> children) {
@@ -37,89 +32,104 @@ public class EncodeNaryTreeToBinaryTreeDesign {
             TreeNode out = new TreeNode(first.val);
             out.right = listOfNodesIntoTreeNode(children.subList(1, children.size()));
             out.left = listOfNodesIntoTreeNode(first.children);
+//            if (first.children!=null && first.children.isEmpty()) {
+//                out.val = -out.val;
+//            }
             return out;
         }
 
         // Decodes your binary tree to an n-ary tree.
         public Node decode(TreeNode root) {
-            // get left, then right chain as siblings
+            if (root != null) {
+                Node out = new Node(root.val);
+                List<Node> list = new ArrayList<>();
+                gatherListOfChildren(root.left, list);
+                if (!list.isEmpty()) {
+                    out.children = list;
+                }
+                return out;
+            }
             return null;
+        }
+
+        void gatherListOfChildren(TreeNode node, List<Node> list) {
+            if (node != null) {
+                Node cur = decode(node);
+                list.add(cur);
+                gatherListOfChildren(node.right, list);
+            }
         }
     }
 
 
-    Node root;
     Codec codec = new Codec();
 
-    @org.junit.jupiter.api.Test
-    public void test1Empty() {
-        root = new Node(1, of());
-        assertCodec(root);
-    }
-    @org.junit.jupiter.api.Test
-    public void test1Null() {
-        root = new Node(1);
+    @ParameterizedTest
+    @MethodSource("nodes")
+    void parameterizedTest(Node root) {
         assertCodec(root);
     }
 
-    @org.junit.jupiter.api.Test
-    public void test00() {
-        root = new Node(1, of(new Node(2)));
-        assertCodec(root);
-        root = new Node(1, of(new Node(2), new Node(3)));
-        assertCodec(root);
-    }
-
-    @org.junit.jupiter.api.Test
-    public void test1() {
-        root = new Node(1, of(
-                new Node(2),
-                new Node(3, of(
-                        new Node(4),
-                        new Node(5)))));
-        assertCodec(root);
-        root = new Node(1, of(
-                new Node(2, of(
-                        new Node(3),
-                        new Node(4))),
-                new Node(5)));
-        assertCodec(root);
-    }
-
-    @org.junit.jupiter.api.Test
-    public void test2() {
-        root = new Node(1, of(
-                new Node(2, of(
+    static Stream<Node> nodes() {
+        Stream<Node> out = Stream.of(
+//                new Node(1, Collections.singletonList(null)),
+                new Node(1),
+                new Node(1, of(new Node(2))),
+                new Node(1, of(new Node(2), new Node(3))),
+                new Node(1, of(
+                        new Node(2),
                         new Node(3, of(
-                                new Node(4), new Node(5))
-                        ), new Node(6)))));
-        assertCodec(root);
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testFromLeetCode() {
-        root = new Node(1, of(
-                new Node(2),
-                new Node(3, of(
-                        new Node(6),
-                        new Node(7, of(
-                                new Node(11, of(
-                                        new Node(14)
-                                ))
-                        )))),
-                new Node(4, of(
-                        new Node(8, of(
-                                new Node(12)
+                                new Node(4),
+                                new Node(5)
                         ))
                 )),
-                new Node(5, of(
-                        new Node(9, of(
-                                new Node(13)
+                new Node(1, of(
+                        new Node(2, of(
+                                new Node(3),
+                                new Node(4)
                         )),
-                        new Node(10)
-                ))
-        ));
-        assertCodec(root);
+                        new Node(5)
+                )),
+                new Node(1, of(
+                        new Node(2, of(
+                                new Node(3, of(
+                                        new Node(4),
+                                        new Node(5)
+                                )),
+                                new Node(6)
+                        ))
+                )),
+                new Node(1, of(
+                        new Node(2),
+                        new Node(3, of(
+                                new Node(6),
+                                new Node(7, of(
+                                        new Node(11, of(
+                                                new Node(14)
+                                        ))
+                                ))
+                        )),
+                        new Node(4, of(
+                                new Node(8, of(
+                                        new Node(12)
+                                ))
+                        )),
+                        new Node(5, of(
+                                new Node(9, of(
+                                        new Node(13)
+                                )),
+                                new Node(10)
+                        ))
+                )),
+                new Node(1, of(
+                        new Node(3, of(
+                                new Node(5),
+                                new Node(6)
+                        )),
+                        new Node(2, of()),
+                        new Node(4, of())))
+        );
+        return out;
     }
 
     void assertCodec(Node root) {
