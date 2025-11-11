@@ -21,6 +21,9 @@ public class EncodeNaryTreeToBinaryTreeDesign {
         // rule: own siblings are on right
         // rule: own children are on left
         public TreeNode encode(Node root) {
+            if (root == null) {
+                return null;
+            }
             return listOfNodesIntoTreeNode(List.of(root));
         }
 
@@ -29,18 +32,24 @@ public class EncodeNaryTreeToBinaryTreeDesign {
                 return null;
             }
             Node first = children.getFirst();
+            if (first == null) {
+                return null;
+            }
             TreeNode out = new TreeNode(first.val);
             out.right = listOfNodesIntoTreeNode(children.subList(1, children.size()));
             out.left = listOfNodesIntoTreeNode(first.children);
-//            if (first.children!=null && first.children.isEmpty()) {
-//                out.val = -out.val;
-//            }
+            if (first.children != null && first.children.isEmpty()) {
+                out.val = -out.val;
+            }
             return out;
         }
 
         // Decodes your binary tree to an n-ary tree.
         public Node decode(TreeNode root) {
             if (root != null) {
+                if (root.val < 0) {
+                    return new Node(-root.val, new ArrayList<>());
+                }
                 Node out = new Node(root.val);
                 List<Node> list = new ArrayList<>();
                 gatherListOfChildren(root.left, list);
@@ -73,6 +82,7 @@ public class EncodeNaryTreeToBinaryTreeDesign {
     static Stream<Node> nodes() {
         Stream<Node> out = Stream.of(
 //                new Node(1, Collections.singletonList(null)),
+                null,
                 new Node(1),
                 new Node(1, of(new Node(2))),
                 new Node(1, of(new Node(2), new Node(3))),
