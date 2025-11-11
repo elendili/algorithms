@@ -72,7 +72,33 @@ class Node {
 
     @Override
     public String toString() {
-        return ("" + val + (children.isEmpty() ? "" : children)).replaceAll(" ", "");
+        String childrenString = (children == null || children.isEmpty()) ? "" : children.toString();
+        return (val + childrenString).replaceAll(" ", "");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Node)) {
+            return false;
+        }
+        Node other = (Node) obj;
+        if (this.val != other.val) {
+            return false;
+        }
+        if (this.children == null ^ other.children == null) {
+            return false;
+        }
+        if (this.children != null) {
+            if (this.children.size() != other.children.size()) {
+                return false;
+            }
+            for (int i = 0; i < this.children.size(); i++) {
+                if (!this.children.get(i).equals(other.children.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // "[1,null,3,2,4,null,5,6]"

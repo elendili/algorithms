@@ -5,13 +5,22 @@
 plugins {
     java
     `maven-publish`
+    idea
 }
 
+idea {
+    java.sourceCompatibility = JavaVersion.VERSION_25
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
+}
 repositories {
-    mavenLocal()
+
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+    mavenLocal()
 }
 
 dependencies {
