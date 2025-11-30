@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
-    static ListNode createTillN(int n) {
+    public static ListNode createTillN(int n) {
         ListNode head = new ListNode(1);
         ListNode cur = head;
         for (int i = 2; i <= n; i++) {
@@ -20,10 +20,10 @@ public class ListNode {
         return head;
     }
 
-    static ListNode createFromNumbers(Integer... numbers) {
+    public static ListNode createFromNumbers(Integer... numbers) {
         return createFromNumbers(Arrays.asList(numbers));
     }
-    static ListNode createFromNumbers(List<Integer> numbers) {
+    public static ListNode createFromNumbers(List<Integer> numbers) {
         if(numbers.isEmpty()){
             return null;
         }
