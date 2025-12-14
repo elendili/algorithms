@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * https://leetcode.com/problems/find-leaves-of-binary-tree/submissions/1855386122/?envType=study-plan-v2&envId=premium-algo-100
+ */
 public class FindLeavesOfBinaryTree_366 {
     List<List<Integer>> byDepth;
 
