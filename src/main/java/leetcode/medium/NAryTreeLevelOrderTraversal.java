@@ -62,7 +62,7 @@ class Node {
     }
 
     public Node(int _val) {
-        val = _val;
+        this(_val, new ArrayList<>());
     }
 
     public Node(int _val, List<Node> _children) {
