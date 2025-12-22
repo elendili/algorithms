@@ -23,31 +23,30 @@ public class DiameterOfNAryTree_1522 {
         public int diameter(Node root) {
             globalMax = 0;
             dfs(root);
-            return globalMax - 1;
+            return globalMax;
+        }
+
+        boolean isLeaf(Node n) {
+            return n.children == null || n.children.isEmpty();
         }
 
         int dfs(Node root) {
-            if (root.children == null || root.children.isEmpty()) {
-                return 1;
+            if (isLeaf(root)) {
+                return 0;
             }
-            int maxOfChildren = 0;
-            int maxOfChildren2 = 0;
+            int max1 = 0;
+            int max2 = 0;
             for (Node c : root.children) {
-                int cd = dfs(c);
-                if (cd >= maxOfChildren) {
-                    maxOfChildren2 = maxOfChildren;
-                    maxOfChildren = cd;
-                } else if (cd>=maxOfChildren2) {
-                    maxOfChildren2 = cd;
+                int cd = dfs(c) + 1;
+                if (cd > max1) {
+                    max2 = max1;
+                    max1 = cd;
+                } else if (cd > max2) {
+                    max2 = cd;
                 }
             }
-            // path length which goes up through current
-            int connectedChildrenThroughCurrent = maxOfChildren + maxOfChildren2 + 1;
-            int childrenAndCurrent = maxOfChildren + 1;
-            globalMax = Math.max(globalMax, connectedChildrenThroughCurrent);
-            globalMax = Math.max(globalMax, childrenAndCurrent);
-//            System.err.println(root.val + ", connectedChildrenThroughCurrent="+connectedChildrenThroughCurrent+", childrenAndCurrent="+childrenAndCurrent);
-            return childrenAndCurrent;
+            globalMax = Math.max(globalMax, max1 + max2);
+            return max1;
         }
     }
 
@@ -136,6 +135,12 @@ public class DiameterOfNAryTree_1522 {
         n11.children.addAll(List.of(n14));
 
         assertEquals(7, sut.diameter(n1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("source")
+    public void test44(FindDiameter sut) {
+        assertEquals(0, sut.diameter(new Node(44)));
     }
 
 
