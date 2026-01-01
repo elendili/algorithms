@@ -101,7 +101,7 @@ public class MinimumPathSum {
         Assertions.assertEquals(12, minPathSum.minPathSum(new int[][]{{1, 2, 3}, {4, 5, 6}}));
     }
 
-    public int[][] get2dArrayFrom(URL url) {
+    public static int[][] get2dArrayFrom(URL url) {
         try (InputStream is = url.openStream();
              BufferedReader br = new BufferedReader(new InputStreamReader(is))
         ) {
