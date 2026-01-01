@@ -90,12 +90,17 @@ public class AllPathsFromSourceLeadToDestination_1059 {
     }
 
     public static int[][] extract2dArrayFromBracketedString(String string) {
-        string = string.replaceAll("(^\\s*\\[\\[)|(]]\\s*$)", "");
+        string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
+        if (string.isEmpty()) {
+            return new int[][]{};
+        }
+        string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
         List<int[]> outList = Arrays.stream(string.split("],\\["))
-                .map(pair -> {
-                    String[] pas = pair.split(",");
-                    int[] pai = new int[]{Integer.parseInt(pas[0]), Integer.parseInt(pas[1])};
-                    return pai;
+                .map(numbers -> {
+                    int[] out = Arrays.stream(numbers.split(","))
+                            .mapToInt(Integer::parseInt)
+                            .toArray();
+                    return out;
                 }).toList();
         int[][] out = outList.toArray(new int[][]{});
         return out;
