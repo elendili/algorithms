@@ -44,6 +44,7 @@ public class FindTheCelebrity_277 {
                     candidate = i;
                 }
             }
+            // candidate -- last one who is known by previous candidate, but probably doesn't know previous candidate
 
             for(int i = 0; i < candidate; i++){
                 if(knows(candidate, i) || !knows(i, candidate)){
