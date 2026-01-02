@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.*;
 
-import static collections.ArrayUtils.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
