@@ -1,9 +1,9 @@
 package leetcode.medium;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import static collections.ArrayUtils.extract2dArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
@@ -89,20 +89,4 @@ public class AllPathsFromSourceLeadToDestination_1059 {
                 leadsToDestination(100, edges, 0, 99));
     }
 
-    public static int[][] extract2dArrayFromBracketedString(String string) {
-        string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
-        if (string.isEmpty()) {
-            return new int[][]{};
-        }
-        string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
-        List<int[]> outList = Arrays.stream(string.split("],\\["))
-                .map(numbers -> {
-                    int[] out = Arrays.stream(numbers.split(","))
-                            .mapToInt(Integer::parseInt)
-                            .toArray();
-                    return out;
-                }).toList();
-        int[][] out = outList.toArray(new int[][]{});
-        return out;
-    }
 }
