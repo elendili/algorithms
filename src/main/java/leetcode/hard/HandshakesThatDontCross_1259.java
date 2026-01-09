@@ -27,20 +27,30 @@ public class HandshakesThatDontCross_1259 {
      * dp[j]⋅dp[i−j−1].
      */
     private static int m = 1000000007;
+    private static final int[] dp = new int[502];
+    private static int dpLastIndex = 0;
+    static {
+        dp[0] = 1;
+    }
 
     public int numberOfWays(int numPeople) {
-        int[] dp = new int[numPeople / 2 + 1];
-        dp[0] = 1;
-        for (int i = 1; i <= numPeople / 2; i++) {
-            for (int j = 0; j < i; j++) {
-                int leftHalf = dp[j];
-                int rightHalf = dp[i - j - 1];
-                long v = (long) leftHalf * rightHalf;
-                dp[i] += v % m;
-                dp[i] %= m;
+        int numPairs = numPeople / 2;
+        if (dpLastIndex<numPairs) {
+            for (int i = 0; i <= numPairs; i++) {
+                if (dp[i] > 0) {
+                    continue;
+                }
+                for (int j = 0; j < i; j++) {
+                    int leftHalf = dp[j];
+                    int rightHalf = dp[i - j - 1];
+                    long v = (long) leftHalf * rightHalf;
+                    dp[i] += v % m;
+                    dp[i] %= m;
+                }
             }
+            dpLastIndex = numPairs;
         }
-        return dp[numPeople / 2];
+        return dp[numPairs];
     }
 
 
