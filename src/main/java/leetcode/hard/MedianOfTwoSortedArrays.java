@@ -48,7 +48,7 @@ public class MedianOfTwoSortedArrays {
                 // at least 1 value if aCount < A.Length.
                 //
 
-                // Decrease B's contribution size, i.e. increase A's contribution size;
+                // Decrease B's contribution size, integer.e. increase A's contribution size;
                 // y lies in the right half.
                 aMinCount = aCount + 1;
             } else {

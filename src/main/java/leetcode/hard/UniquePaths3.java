@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * https://leetcode.com/problems/unique-paths-iii/
- * You are given an m x n integer array grid where grid[i][j] could be:
+ * You are given an m x n integer array grid where grid[integer][j] could be:
  * <p>
  * 1 representing the starting square. There is exactly one starting square.
  * 2 representing the ending square. There is exactly one ending square.
@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Return the number of 4-directional walks from the starting square to the ending square, that walk over every non-obstacle square exactly once.
  * <p>
  * m == grid.length
- * n == grid[i].length
+ * n == grid[integer].length
  * 1 <= m, n <= 20
  * 1 <= m * n <= 20
- * -1 <= grid[i][j] <= 2
+ * -1 <= grid[integer][j] <= 2
  * There is exactly one starting cell and one ending cell.
  */
 public class UniquePaths3 {

@@ -26,9 +26,9 @@ public class PaintHouseII_265 {
             for (int i = 0; i < n; i++) {
                 System.arraycopy(costs[i], 0, dp[i], 0, k);
                 if (i > 0) {
-                    for (int j = 0; j < k; j++) { // colors of i-house
+                    for (int j = 0; j < k; j++) { // colors of integer-house
                         int minCostOfPaintingOfPrevHouses = Integer.MAX_VALUE;
-                        for (int c = 0; c < k; c++) { // color of (i-1)-house
+                        for (int c = 0; c < k; c++) { // color of (integer-1)-house
                             if (c != j) {
                                 minCostOfPaintingOfPrevHouses = Math.min(minCostOfPaintingOfPrevHouses, dp[i - 1][c]);
                             }

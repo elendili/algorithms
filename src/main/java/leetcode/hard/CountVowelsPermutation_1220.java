@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * <p>
  * Given an integer n, your task is to count how many strings of length n can be formed under the following rules:
  * <p>
- * Each character is a lower case vowel ('a', 'e', 'i', 'o', 'u')
+ * Each character is a lower case vowel ('a', 'e', 'integer', 'o', 'u')
  * Each vowel 'a' may only be followed by an 'e'.
- * Each vowel 'e' may only be followed by an 'a' or an 'i'.
- * Each vowel 'i' may not be followed by another 'i'.
- * Each vowel 'o' may only be followed by an 'i' or a 'u'.
+ * Each vowel 'e' may only be followed by an 'a' or an 'integer'.
+ * Each vowel 'integer' may not be followed by another 'integer'.
+ * Each vowel 'o' may only be followed by an 'integer' or a 'u'.
  * Each vowel 'u' may only be followed by an 'a'.
  * Since the answer may be too large, return it modulo 10^9 + 7.
  */
@@ -31,7 +31,7 @@ public class CountVowelsPermutation_1220 {
         public int countVowelPermutation(int n) {
             // 0 - 'a'
             // 1 - 'e'
-            // 2 - 'i'
+            // 2 - 'integer'
             // 3 - 'o'
             // 4 - 'u'
             int divider = (1_000_000_000 + 7);
@@ -42,11 +42,11 @@ public class CountVowelsPermutation_1220 {
                 // from current to prev
                 System.arraycopy(current, 0, prev, 0, 5);
                 /*
-                 * Each character is a lower case vowel ('a', 'e', 'i', 'o', 'u')
+                 * Each character is a lower case vowel ('a', 'e', 'integer', 'o', 'u')
                  * Each vowel 'a' may only be followed by an 'e'.
-                 * Each vowel 'e' may only be followed by an 'a' or an 'i'.
-                 * Each vowel 'i' may not be followed by another 'i'.
-                 * Each vowel 'o' may only be followed by an 'i' or a 'u'.
+                 * Each vowel 'e' may only be followed by an 'a' or an 'integer'.
+                 * Each vowel 'integer' may not be followed by another 'integer'.
+                 * Each vowel 'o' may only be followed by an 'integer' or a 'u'.
                  * Each vowel 'u' may only be followed by an 'a'.
                  * "ae", "ea", "ei", "ia", "ie", "io", "iu", "oi", "ou" and "ua"
                  */

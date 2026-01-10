@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv
- * You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k.
+ * You are given an integer array prices where prices[integer] is the price of a given stock on the ith day, and an integer k.
  * <p>
- * Find the maximum profit you can achieve. You may complete at most k transactions: i.e. you may buy at most k times and sell at most k times.
+ * Find the maximum profit you can achieve. You may complete at most k transactions: integer.e. you may buy at most k times and sell at most k times.
  * <p>
- * Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+ * Note: You may not engage in multiple transactions simultaneously (integer.e., you must sell the stock before you buy again).
  */
 public class BestTimeToBuyAndSellStockIV_188 {
     public int maxProfit(int k, int[] prices) {
@@ -21,11 +21,11 @@ public class BestTimeToBuyAndSellStockIV_188 {
             return 0;
         }
         // generalize solution from BestTimeToBuyAndSellStockIII
-        // costs[i] represent cost of t-sh transaction considering compensation from previous transactions (t-1,t-2,..,first transaction)
+        // costs[integer] represent cost of t-sh transaction considering compensation from previous transactions (t-1,t-2,..,first transaction)
         // transaction here is a buy-sell actions combination
         int[] costs = new int[k];
         Arrays.fill(costs, Integer.MAX_VALUE);
-        // profits[i] represent profit of t-sh transaction considering cost of this transaction
+        // profits[integer] represent profit of t-sh transaction considering cost of this transaction
         int[] profits = new int[k];
         for (int price : prices) {
             for (int t = 0; t < k; t++) {

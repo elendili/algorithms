@@ -13,13 +13,13 @@ public class TimeTakenToCrossTheDoor_2534 {
     public int[] timeTaken(int[] arrival, int[] state) {
         /*
         You are given a non-decreasing integer array arrival of size n,
-        where arrival[i] is the arrival time of the ith person at the door.
+        where arrival[integer] is the arrival time of the ith person at the door.
         You are also given an array state of size n,
-        where state[i] is 0 if person i wants to enter through the door
+        where state[integer] is 0 if person integer wants to enter through the door
         or 1 if they want to exit through the door.
 
         Return an array answer of size n
-        where answer[i] is the second at which the ith person crosses the door.
+        where answer[integer] is the second at which the ith person crosses the door.
 
         // sort arrived to know who goes first
         get group of awaiting people who came at same time,
@@ -30,7 +30,7 @@ public class TimeTakenToCrossTheDoor_2534 {
         add to out 
          */
         int n = arrival.length;
-        int[] timeToPersonIndex = new int[n]; // i is a time, a[i] is a person using door at time i
+        int[] timeToPersonIndex = new int[n]; // integer is a time, a[integer] is a person using door at time integer
         int outIndex = 0;
         int indexOfFirstArriver = 0; // first arriver of groups that is under processing
         int indexOfNextArriver = 0; // from next documented moment which not under process
@@ -80,8 +80,8 @@ public class TimeTakenToCrossTheDoor_2534 {
 
         }
         System.out.println(Arrays.toString(timeToPersonIndex));
-//        int[] timeToPersonIndex = new int[n]; // i is a time, a[i] is a person using door at time i
-        int[] personIndexToTimeMoment = new int[n]; // i is a person index, a[i] is a time moment
+//        int[] timeToPersonIndex = new int[n]; // integer is a time, a[integer] is a person using door at time integer
+        int[] personIndexToTimeMoment = new int[n]; // integer is a person index, a[integer] is a time moment
         //        assertEquals("[0, 2, 3, 1, 4]",
         //        assertEquals("[0, 3, 1, 2, 4]",     - expected
         // at moment 3 person 2 entered
