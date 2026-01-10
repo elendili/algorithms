@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 
 public class NumberOfIslandsII_305 {
     int[][] directions = new int[][]{
@@ -95,7 +95,7 @@ public class NumberOfIslandsII_305 {
     )
     public void test(String expected, int m, int n, String positions) {
         Assertions.assertEquals(expected,
-                numIslands2(m, n, extract2dArrayFromBracketedString(positions)).toString().replaceAll(" ", "")
+                numIslands2(m, n, extract2dIntegerArrayFromBracketedString(positions)).toString().replaceAll(" ", "")
         );
     }
 }

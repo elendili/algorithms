@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.*;
 
 import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -108,8 +108,8 @@ public class CampusBikes_1057 {
         assertEquals(
                 Arrays.toString(extract1dIntegerArrayFromBracketedString(expected)),
                 Arrays.toString(assignBikes(
-                        extract2dArrayFromBracketedString(workers),
-                        extract2dArrayFromBracketedString(bikes)
+                        extract2dIntegerArrayFromBracketedString(workers),
+                        extract2dIntegerArrayFromBracketedString(bikes)
                 )));
     }
 

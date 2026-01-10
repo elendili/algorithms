@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.*;
 
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -69,6 +69,6 @@ public class ParallelCourses_1136 {
     )
     public void test(int expected, int n, String relations) {
         assertEquals(expected,
-                minimumSemesters(n, extract2dArrayFromBracketedString(relations)));
+                minimumSemesters(n, extract2dIntegerArrayFromBracketedString(relations)));
     }
 }

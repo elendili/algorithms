@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.HashSet;
 import java.util.Set;
 
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -61,6 +61,6 @@ public class NumberOfDistinctIslands_694 {
     )
     public void test(int expected, String grid) {
         assertEquals(expected,
-                numDistinctIslands(extract2dArrayFromBracketedString(grid)));
+                numDistinctIslands(extract2dIntegerArrayFromBracketedString(grid)));
     }
 }

@@ -78,7 +78,7 @@ public class TestHelper {
                 .collect(Collectors.joining("\n"));
     }
 
-    public static int[][] extract2dArrayFromBracketedString(String string) {
+    public static int[][] extract2dIntegerArrayFromBracketedString(String string) {
         string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
         if (string.isEmpty()) {
             return new int[][]{};

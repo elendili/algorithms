@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 
 /**
  * https://leetcode.com/problems/shortest-distance-from-all-buildings/
@@ -78,6 +78,6 @@ public class ShortestDistanceFromAllBuildings_317 {
     )
     public void test(int expected, String grid) {
         Assertions.assertEquals(expected,
-                shortestDistance(extract2dArrayFromBracketedString(grid)));
+                shortestDistance(extract2dIntegerArrayFromBracketedString(grid)));
     }
 }

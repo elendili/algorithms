@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.*;
 
-import static helpers.TestHelper.extract2dArrayFromBracketedString;
+import static helpers.TestHelper.extract2dIntegerArrayFromBracketedString;
 import static helpers.TestHelper.twoDArrayToString;
 
 /**
@@ -68,8 +68,8 @@ public class WallsAndGates_286 {
                     """
     )
     public void test(String expected, String input) {
-        int[][] expectedArray = extract2dArrayFromBracketedString(expected);
-        int[][] inputArray = extract2dArrayFromBracketedString(input);
+        int[][] expectedArray = extract2dIntegerArrayFromBracketedString(expected);
+        int[][] inputArray = extract2dIntegerArrayFromBracketedString(input);
         wallsAndGates(inputArray);
         Assertions.assertEquals(
                 twoDArrayToString(expectedArray),
@@ -100,7 +100,7 @@ public class WallsAndGates_286 {
                 "[17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 1, 2]\n" +
                 "[18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 1]\n" +
                 "[19,18,17,16,15,14,13,12,11,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]";
-        int[][] inputArray = extract2dArrayFromBracketedString(input);
+        int[][] inputArray = extract2dIntegerArrayFromBracketedString(input);
         wallsAndGates(inputArray);
         Assertions.assertEquals(
                 expectedString,
