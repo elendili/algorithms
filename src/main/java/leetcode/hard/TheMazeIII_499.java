@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.*;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 import static helpers.TestHelper.extract2dArrayFromBracketedString;
 
 public class TheMazeIII_499 {
@@ -86,8 +86,8 @@ public class TheMazeIII_499 {
     public void test(String expected, String ball, String hole, String mazeString) {
         Assertions.assertEquals(expected,
                 findShortestWay(extract2dArrayFromBracketedString(mazeString),
-                        extract1dArrayFromBracketedString(ball),
-                        extract1dArrayFromBracketedString(hole)));
+                        extract1dIntegerArrayFromBracketedString(ball),
+                        extract1dIntegerArrayFromBracketedString(hole)));
     }
 
 }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 
 /**
  * https://leetcode.com/problems/divide-chocolate/editorial/?envType=study-plan-v2&envId=premium-algo-100
@@ -59,6 +59,6 @@ public class DivideChocolate_1231 {
                     """
     )
     public void test(int expected, String sweetness, int k) {
-        Assertions.assertEquals(expected, maximizeSweetness(extract1dArrayFromBracketedString(sweetness), k));
+        Assertions.assertEquals(expected, maximizeSweetness(extract1dIntegerArrayFromBracketedString(sweetness), k));
     }
 }

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 
 /**
  * https://leetcode.com/problems/maximum-average-subarray-ii/description/?envType=study-plan-v2&envId=premium-algo-100
@@ -58,7 +58,7 @@ public class MaximumAverageSubarrayII_644 {
                     """
     )
     public void test(double expected, String nums, int k) {
-        double actual = findMaxAverage(extract1dArrayFromBracketedString(nums), k);
+        double actual = findMaxAverage(extract1dIntegerArrayFromBracketedString(nums), k);
         Assertions.assertEquals(expected, actual, 1e-5);
     }
 }

@@ -3,7 +3,7 @@ package leetcode.medium;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindTheIndexOfTheLargeInteger_1533 {
@@ -107,7 +107,7 @@ public class FindTheIndexOfTheLargeInteger_1533 {
                     """
     )
     public void test(int expected, String nums) {
-        ArrayReader ar = new ArrayReaderBasic(extract1dArrayFromBracketedString(nums));
+        ArrayReader ar = new ArrayReaderBasic(extract1dIntegerArrayFromBracketedString(nums));
         assertEquals(expected,
                 new Solution().getIndex(ar));
     }

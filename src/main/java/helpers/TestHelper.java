@@ -49,28 +49,30 @@ public class TestHelper {
             System.setOut(oldOut);
         }
     }
-    private static String leftPad(String v, int length){
-        int count = length-v.length();
-        return " ".repeat(count)+v;
+
+    private static String leftPad(String v, int length) {
+        int count = length - v.length();
+        return " ".repeat(count) + v;
     }
-    public static String twoDArrayToString(int[][]a){
+
+    public static String twoDArrayToString(int[][] a) {
         AtomicInteger maxWidth = new AtomicInteger();
-        List<List<String>> lists  = Arrays.stream(a)
-                .map(aa-> Arrays.stream(aa).mapToObj(String::valueOf)
-                        .peek(s->maxWidth.set(Math.max(s.length(),maxWidth.get())))
+        List<List<String>> lists = Arrays.stream(a)
+                .map(aa -> Arrays.stream(aa).mapToObj(String::valueOf)
+                        .peek(s -> maxWidth.set(Math.max(s.length(), maxWidth.get())))
                         .collect(Collectors.toList()))
                 .toList();
 
         String out = lists.stream()
                 .map(
-                        l->l.stream().map(s->leftPad(s,maxWidth.get()))
-                        .collect(Collectors.joining(",","[","]"))
+                        l -> l.stream().map(s -> leftPad(s, maxWidth.get()))
+                                .collect(Collectors.joining(",", "[", "]"))
                 )
                 .collect(Collectors.joining("\n"));
         return out;
     }
-    
-    public static String twoDArrayToString(char[][]a){
+
+    public static String twoDArrayToString(char[][] a) {
         return Arrays.stream(a)
                 .map(Arrays::toString)
                 .collect(Collectors.joining("\n"));
@@ -83,12 +85,12 @@ public class TestHelper {
         }
         string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
         List<int[]> outList = Arrays.stream(string.split("],\\["))
-                .map(TestHelper::extract1dArrayFromBracketedString).toList();
+                .map(TestHelper::extract1dIntegerArrayFromBracketedString).toList();
         int[][] out = outList.toArray(new int[][]{});
         return out;
     }
 
-    public static int[] extract1dArrayFromBracketedString(String string) {
+    public static int[] extract1dIntegerArrayFromBracketedString(String string) {
         string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
         if (string.isEmpty()) {
             return new int[]{};
@@ -96,6 +98,22 @@ public class TestHelper {
         int[] out = Arrays.stream(string.split(",\\s*"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
+        return out;
+    }
+
+    public static char[] extract1dCharArrayFromBracketedString(String string) {
+        string = string.replaceAll("(^\\s*\\[)|(]\\s*$)", "");
+        if (string.isEmpty()) {
+            return new char[]{};
+        }
+        List<Character> outList = Arrays.stream(string.split(",\\s*"))
+                .map(e -> e.replaceAll("[\"|']", "").charAt(0))
+                .toList();
+        char[] out = new char[outList.size()];
+        int i = 0;
+        for (char c : outList) {
+            out[i++] = c;
+        }
         return out;
     }
 }

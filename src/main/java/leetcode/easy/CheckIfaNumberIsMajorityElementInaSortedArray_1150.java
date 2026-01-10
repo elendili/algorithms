@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -55,6 +55,6 @@ public class CheckIfaNumberIsMajorityElementInaSortedArray_1150 {
     )
     public void test(boolean expected, int n, String nums) {
         assertEquals(expected,
-                isMajorityElement(extract1dArrayFromBracketedString(nums), n));
+                isMajorityElement(extract1dIntegerArrayFromBracketedString(nums), n));
     }
 }

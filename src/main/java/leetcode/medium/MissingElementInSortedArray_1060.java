@@ -3,7 +3,7 @@ package leetcode.medium;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MissingElementInSortedArray_1060 {
@@ -37,6 +37,6 @@ public class MissingElementInSortedArray_1060 {
     )
     public void test(int expected, int n, String nums) {
         assertEquals(expected,
-                missingElement(extract1dArrayFromBracketedString(nums), n));
+                missingElement(extract1dIntegerArrayFromBracketedString(nums), n));
     }
 }

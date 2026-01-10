@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static helpers.TestHelper.extract1dArrayFromBracketedString;
+import static helpers.TestHelper.extract1dIntegerArrayFromBracketedString;
 import static helpers.TestHelper.extract2dArrayFromBracketedString;
 
 public class TheMaze_490 {
@@ -57,7 +57,7 @@ public class TheMaze_490 {
     public void test(boolean expected, String src, String dest, String mazeString) {
         Assertions.assertEquals(expected,
                 hasPath(extract2dArrayFromBracketedString(mazeString),
-                        extract1dArrayFromBracketedString(src),
-                        extract1dArrayFromBracketedString(dest)));
+                        extract1dIntegerArrayFromBracketedString(src),
+                        extract1dIntegerArrayFromBracketedString(dest)));
     }
 }
