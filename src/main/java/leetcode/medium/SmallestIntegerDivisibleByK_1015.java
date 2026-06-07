@@ -39,7 +39,15 @@ public class SmallestIntegerDivisibleByK_1015 {
     @CsvSource({
             "1, 1",
             "2, -1",
-            "3, 3"
+            "3, 3",
+            "4, -1",
+            "5, -1",
+            "6, -1",
+            "7, 6",
+            "8, -1",
+            "9, 9",
+            "11, 2",
+            "13, 6"
     })
     public void test(int k, int expected) {
         assertEquals(expected, smallestRepunitDivByK(k));
