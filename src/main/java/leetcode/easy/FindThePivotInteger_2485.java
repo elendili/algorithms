@@ -22,23 +22,11 @@ public class FindThePivotInteger_2485 {
      * x^2 = (n^2 + n) / 2
      */
     public int pivotInteger(int n) {
-        int totalSum = n * (n + 1) / 2;
-        int left = 1, right = n;
-        
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            int sumLeft = mid * (mid + 1) / 2;
-            int sumRight = totalSum - sumLeft + mid; // sum(mid..n)
-            
-            if (sumLeft == sumRight) {
-                return mid;
-            } else if (sumLeft < sumRight) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
+        int sumTotal = n * (n + 1) / 2;
+        int x = (int) Math.sqrt(sumTotal);
+        if (x * x == sumTotal) {
+            return x;
         }
-        
         return -1;
     }
 
