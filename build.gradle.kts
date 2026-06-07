@@ -35,9 +35,9 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:2.13.2")
     implementation("org.openjdk.jmh:jmh-core:1.19")
     implementation("org.openjdk.jmh:jmh-generator-annprocess:1.19")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.22")
     implementation("org.awaitility:awaitility:4.2.0")
-    implementation("org.jetbrains.kotlin:kotlin-test:1.4.0")
+    implementation("org.jetbrains.kotlin:kotlin-test:1.7.22")
 
 }
 
