@@ -21,6 +21,7 @@ repositories {
     mavenLocal()
 }
 
+// Configure Gradle to look for tests in the main source directory
 sourceSets {
     test {
         java.setSrcDirs(listOf("src/main/java"))
@@ -35,8 +36,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("org.junit.jupiter:junit-jupiter-engine:5.11.2")
     implementation("org.junit.jupiter:junit-jupiter-params:5.11.2")
-//    implementation("org.junit.platform:junit-platform-commons:1.14.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     implementation("org.hamcrest:hamcrest:2.2")
     implementation("org.apache.logging.log4j:log4j-api:2.5")
