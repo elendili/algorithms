@@ -15,12 +15,20 @@ idea {
         isDownloadSources = true
     }
 }
-repositories {
 
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
+repositories {
+    mavenCentral()
     mavenLocal()
+}
+
+sourceSets {
+    test {
+        java.setSrcDirs(listOf("src/main/java"))
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 dependencies {
